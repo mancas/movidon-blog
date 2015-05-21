@@ -1,0 +1,103 @@
+{% extends 'FrontendBundle:Layouts:1column.html.twig' %}
+
+{% block title %}{{ 'MOVERS by FUE'|trans }}{% endblock %}
+{% block description %}{{''|trans}}{% endblock %}
+{% block sectionclass %}home page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section id="banner-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 wrapper">
+                    <h3>Be a <strong class="red">MOVER</strong></h3>
+                    <h3><strong class="red">MOVE</strong> the world</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" style="min-height: 50rem">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Post card -->
+                    <article class="card">
+                        <header>
+                            <a href="#" title="{{ 'Ver más' }}">
+                                <img class="img-responsive" src="{{ asset('bundles/frontend/img/blog.jpg') }}" alt="{{ 'Post Title' | trans }}" />
+                                <h1>
+                                    {{ 'Post 1 title' | trans }}
+                                </h1>
+                                </a>
+                        </header>
+
+                        <section class="card-content clearfix">
+                            <p>
+                                Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum...
+                            </p>
+                            <a class="read-more" href="#">{{ 'Leer más' | trans }} <i class="fa fa-angle-double-right"></i></a>
+                        </section>
+                    </article>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Post card -->
+                    <article class="card">
+                        <header>
+                            <a href="#" title="{{ 'Ver más' }}">
+                                <img class="img-responsive" src="{{ asset('bundles/frontend/img/blog.jpg') }}" alt="{{ 'Post Title' | trans }}" />
+                                <h1>
+                                    {{ 'Post 2 title' | trans }}
+                                </h1>
+                            </a>
+                        </header>
+
+                        <section class="card-content clearfix">
+                            <p>
+                                Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum...
+                            </p>
+                            <a class="read-more" href="#">{{ 'Leer más' | trans }} <i class="fa fa-angle-double-right"></i></a>
+                        </section>
+                    </article>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Post card -->
+                    <article class="card">
+                        <header>
+                            <a href="#" title="{{ 'Ver más' }}">
+                                <img class="img-responsive" src="{{ asset('bundles/frontend/img/blog.jpg') }}" alt="{{ 'Post Title' | trans }}" />
+                                <h1>
+                                    {{ 'Post 3 title' | trans }}
+                                </h1>
+                            </a>
+                        </header>
+
+                        <section class="card-content clearfix">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt interdum erat quis finibus. Vivamus consequat risus turpis, ut convallis sapien commodo et...
+                            </p>
+                            <a class="read-more" href="#">{{ 'Leer más' | trans }} <i class="fa fa-angle-double-right"></i></a>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

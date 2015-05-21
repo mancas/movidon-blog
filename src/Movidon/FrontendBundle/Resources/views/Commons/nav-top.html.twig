@@ -1,0 +1,22 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set action_params = app.request.attributes.get('_route_params') %}
+<header>
+    <nav class="navbar navbar-fixed-top mover-navbar">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li {% if action == 'frontend_homepage' %}class="active"{% endif %}>
+                    <a title="{{ 'Home' | trans }}" href="{{ path('frontend_homepage') }}">{{ 'Home' | trans }}</a>
+                </li>
+                <li {% if action == 'view_categories' %}class="active"{% endif %}>
+                    <a href="" alt="{{ 'Descubre los eventos que organizamos' | trans }}">{{ 'Eventos' | trans }}</a>
+                </li>
+                <li {% if action == 'ecommerce_homepage' %}class="active"{% endif %}>
+                    <a href="" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
+                </li>
+                <li {% if action == 'contact' %}class="active"{% endif %}>
+                    <a href="" title="{{ '¿Tienes alguna consulta? Escríbenos' }}">{{ 'Contacta' | trans }}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
