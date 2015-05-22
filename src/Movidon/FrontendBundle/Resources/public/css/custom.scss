@@ -92,7 +92,7 @@ html, body {
 }
 
 /** BLOG **/
-#blog {
+section:not(#banner-top):not(.post-body) {
   padding: 4rem 0;
 }
 
@@ -103,6 +103,9 @@ html, body {
   text-align: justify;
 
   header {
+    h1 {
+      color: $red;
+    }
     a {
       color: $red;
       text-decoration: none;
@@ -114,6 +117,49 @@ html, body {
       color: $red;
       float: right;
     }
+  }
+}
+
+#post {
+  background-color: $light-gray;
+  .card {
+    min-height: 50rem;
+    height: auto;
+    padding: 1.5rem;
+    background-color: $white;
+
+    .subtitle {
+      font-style: italic;
+      font-size: 1.6rem;
+    }
+    
+    .date, .category {
+      display: block;
+    }
+
+    .category {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .social-buttons {
+      display: block;
+      margin-top: 1rem;
+      a {
+        margin-right: 1rem;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .post-body {
+      padding-top: 2rem;
+    }
+  }
+
+  footer {
+    background: none;
   }
 }
 

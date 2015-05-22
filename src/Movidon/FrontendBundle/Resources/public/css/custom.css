@@ -66,7 +66,7 @@ html, body {
       font-weight: bold; }
 
 /** BLOG **/
-#blog {
+section:not(#banner-top):not(.post-body) {
   padding: 4rem 0; }
 
 .card {
@@ -74,12 +74,41 @@ html, body {
   padding: 0.5rem;
   height: 50rem;
   text-align: justify; }
+  .card header h1 {
+    color: #D42F43; }
   .card header a {
     color: #D42F43;
     text-decoration: none; }
   .card section a.read-more {
     color: #D42F43;
     float: right; }
+
+#post {
+  background-color: #eeeeee; }
+  #post .card {
+    min-height: 50rem;
+    height: auto;
+    padding: 1.5rem;
+    background-color: #FFFFFF; }
+    #post .card .subtitle {
+      font-style: italic;
+      font-size: 1.6rem; }
+    #post .card .date, #post .card .category {
+      display: block; }
+    #post .card .category {
+      font-weight: bold;
+      font-size: 1.5rem; }
+    #post .card .social-buttons {
+      display: block;
+      margin-top: 1rem; }
+      #post .card .social-buttons a {
+        margin-right: 1rem; }
+        #post .card .social-buttons a:last-child {
+          margin-right: 0; }
+    #post .card .post-body {
+      padding-top: 2rem; }
+  #post footer {
+    background: none; }
 
 /** FOOTER **/
 footer {
