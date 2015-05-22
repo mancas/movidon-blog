@@ -11,8 +11,50 @@ html, body {
   color: #D42F43; }
 
 /** NAVBAR **/
+.mover-navbar.navbar-opaque {
+  background-color: #eeeeee;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3); }
+  .mover-navbar.navbar-opaque .nav > li > a {
+    color: #333333;
+    text-shadow: none; }
+    .mover-navbar.navbar-opaque .nav > li > a:hover {
+      border-bottom: none;
+      color: #D42F43; }
+  .mover-navbar.navbar-opaque li.active a {
+    color: #D42F43; }
+  .mover-navbar.navbar-opaque .navbar-brand {
+    color: #333333;
+    text-shadow: none; }
+
+.navbar-brand {
+  height: auto;
+  display: table;
+  transition: all 0.3s ease;
+  color: #FFFFFF;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0.1rem 0.1rem #333333; }
+  .navbar-brand img {
+    display: inline-block;
+    margin-right: 1rem; }
+  .navbar-brand:hover {
+    color: #FFFFFF; }
+  .navbar-brand .brand-name {
+    display: table-cell;
+    vertical-align: middle; }
+    .navbar-brand .brand-name small {
+      display: block; }
+
+.navbar-nav {
+  height: 8rem; }
+
 .mover-navbar {
-  background-color: transparent; }
+  background-color: transparent;
+  transition: all 0.3s ease;
+  height: 8rem; }
+  .mover-navbar .nav > li {
+    height: 100%;
+    line-height: 8rem; }
   .mover-navbar .nav > li > a {
     color: #FFFFFF;
     text-shadow: 0.1rem 0.1rem #333333;
@@ -21,12 +63,16 @@ html, body {
     font-size: 2rem;
     font-weight: bold;
     padding: 1rem 0;
-    margin: 1rem 1.5rem; }
+    margin: 1rem 1.5rem;
+    transition: color 0.2s ease;
+    display: inline-block; }
     .mover-navbar .nav > li > a:hover {
       background-color: transparent;
       border-bottom: solid 0.2rem #FFFFFF; }
   .mover-navbar li.active a {
     color: #D42F43; }
+    .mover-navbar li.active a:hover {
+      border-bottom: solid 0.2rem #D42F43; }
 
 #banner-top {
   width: 100%;

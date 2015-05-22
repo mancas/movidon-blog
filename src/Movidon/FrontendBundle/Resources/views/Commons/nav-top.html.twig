@@ -3,6 +3,13 @@
 <header>
     <nav class="navbar navbar-fixed-top mover-navbar">
         <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="{{ asset('bundles/frontend/img/logo.png') }}" alt="{{ 'MOVERS' }}" />
+                <div class="brand-name">
+                    MOVERS
+                    <small>by FUE.es</small>
+                </div>
+            </a>
             <ul class="nav navbar-nav navbar-right">
                 <li {% if action == 'frontend_homepage' %}class="active"{% endif %}>
                     <a title="{{ 'Home' | trans }}" href="{{ path('frontend_homepage') }}">{{ 'Home' | trans }}</a>

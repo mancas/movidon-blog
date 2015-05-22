@@ -140,6 +140,47 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        var ScrollSpy = {
+            firstSection: null,
+            offset: 60,
+            target: null,
+
+            init: function(target) {
+                this.firstSection = document.querySelector('section:not(#banner-top)');
+                this.target = target;
+                this.addEventListeners();
+            },
+
+            addEventListeners: function() {
+                document.addEventListener('scroll', function(evt) {
+                   var scrollY = this.getScrollY();
+                   if (this.firstSection.offsetTop - this.offset < scrollY) {
+                       if (!this.target.classList.contains('navbar-opaque'))
+                           this.target.classList.add('navbar-opaque');
+                   } else {
+                       if (this.target.classList.contains('navbar-opaque'))
+                           this.target.classList.remove('navbar-opaque');
+                   }
+                }.bind(this));
+            },
+
+            getScrollY: function() {
+                var  scrOfY = 0;
+                if(typeof(window.pageYOffset) === 'number') {
+                    //Netscape compliant
+                    scrOfY = window.pageYOffset;
+                } else if(document.body && document.body.scrollTop)  {
+                    //DOM compliant
+                    scrOfY = document.body.scrollTop;
+                }
+
+                return scrOfY;
+            }
+        };
+
+        ScrollSpy.init(document.querySelector('nav.mover-navbar'));
+    </script>
 {% endblock %}
 
 {% block footer %}
