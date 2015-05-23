@@ -1,0 +1,52 @@
+{% extends 'BackendBundle::base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+{% endblock %}
+
+{% block header %}
+    {% include 'BackendBundle:Commons:header.html.twig' %}
+{% endblock %}
+
+{% block sidenav %}
+    {{ render(controller('BackendBundle:Backend:sidenav')) }}
+{% endblock %}
+
+{% block body %}
+    <section id="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'BackendBundle:Commons:notifications.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/unicorn.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/util.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>#}
+
+    <script>
+        $(document).ready(function() {
+            $('.bo-tooltip').each(function () {
+                $(this).tooltip();
+            });
+        });
+    </script>
+
+    {% include 'BackendBundle:Scripts:html-helper.html.twig' %}
+{% endblock %}

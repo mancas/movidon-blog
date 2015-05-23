@@ -1,0 +1,10 @@
+{% for type, flashMessages in app.session.flashbag.all() %}
+    {% for flashMessage in flashMessages %}
+        {% set class = (type == 'error') ? 'red' : 'cyan' %}
+        <div class="simple-card sc-{{ class }}" id="alert-main">
+            <a href="" title="Close" class="close"><i class="fa fa-times"></i></a>
+            <strong>{{ 'Information' | trans }}</strong>:
+            <p>{{ flashMessage }}</p>
+        </div>
+    {% endfor %}
+{% endfor %}

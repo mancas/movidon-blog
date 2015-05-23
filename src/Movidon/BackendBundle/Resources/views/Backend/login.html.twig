@@ -1,0 +1,31 @@
+{% extends "BackendBundle:Layouts:login.html.twig" %}
+
+{% block content %}
+    <form action="{{ path('admin_login_check') }}" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                </span>
+                <div class="line">
+                    <input class="form-control" type="text" name="_username" id="USERNAME" placeholder="{{"Username" | trans}}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                </span>
+                <div class="line">
+                    <input class="form-control" type="password" name="_password" id="PASSWORD" placeholder="{{"Password" | trans}}" />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="float-action-button fab-red borderless">
+            <i class="fa fa-arrow-right"></i>
+        </button>
+    </form>
+{% endblock %}

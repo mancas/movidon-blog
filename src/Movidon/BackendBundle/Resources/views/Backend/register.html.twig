@@ -1,0 +1,44 @@
+{% extends "BackendBundle:Layouts:login.html.twig" %}
+
+{% block content %}
+    <form action="{{ path('admin_register') }}" method="post" {{ form_enctype(form) }}>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                </span>
+                <div class="line">
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                </span>
+                <div class="line">
+                    {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                </span>
+                <div class="line">
+                    {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Repeat password'}}) }}
+                </div>
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+
+        <button type="submit" class="float-action-button fab-red borderless">
+            <i class="fa fa-arrow-right"></i>
+        </button>
+    </form>
+{% endblock %}

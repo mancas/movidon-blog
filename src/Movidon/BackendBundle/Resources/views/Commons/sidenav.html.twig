@@ -1,0 +1,109 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set params = app.request.attributes.get('_route_params') %}
+<aside id="sidenav" data-toggle="false">
+    <div class="main-menu-wrapper">
+        <div class="profile-menu">
+            <div class="profile-wrapper">
+                <span class="profile-photo">
+                    <img class="img-responsive" src="{{ asset('bundles/backend/img/user.png') }}">
+                </span>
+
+                <a class="profile-name">
+                    Welcome back {{ user.username | capitalize }}
+                    <i class="fa fa-caret-down"></i>
+                </a>
+            </div>
+            <ul id="profile-menu" class="list-unstyled">
+                <li>
+                    <a href="" title="{{ 'Change password' | trans }}">
+                        <i class="fa fa-gear"></i> {{ 'Change password' | trans }}
+                    </a>
+                </li>
+                <li>
+                    <a href="" title="{{ 'Change avatar' | trans }}">
+                        <i class="fa fa-user"></i> {{ 'Change avatar' | trans }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="list-unstyled">
+            {#<li>
+                <a href="" class="active" title="{{ 'Events' | trans }}">
+                    <i class="fa fa-calendar"></i> {{ 'Events' | trans }}
+                </a>
+            </li>#}
+            <li>
+                <a href="" class="active" title="{{ 'Dashboard' | trans }}">
+                    <i class="fa fa-home"></i> {{ 'Dashboard' | trans }}
+                </a>
+            </li>
+            <li class="submenu">
+                <a href="" title="{{ 'Blog' | trans }}">
+                    <i class="fa fa-pencil"></i> {{ 'Blog' | trans }}
+                    <i class="fa fa-caret-down pull-right"></i>
+                </a>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="" title="{{ 'Posts' | trans }}">
+                            {{ 'Posts' | trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" title="{{ 'Tags' | trans }}">
+                            {{ 'Tags' | trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" title="{{ 'Categories' | trans }}">
+                            {{ 'Categories' | trans }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<script>
+    var SidenavHelper = {
+        sidenav: null,
+        profileMenuBtn: null,
+        submenuElements: null,
+
+        init: function sh_init() {
+            this.sidenav = document.querySelector('#sidenav');
+            this.profileMenuBtn = document.querySelector('#sidenav .profile-name');
+            this.submenuElements = document.querySelectorAll('#sidenav .submenu');
+
+            this.addEventListeners();
+        },
+
+        addEventListeners: function sh_addEventListeners() {
+            this.profileMenuBtn.addEventListener('click', function(evt) {
+                evt.preventDefault();
+                this.sidenav.dataset.toggle =
+                  this.sidenav.dataset.toggle === 'true' ? 'false' : 'true';
+            }.bind(this));
+
+            Array.prototype.forEach.call(this.submenuElements, function(element) {
+                element.addEventListener('click', function (evt) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    var li = evt.target.parentNode;
+                    if (typeof li === 'undefined') {
+                        return;
+                    }
+
+                    if (li.classList.contains('open')) {
+                        li.classList.remove('open');
+                    } else {
+                        li.classList.add('open');
+                    }
+                }.bind(this))
+            }.bind(this));
+        }
+    };
+
+    SidenavHelper.init();
+</script>

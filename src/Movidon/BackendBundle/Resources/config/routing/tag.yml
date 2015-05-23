@@ -1,0 +1,15 @@
+admin_tag_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:Tag:list }
+
+admin_tag_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:Tag:edit }
+
+admin_tag_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:Tag:delete }
+
+admin_tag_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Tag:create }

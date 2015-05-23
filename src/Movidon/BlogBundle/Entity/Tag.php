@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Movidon\BlogBundle\Entity\TagRepository")
  * @DoctrineAssert\UniqueEntity("id")
  * @UniqueEntity("id")
  * @ORM\HasLifecycleCallbacks

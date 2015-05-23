@@ -1,0 +1,15 @@
+{% extends 'BackendBundle::base.html.twig' %}
+{% block stylesheets %}
+{% endblock %}
+
+{% block sectionclass %}login{% endblock %}
+
+{% block body %}
+    <div class="login-box">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'BackendBundle:Scripts:html-helper.html.twig' %}
+{% endblock %}

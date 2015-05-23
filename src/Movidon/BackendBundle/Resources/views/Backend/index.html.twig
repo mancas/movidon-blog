@@ -1,0 +1,205 @@
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
+
+{% block title_section %}
+    {{ "Resumen" | trans }}
+{% endblock %}
+
+{% block sidenav %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'BackendBundle:Samples:charts.html.twig' %}
+
+    {% include 'BackendBundle:Samples:item-list.html.twig' %}
+
+    {% include 'BackendBundle:Samples:notifications.html.twig' %}
+
+    {% include 'BackendBundle:Samples:forms.html.twig' %}
+
+    {% include 'BackendBundle:Samples:tables.html.twig' %}
+
+    {% include 'BackendBundle:Samples:buttons.html.twig' %}
+
+    {#{% include 'BackendBundle:Samples:chat.html.twig' %}#}
+
+    {% include 'BackendBundle:Samples:alert.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/backend/js/excanvas.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.resize.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.canvas.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.time.min.js') }}"></script>#}
+
+    <script>
+        Array.prototype.max = function() {
+            return Math.max.apply(null, this);
+        };
+
+        Array.prototype.min = function() {
+            return Math.min.apply(null, this);
+        };
+
+        var Charts = {
+            hSpace: 4,
+            offsetX: 5,
+            offsetY: 0,
+            radiusOffset: 40,
+            tooltips: [],
+            bars: function c_bars(id, values, height, width, color) {
+                var canvas = document.querySelector('#' + id);
+                if (typeof canvas === 'undefined') {
+                    console.error('Canvas element does not exist');
+                    return;
+                }
+
+                var clientRect = canvas.getBoundingClientRect();
+                canvas.width = clientRect.width;
+                canvas.height = clientRect.height;
+                var cWidth = (width ? width : canvas.width);
+                var cHeight = (height ? height : canvas.height);
+                var yScale = cHeight/values.max();
+                var ctx = canvas.getContext('2d');
+                var barWidth = cWidth/values.length - this.hSpace;
+                var xScalar = cWidth/values.length;
+
+                ctx.fillStyle = color ? color : '#ffffff';
+                var points = [];
+                for (var i = 0; i < values.length; i++) {
+                    ctx.fillRect(1+ i * xScalar,
+                            cHeight - values[i] * yScale, barWidth,
+                            values[i] * yScale);
+                    points.push({x: 1 + i * xScalar, x2: 1 + i * xScalar + barWidth, value: values[i]});
+                }
+
+                canvas.addEventListener('mousemove', function (evt) {
+                    var mouse = this.getMousePos(canvas, evt);
+                    for (var i = 0; i < points.length; i++) {
+                        if (mouse.x < points[i].x || mouse.x > points[i].x2) {
+                            continue;
+                        } else {
+                            this.createTooltipIfNeeded(canvas, points[i].value, mouse);
+                            return;
+                        }
+                    }
+                }.bind(this));
+
+                canvas.addEventListener('mouseout', function (evt) {
+                    this.destroyTooltip(canvas);
+                }.bind(this));
+            },
+
+            getMousePos: function c_getMousePos(canvas, evt) {
+                var rect = canvas.getBoundingClientRect();
+                return {
+                    x: evt.clientX - rect.left,
+                    y: evt.clientY - rect.top
+                };
+            },
+
+            createTooltipIfNeeded: function c_createTooltipIfNeeded(canvas, value, mouse) {
+                var span;
+                if (this.tooltips[canvas.id]) {
+                    span = this.tooltips[canvas.id];
+                } else {
+                    span = document.createElement('span');
+                    span.classList.add('chart-tooltip');
+                    span.style.position = 'absolute';
+                    canvas.parentNode.appendChild(span);
+                    this.tooltips[canvas.id] = span;
+                }
+
+                span.textContent = value;
+                span.style.top = (mouse.y - (span.clientHeight/2) - this.offsetY) + 'px';
+                span.style.left = (mouse.x + span.clientWidth + this.offsetX) + 'px';
+            },
+
+            destroyTooltip: function c_destroyTootltip(canvas) {
+                var span = this.tooltips[canvas.id];
+                delete this.tooltips[canvas.id];
+                span.parentNode.removeChild(span);
+            },
+
+            pie: function c_pie(id, maxValue, currentValue, color) {
+                var canvas = document.querySelector('#' + id);
+                var maxValue = maxValue || parseInt(canvas.dataset.maxvalue);
+                var currentValue = currentValue || parseInt(canvas.dataset.value);
+
+                if (parseInt(currentValue) > parseInt(maxValue)) {
+                    console.error('Wrong values detected');
+                    return;
+                }
+
+                if (typeof canvas === 'undefined') {
+                    console.error('Canvas element does not exist');
+                    return;
+                }
+
+                var h2 = canvas.nextElementSibling;
+                if (typeof h2 !== 'undefined') {
+                    h2.textContent = (100*currentValue)/maxValue + '%';
+                }
+
+                var startAngle = -0.5 * Math.PI;
+                var endAngle = (((2 * Math.PI) * currentValue) / maxValue) - 0.5 * Math.PI;
+                var clientRect = canvas.getBoundingClientRect();
+
+                canvas.width = clientRect.width;
+                canvas.height = clientRect.width;
+                var radius = (canvas.width / 2) - this.radiusOffset;
+                var ctx = canvas.getContext('2d');
+                ctx.strokeStyle = color ? color : '#ffffff';
+                ctx.lineWidth = 8;
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.beginPath();
+                ctx.arc(0, 0, radius, startAngle, endAngle);
+                ctx.stroke();
+
+                // Draw the rest of the circle
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.arc(0, 0, radius, endAngle, startAngle);
+                ctx.stroke();
+
+                this._drawTicks(ctx, radius);
+            },
+
+            _drawTicks: function c_drawTicks(ctx, radius) {
+                var rot = 0;
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                while (rot < 2*Math.PI) {
+                    ctx.beginPath();
+                    ctx.moveTo(radius + 10, 0);
+                    ctx.lineTo(radius + 18, 0);
+                    ctx.stroke();
+
+                    ctx.rotate(Math.PI/8);
+
+                    ctx.beginPath();
+                    ctx.moveTo(radius + 10, 0);
+                    ctx.lineTo(radius + 14, 0);
+                    ctx.stroke();
+
+                    rot += Math.PI/4;
+                    ctx.rotate(Math.PI/8);
+                }
+            }
+        };
+
+        Charts.bars('test-chart', [20, 3, 2, 1, 9, 4, 1, 2, 8, 7], null, null, '#ffffff');
+        Charts.bars('test-chart-2', [9, 4,9, 3, 2, 1, 1, 2, 8, 7], null, null, '#ffffff');
+        Charts.bars('test-chart-3', [9, 3, 2, 8, 7,9, 3, 2, 1], null, null, '#ffffff');
+        Charts.bars('test-chart-4', [9, 3, 2, 1, 9,9, 3, 2, 1, 8, 7], null, null, '#ffffff');
+        Charts.pie('test-chart-5');
+        Charts.pie('test-chart-6');
+        Charts.pie('test-chart-7');
+        Charts.pie('test-chart-8');
+
+       </script>
+
+        {% include 'BackendBundle:Scripts:html-helper.html.twig' %}
+{% endblock %}

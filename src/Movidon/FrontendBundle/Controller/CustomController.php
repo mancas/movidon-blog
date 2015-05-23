@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class CustomController extends Controller
 {
+    const ITEMS_PER_PAGE = 25;
+
     protected function getHttpJsonResponse($jsonResponse)
     {
         $response = new \Symfony\Component\HttpFoundation\Response($jsonResponse);

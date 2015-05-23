@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-item card-chat">
+            <div class="row">
+                <div class="col-md-3 chat-menu">
+                    <div class="card-title text-center">
+                        <h2>
+                            Private Messages
+                        </h2>
+                    </div>
+                    <div class="card-description card-chat-thread">
+                        <div class="list-view">
+                            <a class="list-item active">
+                                <img class="li-small pull-left" src="{{ asset('bundles/backend/img/user-1.jpg') }}" />
+                                <span class="list-content media-body">
+                                    <b class="li-title">Natalie Smith</b>
+                                    <small class="li-description">Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum</small>
+                                </span>
+                            </a>
+
+                            <a class="list-item unread">
+                                <img class="li-small pull-left" src="{{ asset('bundles/backend/img/user-2.jpg') }}" />
+                                <span class="list-content media-body">
+                                    <b class="li-title">Peter Smith</b>
+                                    <small class="li-description">Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum</small>
+                                </span>
+                            </a>
+
+                            <a class="list-item unread">
+                                <span class="li-small pull-left bg-red">p</span>
+                                <span class="list-content media-body">
+                                    <b class="li-title">Peter Jackson</b>
+                                    <small class="li-description">Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum</small>
+                                </span>
+                            </a>
+
+                            <a class="list-item">
+                                <span class="li-small pull-left bg-blue">o</span>
+                                <span class="list-content media-body">
+                                    <b class="li-title">Orlando Bloom</b>
+                                    <small class="li-description">Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum</small>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 chat-body">
+                    <div class="card-title">
+                        <h2>
+                            <img src="{{ asset('bundles/backend/img/user-1.jpg') }}" />
+                            Natalie Smith
+                        </h2>
+
+                        <div class="card-options">
+                            <ul class="options list-unstyled">
+                                <li>
+                                    <a title="Delete thread" class="delete-thread" data-id="1" href="">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-description card-chat-messages">
+                        <ul class="list-view">
+                            <li class="list-item">
+                                <img class="list-avatar pull-left" src="{{ asset('bundles/backend/img/user-1.jpg') }}" />
+                                <div class="media-body">
+                                    <div class="list-bubble">
+                                        <p>
+                                            Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+                                        </p>
+                                    </div>
+                                    <small class="bubble-date">
+                                        <i class="fa fa-clock-o"></i>
+                                        08/05/2015 - 19:27
+                                    </small>
+                                </div>
+                            </li>
+
+                            <li class="right list-item">
+                                <img class="list-avatar pull-right" src="{{ asset('bundles/backend/img/user-2.jpg') }}" />
+                                <div class="media-body">
+                                    <div class="list-bubble">
+                                        <p>
+                                            Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum.
+                                        </p>
+                                    </div>
+                                    <small class="bubble-date">
+                                        <i class="fa fa-clock-o"></i>
+                                        08/05/2015 - 19:30
+                                    </small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-footer card-chat-footer">
+                        <form id="message-chat" action="" method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <textarea class="form-control" placeholder="What's on your mind?"></textarea>
+                                <span class="input-group-addon">
+                                    <a class="btn send" href="{{ path('admin_save_message', {id: 1}) }}" title="Send message">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'BackendBundle:Scripts:chat.html.twig' %}
+
+<script>
+    ChatHelper.init('message-chat');
+</script>
