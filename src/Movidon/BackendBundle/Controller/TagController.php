@@ -60,37 +60,22 @@ class TagController extends CustomController
     }
 
     /**
-     * @ParamConverter("tax", class="ItemBundle:Tax")
+     * @ParamConverter("tag", class="BlogBundle:Tag")
      */
-    public function deleteAction(Tax $tax)
+    public function deleteAction(Tag $tag)
     {
         $em = $this->getEntityManager();
-        $items = $em->getRepository('ItemBundle:Item')->findBy(array('tax' => $tax->getId()));
-        foreach ($items as $item) {
-            $item->setTax(null);
-            $em->persist($item);
+        /*$posts = $em->getRepository('BlogBundle:Post')->findBy(array('tag' => $tag->getId()));
+        foreach ($posts as $post) {
+            $post->removeTag($tag);
+            $em->persist($post);
         }
+        $em->flush();*/
+
+        $em->remove($tag);
         $em->flush();
+        $this->setTranslatedFlashMessage('The tag has been removed successfully');
 
-        $em->remove($tax);
-        $em->flush();
-        $this->setTranslatedFlashMessage('Se ha eliminado correctamente el impuesto. Recuerda actualizar el impuesto de todos aquellos productos a los que se les aplicaba.');
-
-        return $this->redirect($this->generateUrl('admin_tax_index'));
-    }
-
-    public function getTaxesJSONAction()
-    {
-        $em = $this->getEntityManager();
-        $taxes = $em->getRepository('ItemBundle:Tax')->findAll();
-        $taxesValues = array();
-
-        foreach($taxes as $tax) {
-            $taxesValues[$tax->getName()] = $tax->getTaxes();
-        }
-
-        $jsonResponse = json_encode($taxesValues);
-
-        return $this->getHttpJsonResponse($jsonResponse);
+        return $this->redirect($this->generateUrl('admin_tag_index'));
     }
 }
