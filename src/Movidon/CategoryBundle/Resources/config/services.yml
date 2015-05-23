@@ -1,0 +1,7 @@
+parameters:
+    category.category_form_handler.class: Movidon\CategoryBundle\Form\Handler\CategoryFormHandler
+
+services:
+    category.category_form_handler:
+        class: %category.category_form_handler.class%
+        arguments: [@doctrine.orm.entity_manager]

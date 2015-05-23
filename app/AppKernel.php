@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Movidon\FrontendBundle\FrontendBundle(),
+            new Movidon\BlogBundle\BlogBundle(),
+            new Movidon\CategoryBundle\CategoryBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
