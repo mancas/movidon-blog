@@ -88,7 +88,7 @@ stfalcon_tinymce:
     tinymce_buttons:
         strong: # Id of the first button
             title: "Strong"
-            image: "asset[bundles/backend/img/icons/bold.ico]"
+            image: "asset[bundles/backend/img/icons/strong.ico]"
     theme:
         # Simple theme: same as default theme
         simple: ~

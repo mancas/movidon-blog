@@ -14,9 +14,10 @@ class PostType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $translator = $options['translator'];
         $builder->add('title', 'text')
                 ->add('subtitle', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')))
-                ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'bbcode')));
+                ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')));
         $builder->add('tags', 'entity',
             array('class' => 'BlogBundle:Tag',
                 'required' => false,
@@ -26,6 +27,7 @@ class PostType extends AbstractType
                 }, 'expanded' => false));
         $builder->add('category', 'entity',
             array('class' => 'CategoryBundle:Category',
+                'empty_value' => $translator->trans('Choose post category'),
                 'required' => false,
                 'multiple' => false,
                 'query_builder' => function (EntityRepository $er) {
@@ -40,6 +42,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'        => 'Movidon\BlogBundle\Entity\Post',
+            'translator'        => 'Symfony\Component\Translation\IdentityTranslator'
         ));
     }
 

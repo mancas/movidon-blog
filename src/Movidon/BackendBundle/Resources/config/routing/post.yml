@@ -13,3 +13,7 @@ admin_post_delete:
 admin_post_create:
     pattern: /create
     defaults: { _controller: BackendBundle:Post:create }
+
+admin_post_publish:
+    pattern: /publish/{slug}
+    defaults: { _controller: BackendBundle:Post:publish }

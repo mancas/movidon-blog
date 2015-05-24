@@ -16,12 +16,13 @@ class PostFormHandler
         $this->em = $entityManager;
     }
 
-    public function handle(FormInterface $form, Request $request)
+    public function handle(FormInterface $form, Request $request, $user)
     {
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $post = $form->getData();
+                $post->setAuthor($user);
                 $this->em->persist($post);
                 $this->em->flush();
                 return true;

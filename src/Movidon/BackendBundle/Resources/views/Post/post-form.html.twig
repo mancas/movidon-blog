@@ -15,7 +15,7 @@
 <div class="form-group">
     <label for="post_subtitle">{{ 'Post subtitle' }}</label>
     <div class="line">
-        {{ form_widget(form.subtitle, { 'attr': { 'class': 'form-control required', 'placeholder': 'Type here' | trans} }) }}
+        {{ form_widget(form.subtitle, { 'attr': { 'class': 'form-control required tinymce', 'placeholder': 'Type here' | trans} }) }}
     </div>
     <small class="help-block">
         {{ 'Type here a small description of the post including keywords' | trans }}
@@ -33,7 +33,7 @@
 <div class="form-group">
     <label for="post_tags">{{ 'Post tags' }}</label>
     <div class="line">
-        {{ form_widget(form.tags, { 'attr': { 'class': 'form-control required', 'placeholder': 'Post tags' | trans} }) }}
+        {{ form_widget(form.tags, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'Post tags' | trans} }) }}
     </div>
     <small class="help-block">
         {{ '*This field is required' | trans }}

@@ -24,10 +24,10 @@ class PostController extends CustomController
     public function createAction(Request $request)
     {
         $post = new Post();
-        $form = $this->createForm(new PostType(), $post);
+        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
         $handler = $this->get('blog.post_form_handler');
 
-        if ($handler->handle($form, $request)) {
+        if ($handler->handle($form, $request, $this->getCurrentUser())) {
             $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
 
             return $this->redirect($this->generateUrl('admin_post_index'));
@@ -44,10 +44,10 @@ class PostController extends CustomController
      */
     public function editAction(Post $post, Request $request)
     {
-        $form = $this->createForm(new PostType(), $post);
+        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
         $handler = $this->get('blog.post_form_handler');
 
-        if ($handler->handle($form, $request)) {
+        if ($handler->handle($form, $request, $this->getCurrentUser())) {
             $this->setTranslatedFlashMessage('The post has been edited successfully');
 
             return $this->redirect($this->generateUrl('admin_post_index'));
@@ -60,22 +60,31 @@ class PostController extends CustomController
     }
 
     /**
-     * @ParamConverter("category", class="CategoryBundle:Category")
+     * @ParamConverter("post", class="BlogBundle:Post")
      */
-    public function deleteAction(Category $category)
+    public function deleteAction(Post $post)
     {
         $em = $this->getEntityManager();
-        $posts = $em->getRepository('BlogBundle:Post')->findBy(array('category' => $category->getId()));
-        foreach ($posts as $post) {
-            $post->setCategory(null);
-            $em->persist($post);
-        }
-        $em->flush();
+        $post->setDeleted(new \DateTime('now'));
 
-        $em->remove($category);
+        $em->persist($post);
         $em->flush();
-        $this->setTranslatedFlashMessage('The category has been removed successfully');
+        $this->setTranslatedFlashMessage('The post has been removed successfully');
 
-        return $this->redirect($this->generateUrl('admin_category_index'));
+        return $this->redirect($this->generateUrl('admin_post_index'));
+    }
+
+    /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
+    public function publishAction(Post $post)
+    {
+        $post->setPublished(new \DateTime('now'));
+        $em = $this->getEntityManager();
+        $em->persist($post);
+        $em->flush();
+        $this->setTranslatedFlashMessage('The post has been published successfully');
+
+        return $this->redirect($this->generateUrl('admin_post_index'));
     }
 }

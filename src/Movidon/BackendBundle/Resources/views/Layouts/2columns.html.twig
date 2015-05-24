@@ -1,7 +1,6 @@
 {% extends 'BackendBundle::base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+    {{ parent() }}
 {% endblock %}
 
 {% block header %}

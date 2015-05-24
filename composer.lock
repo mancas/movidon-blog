@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "65d472d5b697904658c347e26d103a69",
+    "hash": "fcf25b2fe0fa5caed18ce7c4693df15a",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -778,16 +778,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "dev-master",
+            "version": "v2.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "3940af1099c47dd4bea036616730e8760a3fdba1"
+                "reference": "c3ff3c73c95b01e107af33d4fe3abf80794e2df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/3940af1099c47dd4bea036616730e8760a3fdba1",
-                "reference": "3940af1099c47dd4bea036616730e8760a3fdba1",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/c3ff3c73c95b01e107af33d4fe3abf80794e2df9",
+                "reference": "c3ff3c73c95b01e107af33d4fe3abf80794e2df9",
                 "shasum": ""
             },
             "require": {
@@ -796,12 +796,11 @@
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/common": ">=2.5.0-BETA1",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA12",
-                "doctrine/orm": ">=2.5.0-RC1",
+                "doctrine/mongodb-odm": ">=1.0.0-BETA11",
+                "doctrine/orm": "~2.4",
                 "phpunit/phpunit": "~4.4",
                 "phpunit/phpunit-mock-objects": "~2.3",
-                "symfony/yaml": "~2.6"
+                "symfony/yaml": "~2.3"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
@@ -810,7 +809,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "autoload": {
@@ -853,7 +852,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-05-01 08:39:37"
+            "time": "2015-02-24 21:41:37"
         },
         {
             "name": "ideup/simple-paginator-bundle",
@@ -2294,7 +2293,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "stof/doctrine-extensions-bundle": 20,
-        "gedmo/doctrine-extensions": 20,
         "ideup/simple-paginator-bundle": 20,
         "symfony/finder": 20,
         "stfalcon/tinymce-bundle": 20

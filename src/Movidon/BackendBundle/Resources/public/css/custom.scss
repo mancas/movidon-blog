@@ -1500,6 +1500,10 @@ label.checkbox-inline, label.radio-inline {
 }
 
 table {
+  p {
+    margin: 0;
+  }
+
   .btn {
     background-color: $white;
     border: solid 0.1rem $disabled-hint;

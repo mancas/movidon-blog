@@ -979,6 +979,8 @@ label.checkbox-inline, label.radio-inline {
   .data-table tr td {
     vertical-align: middle !important; }
 
+table p {
+  margin: 0; }
 table .btn {
   background-color: #ffffff;
   border: solid 0.1rem rgba(0, 0, 0, 0.26);

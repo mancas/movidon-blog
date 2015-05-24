@@ -1,0 +1,47 @@
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #00bcd4;
+    border: 0;
+    color: #ffffff;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease 0s;
+}
+
+.select2-container--default .select2-selection--multiple:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0px 0px 1.5rem 1.5rem;
+    border-color: transparent transparent rgba(0, 0, 0, 0.54);
+    position: absolute;
+    right: 0px;
+    bottom: 0.8rem;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice:hover {
+    background-color: #00838f;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 0;
+    border-bottom: solid 0.1rem #00bcd4;
+    border-radius: 0;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 0;
+    border-bottom: solid 0.2rem #00bcd4;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ffffff;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: #ffffff;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #00bcd4;
+}
+

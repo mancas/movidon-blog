@@ -41,10 +41,13 @@
                         <tr>
                             <td>{{ post.id }}</td>
                             <td>{{ post.title }}</td>
-                            <td>{{ post.subtitle }}</td>
-                            <td>{% if post.published is defined %}{{ post.published | date('d-m-Y') }}{% else %}{{ 'No' | trans }}{% endif %}</td>
-                            <td>{{ post.author.username }}</td>
+                            <td>{{ post.subtitle | raw }}</td>
+                            <td>{% if post.published is not null %}{{ post.published | date('d-m-Y') }}{% else %}{{ 'No' | trans }}{% endif %}</td>
+                            <td>{{ post.author.username | capitalize }}</td>
                             <td>
+                            {% if post.published is null %}
+                                <a class="publish btn btn-amber" href="{{ path('admin_post_publish', {'slug': post.slug}) }}" title="{{ 'Publish post' | trans }}"><i class="fa fa-check"></i></a>
+                            {% endif %}
                                 <a class="edit btn btn-blue" href="{{ path('admin_post_edit', {'slug': post.slug}) }}" title="{{ 'Edit entry' | trans }}"><i class="fa fa-pencil"></i></a>
                                 <a class="delete btn btn-red" href="{{ path('admin_post_delete', {'slug': post.slug}) }}" title="{{ 'Delete entry' | trans }}"><i class="fa fa-trash"></i></a>
                             </td>
