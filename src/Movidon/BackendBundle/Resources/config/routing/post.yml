@@ -1,0 +1,15 @@
+admin_post_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:Post:list }
+
+admin_post_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:Post:edit }
+
+admin_post_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:Post:delete }
+
+admin_post_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Post:create }

@@ -1,0 +1,15 @@
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-tag"></i>
+        </span>
+        <div class="line">
+            {{ form_widget(form.name, { 'attr': { 'class': 'form-control required', 'placeholder': 'Category name' | trans} }) }}
+        </div>
+    </div>
+    <small class="help-block">
+        {{ '*This field is required' | trans }}
+    </small>
+</div>
+
+{{ form_rest(form) }}

@@ -1,0 +1,15 @@
+admin_category_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:Category:list }
+
+admin_category_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:Category:edit }
+
+admin_category_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:Category:delete }
+
+admin_category_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Category:create }

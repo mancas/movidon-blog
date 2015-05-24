@@ -1,0 +1,24 @@
+<div class="profile-menu">
+    <div class="profile-wrapper">
+                <span class="profile-photo">
+                    <img class="img-responsive" src="{{ asset('bundles/backend/img/user.png') }}">
+                </span>
+
+        <a class="profile-name">
+            Welcome back {{ user.username | capitalize }}
+            <i class="fa fa-caret-down"></i>
+        </a>
+    </div>
+    <ul id="profile-menu" class="list-unstyled">
+        <li>
+            <a href="" title="{{ 'Change password' | trans }}">
+                <i class="fa fa-gear"></i> {{ 'Change password' | trans }}
+            </a>
+        </li>
+        <li>
+            <a href="" title="{{ 'Change avatar' | trans }}">
+                <i class="fa fa-user"></i> {{ 'Change avatar' | trans }}
+            </a>
+        </li>
+    </ul>
+</div>

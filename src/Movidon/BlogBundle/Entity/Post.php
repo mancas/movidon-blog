@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Movidon\BlogBundle\Entity\PostRepository")
  * @DoctrineAssert\UniqueEntity("id")
  * @UniqueEntity("id")
  * @ORM\HasLifecycleCallbacks
@@ -53,6 +53,11 @@ class Post
     protected $created;
 
     /**
+     * @ORM\Column(name="published", type="datetime", nullable=true)
+     */
+    protected $published;
+
+    /**
      * @ORM\Column(name="deleted", type="date", nullable=true)
      * @Assert\Date()
      */
@@ -77,6 +82,11 @@ class Post
      *      )
      */
     protected $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="posts")
+     */
+    protected $author;
 
     public function __construct()
     {
@@ -225,5 +235,53 @@ class Post
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param mixed $published
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
     }
 }

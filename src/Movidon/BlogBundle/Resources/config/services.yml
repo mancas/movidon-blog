@@ -1,7 +1,11 @@
 parameters:
     blog.tag_form_handler.class: Movidon\BlogBundle\Form\Handler\TagFormHandler
+    blog.post_form_handler.class: Movidon\BlogBundle\Form\Handler\PostFormHandler
 
 services:
     blog.tag_form_handler:
         class: %blog.tag_form_handler.class%
+        arguments: [@doctrine.orm.entity_manager]
+    blog.post_form_handler:
+        class: %blog.post_form_handler.class%
         arguments: [@doctrine.orm.entity_manager]

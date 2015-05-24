@@ -12,19 +12,22 @@ class CategoryRepository extends CustomEntityRepository
 {
     protected $specialFields = array();
 
-    public function findCategoriesDQL($limit = null)
+    public function findAll($limit = null) {
+        return $this->findAllDQL($limit)->getResult();
+    }
+
+    public function findAllDQL($limit = null)
     {
         $qb = $this->createQueryBuilder('c');
-        $qb->select('c','s');
+        $qb->select('c');
 
-        $qb->leftJoin('c.subcategories', 's');
         $qb->addOrderBy('c.id','ASC');
 
         if (isset($limit)) {
             $qb->setMaxResults($limit);
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
     }
 
     public function findSEOCategories($limit = null)

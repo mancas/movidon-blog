@@ -9,10 +9,13 @@
 {% endblock %}
 
 {% block sidenav %}
-    {{ render(controller('BackendBundle:Backend:sidenav')) }}
+    {% include 'BackendBundle:Commons:sidenav.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {% block breadcrumb %}
+        {% include 'BackendBundle:Commons:breadcrumb.html.twig' %}
+    {% endblock %}
     <section id="content">
         <div class="container-fluid">
             <div class="row">

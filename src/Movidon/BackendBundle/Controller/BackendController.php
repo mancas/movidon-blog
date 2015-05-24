@@ -41,11 +41,11 @@ class BackendController extends CustomController
     }
 
     /**
-     * @Template("BackendBundle:Commons:sidenav.html.twig")
+     * @Template("BackendBundle:Commons:profile-menu.html.twig")
      *
      * @return array
      */
-    public function sidenavAction()
+    public function profileAction()
     {
         return array('user' => $this->getCurrentUser());
     }

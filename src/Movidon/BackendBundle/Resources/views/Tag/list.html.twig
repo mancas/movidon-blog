@@ -1,5 +1,10 @@
 {% extends 'BackendBundle:Layouts:2columns.html.twig' %}
 
+{% block breadcrumb %}
+    {{ setCrumbs({'Tags': ''}) }}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">

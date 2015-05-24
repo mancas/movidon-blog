@@ -27,6 +27,14 @@ admin_tags:
     resource: "@BackendBundle/Resources/config/routing/tag.yml"
     prefix: /tag/
 
+admin_categories:
+    resource: "@BackendBundle/Resources/config/routing/category.yml"
+    prefix: /category/
+
+admin_posts:
+    resource: "@BackendBundle/Resources/config/routing/post.yml"
+    prefix: /post/
+
 #admin_categories:
 #    resource: "@BackendBundle/Resources/config/routing/category.yml"
 #    prefix: /category/

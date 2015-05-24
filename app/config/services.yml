@@ -1,0 +1,5 @@
+services:
+    twig.extension.breadcrumb:
+        class: Movidon\FrontendBundle\Twig\Extension\BreadcrumbExtension
+        tags:
+            - { name: twig.extension }
