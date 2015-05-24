@@ -21,7 +21,7 @@
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="" title="{{ 'Posts' | trans }}" {% if action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' %}class="active"{% endif %}>
+                        <a href="{{ path('admin_post_index') }}" title="{{ 'Posts' | trans }}" {% if action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' %}class="active"{% endif %}>
                             {{ 'Posts' | trans }}
                         </a>
                     </li>

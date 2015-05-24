@@ -15,8 +15,8 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', 'text')
-                ->add('subtitle', 'text')
-                ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')));
+                ->add('subtitle', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')))
+                ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'bbcode')));
         $builder->add('tags', 'entity',
             array('class' => 'BlogBundle:Tag',
                 'required' => false,

@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% if edition is defined %}
-        {% set crumbs = {'Categories': path('admin_category_index'), 'Edit category': '' } %}
+        {% set crumbs = {'Posts': path('admin_post_index'), 'Edit post': '' } %}
     {% else %}
-        {% set crumbs = {'Categories': path('admin_category_index'), 'Create category': '' } %}
+        {% set crumbs = {'Posts': path('admin_post_index'), 'Create post': '' } %}
     {% endif %}
 
     {{ setCrumbs(crumbs) }}
@@ -13,26 +13,26 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-6">
-            <div class="card-item card-green">
-                <form method="post" action="{% if edition is defined %}{{ path('admin_category_edit',{'slug':category.slug}) }} {% else %} {{ path('admin_category_create') }}{% endif %}">
+        <div class="col-md-12">
+            <div class="card-item card-cyan">
+                <form method="post" action="{% if edition is defined %}{{ path('admin_post_edit',{'slug':post.slug}) }} {% else %} {{ path('admin_post_create') }}{% endif %}">
                     <div class="card-title">
                         <h2>
-                            {{ 'Category creation' | trans }}
+                            {{ 'Post creation' | trans }}
                         </h2>
 
                         <h3>
-                            {{ 'Here you can create new categories for your posts' | trans }}
+                            {{ 'Here you can create new posts' | trans }}
                         </h3>
 
-                        <button type="submit" class="float-action-button fab-amber borderless">
+                        <button type="submit" class="float-action-button fab-red borderless">
                             <i class="fa fa-check"></i>
                         </button>
                     </div>
                     <div class="card-description card-padding">
                         <div class="row">
                             <div class="col-md-8">
-                                {% include 'BackendBundle:Category:category-form.html.twig' %}
+                                {% include 'BackendBundle:Post:post-form.html.twig' %}
                             </div>
                         </div>
                     </div>
@@ -40,4 +40,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ tinymce_init() }}
 {% endblock %}

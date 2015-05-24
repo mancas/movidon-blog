@@ -189,4 +189,9 @@ class Tag
             $this->posts->remove($post);
         }
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
 }
