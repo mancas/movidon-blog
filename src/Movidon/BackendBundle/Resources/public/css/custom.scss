@@ -1563,6 +1563,22 @@ table {
       background-color: $material-amber-hover;
     }
   }
+
+  .btn-pink {
+    background-color: $material-pink;
+    color: $white;
+    &:hover {
+      background-color: $material-pink-hover;
+    }
+  }
+
+  .btn-purple {
+    background-color: $material-purple;
+    color: $white;
+    &:hover {
+      background-color: $material-purple-hover;
+    }
+  }
 }
 
 .table-hover > tbody > tr:hover {

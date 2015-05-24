@@ -5,12 +5,30 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: Gafata; }
+  font-family: Gafata;
+  background-color: #eeeeee; }
 
 .red {
   color: #D42F43; }
 
 /** NAVBAR **/
+body.blog {
+  padding-top: 8rem; }
+  body.blog .mover-navbar {
+    background-color: #eeeeee;
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3); }
+    body.blog .mover-navbar .nav > li > a {
+      color: #333333;
+      text-shadow: none; }
+      body.blog .mover-navbar .nav > li > a:hover {
+        border-bottom: none;
+        color: #D42F43; }
+    body.blog .mover-navbar li.active a {
+      color: #D42F43; }
+    body.blog .mover-navbar .navbar-brand {
+      color: #333333;
+      text-shadow: none; }
+
 .mover-navbar.navbar-opaque {
   background-color: #eeeeee;
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3); }
@@ -112,14 +130,15 @@ html, body {
       font-weight: bold; }
 
 /** BLOG **/
-section:not(#banner-top):not(.post-body) {
+section:not(#banner-top):not(.post-body):not(.card-content) {
   padding: 4rem 0; }
 
 .card {
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
   height: 50rem;
-  text-align: justify; }
+  text-align: justify;
+  background-color: #FFFFFF; }
   .card header h1 {
     color: #D42F43; }
   .card header a {

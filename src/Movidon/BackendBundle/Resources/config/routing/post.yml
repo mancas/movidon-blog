@@ -17,3 +17,12 @@ admin_post_create:
 admin_post_publish:
     pattern: /publish/{slug}
     defaults: { _controller: BackendBundle:Post:publish }
+
+admin_post_unpublish:
+    pattern: /unpublish/{slug}
+    defaults: { _controller: BackendBundle:Post:unpublish }
+
+admin_post_restore:
+    pattern: /restore/{slug}
+    defaults: { _controller: BackendBundle:Post:restore }
+

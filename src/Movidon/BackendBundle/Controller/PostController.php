@@ -77,6 +77,21 @@ class PostController extends CustomController
     /**
      * @ParamConverter("post", class="BlogBundle:Post")
      */
+    public function restoreAction(Post $post)
+    {
+        $em = $this->getEntityManager();
+        $post->setDeleted(null);
+
+        $em->persist($post);
+        $em->flush();
+        $this->setTranslatedFlashMessage('The post has been restored successfully');
+
+        return $this->redirect($this->generateUrl('admin_post_index'));
+    }
+
+    /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
     public function publishAction(Post $post)
     {
         $post->setPublished(new \DateTime('now'));
@@ -84,6 +99,20 @@ class PostController extends CustomController
         $em->persist($post);
         $em->flush();
         $this->setTranslatedFlashMessage('The post has been published successfully');
+
+        return $this->redirect($this->generateUrl('admin_post_index'));
+    }
+
+    /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
+    public function unpublishAction(Post $post)
+    {
+        $post->setPublished(null);
+        $em = $this->getEntityManager();
+        $em->persist($post);
+        $em->flush();
+        $this->setTranslatedFlashMessage('The post has been unpublished successfully');
 
         return $this->redirect($this->generateUrl('admin_post_index'));
     }

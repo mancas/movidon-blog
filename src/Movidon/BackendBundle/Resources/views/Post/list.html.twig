@@ -29,7 +29,7 @@
                         <tr>
                             <th>{{ 'ID' | trans }}</th>
                             <th>{{ 'Title' | trans }}</th>
-                            <th>{{ 'Subtitle' | trans }}</th>
+                            <th>{{ 'Last edition' | trans }}</th>
                             <th>{{ 'Published' | trans }}</th>
                             <th>{{ 'Author' | trans }}</th>
                             <th>{{ 'Action' | trans }}</th>
@@ -41,15 +41,24 @@
                         <tr>
                             <td>{{ post.id }}</td>
                             <td>{{ post.title }}</td>
-                            <td>{{ post.subtitle | raw }}</td>
+                            <td>{{ post.updated | date("F jS \\a\\t g:ia") }}</td>
                             <td>{% if post.published is not null %}{{ post.published | date('d-m-Y') }}{% else %}{{ 'No' | trans }}{% endif %}</td>
                             <td>{{ post.author.username | capitalize }}</td>
                             <td>
-                            {% if post.published is null %}
-                                <a class="publish btn btn-amber" href="{{ path('admin_post_publish', {'slug': post.slug}) }}" title="{{ 'Publish post' | trans }}"><i class="fa fa-check"></i></a>
+                            {% if post.deleted is null %}
+                                {% if post.published is null %}
+                                    <a class="publish btn btn-amber" href="{{ path('admin_post_publish', {'slug': post.slug}) }}" title="{{ 'Publish post' | trans }}"><i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a class="publish btn btn-amber" href="{{ path('admin_post_unpublish', {'slug': post.slug}) }}" title="{{ 'Unpublish post' | trans }}"><i class="fa fa-times"></i></a>
+                                {% endif %}
+
+                                <a class="edit btn btn-blue" href="{{ path('admin_post_edit', {'slug': post.slug}) }}" title="{{ 'Edit post' | trans }}"><i class="fa fa-pencil"></i></a>
                             {% endif %}
-                                <a class="edit btn btn-blue" href="{{ path('admin_post_edit', {'slug': post.slug}) }}" title="{{ 'Edit entry' | trans }}"><i class="fa fa-pencil"></i></a>
-                                <a class="delete btn btn-red" href="{{ path('admin_post_delete', {'slug': post.slug}) }}" title="{{ 'Delete entry' | trans }}"><i class="fa fa-trash"></i></a>
+                            {% if post.deleted is null %}
+                                <a class="delete btn btn-red" href="{{ path('admin_post_delete', {'slug': post.slug}) }}" title="{{ 'Delete post' | trans }}"><i class="fa fa-trash"></i></a>
+                            {% else %}
+                                <a class="btn btn-purple" href="{{ path('admin_post_restore', {'slug': post.slug}) }}" title="{{ 'Restore post' | trans }}"><i class="fa fa-magic"></i></a>
+                            {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

@@ -1021,6 +1021,16 @@ table .btn-amber {
   color: #ffffff; }
   table .btn-amber:hover {
     background-color: #ff8f00; }
+table .btn-pink {
+  background-color: #e91e63;
+  color: #ffffff; }
+  table .btn-pink:hover {
+    background-color: #ad1457; }
+table .btn-purple {
+  background-color: #9c27b0;
+  color: #ffffff; }
+  table .btn-purple:hover {
+    background-color: #6a1b9a; }
 
 .table-hover > tbody > tr:hover {
   background-color: #e0f7fa; }

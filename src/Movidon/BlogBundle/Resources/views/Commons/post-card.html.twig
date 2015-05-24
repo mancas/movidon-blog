@@ -1,0 +1,20 @@
+<div class="col-md-4">
+    <!-- Post card -->
+    <article class="card">
+        <header>
+            <a href="#" title="{{ 'More' | trans }}">
+                <img class="img-responsive" src="{{ asset('bundles/frontend/img/blog.jpg') }}" alt="{{ post.title }}" />
+                <h1>
+                    {{ post.title }}
+                </h1>
+            </a>
+        </header>
+
+        <section class="card-content clearfix">
+            <p>
+                {{ post.subtitle | raw }}
+            </p>
+            <a class="read-more" href="#">{{ 'Read more' | trans }} <i class="fa fa-angle-double-right"></i></a>
+        </section>
+    </article>
+</div>

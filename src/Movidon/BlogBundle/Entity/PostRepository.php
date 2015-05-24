@@ -30,4 +30,22 @@ class PostRepository extends CustomEntityRepository
 
         return $qb->getQuery();
     }
+
+    public function findAllBlog($limit = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p');
+
+        $qb->addOrderBy('p.updated','DESC');
+        $and = $qb->expr()->andX();
+
+        $and->add($qb->expr()->isNotNull('p.published'));
+        $and->add($qb->expr()->isNull('p.deleted'));
+
+        if (isset($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
