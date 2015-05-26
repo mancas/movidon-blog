@@ -4,6 +4,7 @@ namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\BlogBundle\Form\Type\PostType;
+use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Movidon\FrontendBundle\Controller\CustomController;
@@ -25,10 +26,17 @@ class PostController extends CustomController
     {
         $post = new Post();
         $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
+        $imageForm = $this->createForm(new MultipleImagesType());
         $handler = $this->get('blog.post_form_handler');
+        $imagesHandler = $this->get('image.form_handler');
 
         if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
+            if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
+                $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
+            } else {
+                $this->setTranslatedFlashMessage('The post has been created successfully. However there is a problem with the images.');
+                return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
+            }
 
             return $this->redirect($this->generateUrl('admin_post_index'));
         } else {
@@ -36,7 +44,8 @@ class PostController extends CustomController
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Post:create.html.twig', array('form' => $form->createView()));
+        return $this->render('BackendBundle:Post:create.html.twig', array('form' => $form->createView(),
+                                                                          'imageForm' => $imageForm->createView()));
     }
 
     /**

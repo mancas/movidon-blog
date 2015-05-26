@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 350fe13c7ba57231105d982a7178deec32be801a Manuel Casas <manuel.casasbarrado@gmail.com> 1432242562 +0200	commit (initial): first commit
+350fe13c7ba57231105d982a7178deec32be801a ec8fa700a89cf6a6d6a6b949b99c35100a4f77f5 Manuel Casas <manuel.casasbarrado@gmail.com> 1432295674 +0200	commit: post template
+ec8fa700a89cf6a6d6a6b949b99c35100a4f77f5 a9f63fab588db4f506ec6b440b6433ebe26be4ad Manuel Casas <manuel.casasbarrado@gmail.com> 1432308578 +0200	commit: scroll spy
+a9f63fab588db4f506ec6b440b6433ebe26be4ad eaf6f7e572573e2914691ae35c5231e60a1719ea Manuel Casas <manuel.casasbarrado@gmail.com> 1432379210 +0200	commit: db
+eaf6f7e572573e2914691ae35c5231e60a1719ea 08d0a6db23212b15bbeefe6b2071bc74ed5c4685 Manuel Casas <manuel.casasbarrado@gmail.com> 1432399322 +0200	commit: tags backend
+08d0a6db23212b15bbeefe6b2071bc74ed5c4685 63e2f1ec98dbc996483fa7270e08c3031c866b26 Manuel Casas <manuel.casasbarrado@gmail.com> 1432400624 +0200	commit: delete alert
+63e2f1ec98dbc996483fa7270e08c3031c866b26 050d764b5192775b9dd9694170554adaf2527ec1 Manuel Casas <manuel.casasbarrado@gmail.com> 1432470945 +0200	commit: categories and posts
+050d764b5192775b9dd9694170554adaf2527ec1 7409b138616881d69b1649d2737191e83a85656b Manuel Casas <manuel.casasbarrado@gmail.com> 1432472635 +0200	commit: posts
+7409b138616881d69b1649d2737191e83a85656b 7b8e93033b61b70c95ab8bf2709eceb8d47db578 Manuel Casas <manuel.casasbarrado@gmail.com> 1432488403 +0200	commit: post creation
+7b8e93033b61b70c95ab8bf2709eceb8d47db578 59091f17d1161de65322ad0c47535d53cfc33482 Manuel Casas <manuel.casasbarrado@gmail.com> 1432496313 +0200	commit: blog page
+59091f17d1161de65322ad0c47535d53cfc33482 e426f5c01e56dda01023dabf343b40f6abe21bcc Manuel Casas <manuel.casasbarrado@gmail.com> 1432664461 +0200	commit: images

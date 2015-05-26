@@ -88,8 +88,14 @@ class Post
      */
     protected $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Movidon\ImageBundle\Entity\ImagePost", mappedBy="post", cascade={"persist", "remove", "merge"})
+     */
+    protected $images;
+
     public function __construct()
     {
+        $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -283,5 +289,51 @@ class Post
     public function setPublished($published)
     {
         $this->published = $published;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        $images = array();
+        foreach ($this->images as $image) {
+            if ($image->getDeletedDate() == null)
+                $images[] = $image;
+        }
+
+        return $images;
+    }
+
+    public function getImageMain()
+    {
+        foreach ($this->images as $image) {
+            if ($image->getMain()) {
+                return $image;
+            }
+        }
+
+        return false;
+    }
+
+    public function addImage($image) {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+        }
+    }
+
+    public function removeImage($image)
+    {
+        if ($this->images->contains($image)) {
+            $this->images->remove($image);
+        }
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 }

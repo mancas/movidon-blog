@@ -1,0 +1,69 @@
+<script>
+    var ImageThumbnail = {
+        input: null,
+        container: null,
+        notToUpload: null,
+        init: function(selector, containerSelector) {
+            this.input = document.querySelector(selector);
+            this.container = document.querySelector(containerSelector);
+            this.handleFileSelect = this._handleFileSelect.bind(this);
+            this.removeFile = this._removeFile.bind(this);
+            this.input.addEventListener('change', this.handleFileSelect);
+            this.notToUpload = document.querySelector('input[name="not_upload_files"]');
+
+            var inputFileBtn = document.querySelector('.input-file');
+            inputFileBtn.addEventListener('click', function(evt) {
+                evt.preventDefault();
+                this.input.click();
+            }.bind(this))
+        },
+
+        removeListener: function() {
+            this.input.removeEventListener('change', this.handleFileSelect);
+        },
+
+        _handleFileSelect: function(evt) {
+            var files = evt.target.files;
+            // Clear files since the filelist has been reset
+            this.notToUpload.value = '';
+            this.container.innerHTML = '';
+
+            if (!"FileReader" in window) {
+                var p = document.createElement('p');
+                p.textContent = '{{ 'Your browser does not support FileReader' | trans }}';
+                this.container.appendChild(p);
+                return;
+            }
+            for (var i = 0, f; f = files[i]; i++) {
+                // Only process image files.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+                var reader = new FileReader();
+                var self = this;
+
+                // Closure to capture the file information.
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Render thumbnail.
+                        var li = document.createElement('li');
+                        li.innerHTML = ['<img class="image-thumbnail" src="', e.target.result,
+                            '" title="', file.name, '"/>'].join('');
+                        self.container.insertBefore(li, null);
+                        li.addEventListener('click', self.removeFile);
+                        li.dataset.file = file.name;
+                    };
+                })(f);
+
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            }
+        },
+
+        _removeFile: function(evt) {
+            console.info(evt.target, this.files, evt.target.dataset.file, this.input.files);
+            this.notToUpload.value += evt.target.dataset.file + ';'
+            evt.target.parentNode.removeChild(evt.target);
+        }
+    };
+</script>

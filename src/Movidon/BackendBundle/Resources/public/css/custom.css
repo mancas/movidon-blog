@@ -1327,4 +1327,74 @@ table .btn-purple {
     .breadcrumb a i {
       margin-right: 0.6rem; }
 
+/** INPUT[TYPE="FILE"] **/
+.input-file {
+  background-color: #ffffff;
+  border: solid 0.2rem rgba(0, 0, 0, 0.12);
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  line-height: 10rem;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  float: left;
+  outline: none !important; }
+  .input-file i {
+    font-size: 2.4rem;
+    color: rgba(0, 0, 0, 0.26);
+    transition: all 0.3s ease 0s; }
+  .input-file:before {
+    content: '';
+    display: block;
+    background-color: #2196f3;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: transform 0.3s ease 0s;
+    transform: scale(0); }
+  .input-file:hover i {
+    color: #ffffff; }
+  .input-file:hover:before {
+    transform: scale(1); }
+
+.image-thumbnail {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  border: solid 0.2rem rgba(0, 0, 0, 0.12); }
+
+#thumbnails-list {
+  display: inline-block; }
+  #thumbnails-list li {
+    display: inline-block;
+    margin-left: 1rem;
+    position: relative; }
+    #thumbnails-list li:after {
+      content: '\00d7';
+      display: block;
+      background-color: #607d8b;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      opacity: 0.5;
+      transition: transform 0.3s ease 0s;
+      transform: scale(0);
+      text-align: center;
+      line-height: 10rem;
+      font-size: 3.2rem;
+      color: #ffffff;
+      cursor: pointer; }
+    #thumbnails-list li:hover:after {
+      transform: scale(1); }
+
 /*# sourceMappingURL=custom.css.map */

@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-item card-cyan">
-                <form method="post" action="{% if edition is defined %}{{ path('admin_post_edit',{'slug':post.slug}) }} {% else %} {{ path('admin_post_create') }}{% endif %}">
+                <form method="post" action="{% if edition is defined %}{{ path('admin_post_edit',{'slug':post.slug}) }} {% else %} {{ path('admin_post_create') }}{% endif %}" {{ form_enctype(imageForm) }}>
                     <div class="card-title">
                         <h2>
                             {{ 'Post creation' | trans }}
@@ -52,9 +52,11 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
+    {% include 'BackendBundle:Scripts:image-thumbnail-helper.html.twig' %}
     <script>
         window.addEventListener('load', function(evt) {
             $(".select2").select2();
+            ImageThumbnail.init('#multiple_images_images', '#thumbnails-list');
         });
         function tinymce_button_strong(ed) {
             var theText = ed.selection.getContent();

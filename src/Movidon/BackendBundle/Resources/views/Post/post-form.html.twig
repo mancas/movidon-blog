@@ -13,7 +13,7 @@
 </div>
 
 <div class="form-group">
-    <label for="post_subtitle">{{ 'Post subtitle' }}</label>
+    <label for="post_subtitle">{{ 'Post subtitle' | trans }}</label>
     <div class="line">
         {{ form_widget(form.subtitle, { 'attr': { 'class': 'form-control required tinymce', 'placeholder': 'Type here' | trans} }) }}
     </div>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="form-group">
-    <label for="post_body">{{ 'Post content' }}</label>
+    <label for="post_body">{{ 'Post content' | trans }}</label>
     {{ form_widget(form.body, { 'attr': { 'class': 'form-control required tinymce'} }) }}
     <small class="help-block">
         {{ '*This field is required' | trans }}
@@ -31,7 +31,7 @@
 </div>
 
 <div class="form-group">
-    <label for="post_tags">{{ 'Post tags' }}</label>
+    <label for="post_tags">{{ 'Post tags' | trans }}</label>
     <div class="line">
         {{ form_widget(form.tags, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'Post tags' | trans} }) }}
     </div>
@@ -41,7 +41,7 @@
 </div>
 
 <div class="form-group">
-    <label for="post_category">{{ 'Post category' }}</label>
+    <label for="post_category">{{ 'Post category' | trans }}</label>
     <div class="line select">
         {{ form_widget(form.category, { 'attr': { 'class': 'form-control required', 'placeholder': 'Post category' | trans} }) }}
     </div>
@@ -50,4 +50,15 @@
     </small>
 </div>
 
+<div class="form-group">
+    <label for="multiple_images_images">{{ 'Post images' | trans }}</label>
+    {{ form_widget(imageForm.images, { 'attr': { 'class': 'form-control hidden', 'placeholder': 'Select images' | trans} }) }}
+    <input type="hidden" name="not_upload_files" />
+    <a href="#multiple_images_images" class="input-file">
+        <i class="fa fa-plus"></i>
+    </a>
+    <ul id="thumbnails-list" class="list-unstyled"></ul>
+</div>
+
 {{ form_rest(form) }}
+{{ form_rest(imageForm) }}
