@@ -54,10 +54,17 @@ class PostController extends CustomController
     public function editAction(Post $post, Request $request)
     {
         $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
+        $imageForm = $this->createForm(new MultipleImagesType());
         $handler = $this->get('blog.post_form_handler');
+        $imagesHandler = $this->get('image.form_handler');
 
         if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            $this->setTranslatedFlashMessage('The post has been edited successfully');
+            if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
+                $this->setTranslatedFlashMessage('The post has been edited successfully');
+            } else {
+                $this->setTranslatedFlashMessage('There is a problem with the images.');
+                return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
+            }
 
             return $this->redirect($this->generateUrl('admin_post_index'));
         } else {
@@ -65,7 +72,9 @@ class PostController extends CustomController
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Post:create.html.twig', array('edition' => true, 'post' => $post, 'form' => $form->createView()));
+        return $this->render('BackendBundle:Post:create.html.twig', array('edition' => true, 'post' => $post,
+                                                                          'form' => $form->createView(),
+                                                                          'imageForm' => $imageForm->createView()));
     }
 
     /**

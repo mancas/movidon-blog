@@ -1369,13 +1369,14 @@ table .btn-purple {
   height: 10rem;
   border: solid 0.2rem rgba(0, 0, 0, 0.12); }
 
-#thumbnails-list {
+.thumbnails-list {
   display: inline-block; }
-  #thumbnails-list li {
+  .thumbnails-list li {
     display: inline-block;
     margin-left: 1rem;
-    position: relative; }
-    #thumbnails-list li:after {
+    position: relative;
+    cursor: pointer; }
+    .thumbnails-list li:after {
       content: '\00d7';
       display: block;
       background-color: #607d8b;
@@ -1392,9 +1393,8 @@ table .btn-purple {
       text-align: center;
       line-height: 10rem;
       font-size: 3.2rem;
-      color: #ffffff;
-      cursor: pointer; }
-    #thumbnails-list li:hover:after {
+      color: #ffffff; }
+    .thumbnails-list li:hover:after {
       transform: scale(1); }
 
 /*# sourceMappingURL=custom.css.map */

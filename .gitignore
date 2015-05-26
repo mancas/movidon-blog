@@ -11,3 +11,4 @@
 /web/bundles/
 /app/session/*
 .idea/*
+/web/uploads/*

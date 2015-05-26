@@ -2015,12 +2015,13 @@ table {
   border: solid 0.2rem $dividers;
 }
 
-#thumbnails-list {
+.thumbnails-list {
   display: inline-block;
   li {
     display: inline-block;
     margin-left: 1rem;
     position: relative;
+    cursor: pointer;
     &:after {
       content: '\00d7';
       display: block;
@@ -2039,7 +2040,6 @@ table {
       line-height: 10rem;
       font-size: 3.2rem;
       color: $white;
-      cursor: pointer;
     }
 
     &:hover {

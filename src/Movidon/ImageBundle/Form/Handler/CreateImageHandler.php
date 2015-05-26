@@ -56,7 +56,11 @@ class CreateImageHandler
             $files = $files['images'];
             $error = 0;
             if (!empty($files)) {
+                $excludeFiles = explode(';', $request->request->get('not_upload_files'));
                 foreach ($files as $file) {
+                    if(in_array($file->getClientOriginalName(), $excludeFiles)) {
+                        continue;
+                    }
                     $imageConstraint->minWidthMessage = 'La imagen debe tener un mínimo de ' . Image::MIN_WIDTH . ' píxeles de ancho';
                     $imageConstraint->minWidth = Image::MIN_WIDTH;
                     $imageConstraint->minWidthMessage =  'La imagen debe tener un mínimo de ' . Image::MIN_HEIGHT . ' píxeles de alto';
