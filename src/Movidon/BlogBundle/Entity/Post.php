@@ -84,9 +84,13 @@ class Post
     protected $tags;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="posts")
+     * @ORM\JoinTable(name="posts_authors",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="adminuser_id", referencedColumnName="id")}
+     *      )
      */
-    protected $author;
+    protected $authors;
 
     /**
      * @ORM\OneToMany(targetEntity="Movidon\ImageBundle\Entity\ImagePost", mappedBy="post", cascade={"persist", "remove", "merge"})
@@ -97,6 +101,7 @@ class Post
     {
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->authors = new ArrayCollection();
     }
 
     /**
@@ -262,17 +267,43 @@ class Post
     /**
      * @return mixed
      */
-    public function getAuthor()
+    public function getAuthors()
     {
-        return $this->author;
+        return $this->authors;
+    }
+
+    public function getAuthorsAsString()
+    {
+        $result = '';
+        foreach ($this->authors as $author) {
+            $result .= $author->getUsername();
+            if ($author !== $this->authors->last()) {
+                $result .= ', ';
+            }
+        }
+
+        return $result;
     }
 
     /**
-     * @param mixed $author
+     * @param mixed $authors
      */
-    public function setAuthor($author)
+    public function setAuthors($authors)
     {
-        $this->author = $author;
+        $this->authors = $authors;
+    }
+
+    public function addAuthor($author) {
+        if (!$this->authors->contains($author)) {
+            $this->authors->add($author);
+        }
+    }
+
+    public function removeAuthor($author)
+    {
+        if ($this->authors->contains($author)) {
+            $this->authors->remove($author);
+        }
     }
 
     /**

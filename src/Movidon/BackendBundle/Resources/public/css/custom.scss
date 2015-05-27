@@ -1193,30 +1193,6 @@ header {
   overflow: hidden;
 }
 
-.shake {
-  animation: shake .4s;
-  animation-iteration-count: 3;
-  -webkit-animation-name: shake; /* Chrome, Safari, Opera */
-  -webkit-animation-duration: .4s; /* Chrome, Safari, Opera */
-  -webkit-animation-iteration-count: 3; /* Chrome, Safari, Opera */
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(1rem); }
-  50% { transform: translateX(-1rem); }
-  75% { transform: translateX(1rem); }
-  100% { transform: translateX(0); }
-}
-
-@-webkit-keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(1rem); }
-  50% { transform: translateX(-1rem); }
-  75% { transform: translateX(1rem); }
-  100% { transform: translateX(0); }
-}
-
 /** FORMS **/
 
 .help-block {

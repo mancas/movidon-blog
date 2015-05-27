@@ -31,7 +31,7 @@
                             <th>{{ 'Title' | trans }}</th>
                             <th>{{ 'Last edition' | trans }}</th>
                             <th>{{ 'Published' | trans }}</th>
-                            <th>{{ 'Author' | trans }}</th>
+                            <th>{{ 'Authors' | trans }}</th>
                             <th>{{ 'Action' | trans }}</th>
                         </tr>
                         </thead>
@@ -43,7 +43,7 @@
                             <td>{{ post.title }}</td>
                             <td>{{ post.updated | date("F jS \\a\\t g:ia") }}</td>
                             <td>{% if post.published is not null %}{{ post.published | date('d-m-Y') }}{% else %}{{ 'No' | trans }}{% endif %}</td>
-                            <td>{{ post.author.username | capitalize }}</td>
+                            <td>{{ post.authorsAsString }}</td>
                             <td>
                             {% if post.deleted is null %}
                                 {% if post.published is null %}

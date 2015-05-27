@@ -3,6 +3,8 @@
         input: null,
         container: null,
         notToUpload: null,
+        queue: [],
+        locked: false,
         init: function(selector, containerSelector) {
             this.input = document.querySelector(selector);
             this.container = document.querySelector(containerSelector);
@@ -49,9 +51,10 @@
                         var li = document.createElement('li');
                         li.innerHTML = ['<img class="image-thumbnail" src="', e.target.result,
                             '" title="', file.name, '"/>'].join('');
-                        self.container.insertBefore(li, null);
+                        self.queue.push(li);
                         li.addEventListener('click', self.removeFile);
                         li.dataset.file = file.name;
+                        self._processQueue();
                     };
                 })(f);
 
@@ -64,6 +67,26 @@
             console.info(evt.target, this.files, evt.target.dataset.file, this.input.files);
             this.notToUpload.value += evt.target.dataset.file + ';'
             evt.target.parentNode.removeChild(evt.target);
+        },
+
+        _processQueue: function() {
+            if (this.queue.length === 0 || this.locked) {
+                return;
+            }
+            this.locked = true;
+            var li = this.queue.shift();
+            var self = this;
+
+            function onAnimationEnd() {
+                li.removeEventListener('animationend', onAnimationEnd);
+                li.classList.remove('fadeInRight');
+                self.locked = false;
+                self._processQueue();
+            }
+
+            li.addEventListener('animationend', onAnimationEnd);
+            this.container.appendChild(li);
+            li.classList.add('fadeInRight');
         }
     };
 </script>

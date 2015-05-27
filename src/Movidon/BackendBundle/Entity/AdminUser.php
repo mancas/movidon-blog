@@ -50,6 +50,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      */
     protected $registeredDate;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Movidon\BlogBundle\Entity\Post", mappedBy="authors")
+     */
+    protected $posts;
+
     public function serialize()
     {
         return serialize(array($this->id, $this->password, $this->username));
@@ -120,6 +125,22 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param mixed $posts
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
     }
 
 }
