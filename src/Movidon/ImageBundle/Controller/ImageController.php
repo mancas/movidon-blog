@@ -15,29 +15,29 @@ use Symfony\Component\HttpFoundation\Request;
 class ImageController extends CustomController
 {
     /**
-     * @ParamConverter("imagePost", class="ImageBundle:ImagePost")
+     * @ParamConverter("image", class="ImageBundle:Image")
      */
-    public function deleteImageAction(ImagePost $imagePost, Request $request)
+    public function deleteImageAction(Image $image, Request $request)
     {
         $jsonResponse = json_encode(array('ok' => false));
         if ($request->isXmlHttpRequest()) {
             $em = $this->getEntityManager();
 
-            if (!$imagePost) {
+            if (!$image) {
                 return $this->noPermission();
             }
-            foreach ($imagePost->getImageCopies() as $copy)
+            foreach ($image->getImageCopies() as $copy)
             {
                 $copy->setDateRemove(new \DateTime('now'));
                 $em->flush();
                 FileHelper::removeFileFromDirectory($copy->getImageName(), $copy->getSubdirectory());
             }
-            $imagePost->setDeletedDate(new \DateTime('now'));
-            if (FunctionsHelper::isClass($imagePost, "imageItem") && $imagePost->getMain()) {
-                $imagePost->setMain(false);
+            $image->setDeletedDate(new \DateTime('now'));
+            if (FunctionsHelper::isClass($image, "ImagePost") && $image->getMain()) {
+                $image->setMain(false);
             }
             $em->flush();
-            FileHelper::removeFileFromDirectory($imagePost->getImage(), $imagePost->getSubdirectory());
+            FileHelper::removeFileFromDirectory($image->getImage(), $image->getSubdirectory());
             $jsonResponse = json_encode(array('ok' => true));
         }
 

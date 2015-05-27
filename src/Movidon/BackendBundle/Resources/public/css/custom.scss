@@ -1941,7 +1941,7 @@ table {
 }
 
 /** INPUT[TYPE="FILE"] **/
-.input-file {
+.input-file, .input-file-sm {
   background-color: $white;
   border: solid 0.2rem $dividers;
   border-radius: 50%;
@@ -1985,20 +1985,27 @@ table {
   }
 }
 
-.image-thumbnail {
+.input-file-sm {
+  width: 6rem;
+  height: 6rem;
+  line-height: 6.5rem;
+}
+
+.image-thumbnail, .image-thumbnail-avatar {
   border-radius: 50%;
   width: 10rem;
   height: 10rem;
   border: solid 0.2rem $dividers;
 }
 
-.thumbnails-list {
-  display: inline-block;
+.thumbnails-list, .thumbnails-list-sm {
   li {
     display: inline-block;
     margin-left: 1rem;
+    margin-bottom: 1rem;
     position: relative;
     cursor: pointer;
+
     &:after {
       content: '\00d7';
       display: block;
@@ -2023,6 +2030,39 @@ table {
       &:after {
         transform: scale(1);
       }
+    }
+  }
+
+  .image-thumbnail-avatar {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+
+.thumbnails-list-sm {
+  li {
+    &:after {
+      line-height: 6rem !important;
+    }
+
+    &:nth-child(7) {
+      margin-left: 0;
+    }
+  }
+}
+
+.thumbnails-list-sm.add-margin {
+  li {
+    &:nth-child(7) {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.thumbnails-list.add-margin {
+  li {
+    &:nth-child(7) {
+      margin-left: 1rem;
     }
   }
 }

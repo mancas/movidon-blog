@@ -5,7 +5,9 @@
         notToUpload: null,
         queue: [],
         locked: false,
-        init: function(selector, containerSelector) {
+        cssClass: null,
+        init: function(selector, containerSelector, cssClass) {
+            this.cssClass = cssClass || 'image-thumbnail';
             this.input = document.querySelector(selector);
             this.container = document.querySelector(containerSelector);
             this.handleFileSelect = this._handleFileSelect.bind(this);
@@ -13,7 +15,7 @@
             this.input.addEventListener('change', this.handleFileSelect);
             this.notToUpload = document.querySelector('input[name="not_upload_files"]');
 
-            var inputFileBtn = document.querySelector('.input-file');
+            var inputFileBtn = document.querySelector('.input-file, .input-file-sm');
             inputFileBtn.addEventListener('click', function(evt) {
                 evt.preventDefault();
                 this.input.click();
@@ -49,7 +51,7 @@
                     return function(e) {
                         // Render thumbnail.
                         var li = document.createElement('li');
-                        li.innerHTML = ['<img class="image-thumbnail" src="', e.target.result,
+                        li.innerHTML = ['<img class="', self.cssClass ,'" src="', e.target.result,
                             '" title="', file.name, '"/>'].join('');
                         self.queue.push(li);
                         li.addEventListener('click', self.removeFile);

@@ -1,0 +1,91 @@
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
+
+{% block title_section %}
+    {{ "Resumen" | trans }}
+{% endblock %}
+
+{% block sidenav %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-item card-deep-purple">
+                <form action="{{ path('super_admin_avatar_index') }}" method="post" {{ form_enctype(form) }}>
+                    <div class="card-title">
+                        <h2>{{ 'Add new avatars' | trans }}</h2>
+
+                        <button type="submit" class="float-action-button fab-red borderless">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </div>
+
+                    <div class="card-description card-padding">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% include 'BackendBundle:Admin:Avatar/avatar-form.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card-item card-purple">
+                <div class="card-title">
+                    <h2>{{ 'Available avatars' | trans }}</h2>
+                </div>
+
+                <div class="card-description card-padding">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if avatars | length > 0 %}
+                            <ul id="thumbnails" class="list-unstyled thumbnails-list-sm add-margin">
+                                {% for avatar in avatars %}
+                                    <li data-path="{{ path('delete_image', {'id' : avatar.id}) }}">
+                                        {% set path = avatar.getWebFilePath ~ '?' ~ random() %}
+                                        <img src="{{ asset(path) }}" class="image-thumbnail-avatar" />
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                                <p>
+                                    {{ 'There is no available avatars' | trans }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BackendBundle:Scripts:xmlhttprequest-helper.html.twig' %}
+    {% include 'BackendBundle:Scripts:image-thumbnail-helper.html.twig' %}
+    <script>
+        window.addEventListener('load', function(evt) {
+            ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
+            {% if avatars | length > 0 %}
+            var avatars = document.querySelectorAll('#thumbnails li');
+            console.info(avatars);
+
+            Array.prototype.forEach.call(avatars, function(image) {
+                image.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    XMLHttpRequestHelper.sendRequest('post', image.dataset.path, null, function onsuccess(result) {
+                        var response = JSON.parse(result);
+                        if (response.ok) {
+                            image.parentNode.removeChild(image);
+                        }
+                    });
+                })
+            });
+            {% endif %}
+        });
+    </script>
+{% endblock %}

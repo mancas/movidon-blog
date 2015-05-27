@@ -68,5 +68,4 @@ class ImagePost extends Image
     {
         $this->main = $main;
     }
-
 }

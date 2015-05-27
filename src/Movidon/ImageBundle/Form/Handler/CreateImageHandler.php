@@ -65,11 +65,12 @@ class CreateImageHandler
                     if(in_array($file->getClientOriginalName(), $excludeFiles)) {
                         continue;
                     }
-                    $imageConstraint->minWidthMessage = 'La imagen debe tener un mínimo de ' . Image::MIN_WIDTH . ' píxeles de ancho';
-                    $imageConstraint->minWidth = Image::MIN_WIDTH;
-                    $imageConstraint->minWidthMessage =  'La imagen debe tener un mínimo de ' . Image::MIN_HEIGHT . ' píxeles de alto';
-                    $imageConstraint->minHeight = Image::MIN_HEIGHT;
-                    $imageConstraint->minWidthMessage =  'La imagen debe tener un mínimo de ' . Image::MIN_HEIGHT . ' píxeles de alto';
+                    $className = $this->getClassNameFromObjectName($imageClassName);
+                    $imageConstraint->minWidthMessage = 'La imagen debe tener un mínimo de ' . $className::MIN_WIDTH . ' píxeles de ancho';
+                    $imageConstraint->minWidth = $className::MIN_WIDTH;
+                    $imageConstraint->minWidthMessage =  'La imagen debe tener un mínimo de ' . $className::MIN_HEIGHT . ' píxeles de alto';
+                    $imageConstraint->minHeight = $className::MIN_HEIGHT;
+                    $imageConstraint->minWidthMessage =  'La imagen debe tener un mínimo de ' . $className::MIN_HEIGHT . ' píxeles de alto';
                     $imageConstraint->maxSizeMessage = Image::ERROR_MESSAGE;
                     $imageConstraint->maxSize = Image::MAX_SIZE;
                     $errorList = $this->validator->validateValue($file, $imageConstraint);
@@ -77,7 +78,6 @@ class CreateImageHandler
                     if (count($errorList) > 0) $error++;
                     if (get_class($file) == "Symfony\\Component\\HttpFoundation\\File\\UploadedFile" and (count($errorList) == 0)) {
                         try {
-                            $className = $this->getClassNameFromObjectName($imageClassName);
                             $image = new $className();
                             if (isset($post))
                                 $image->setPost($post);

@@ -14,6 +14,8 @@ class ImageAvatar extends Image
 {
     CONST MAX_WIDTH = 120;
     CONST MAX_HEIGHT = 120;
+    CONST MIN_WIDTH = 60;
+    CONST MIN_HEIGHT = 60;
     protected $subdirectory = "images/avatars";
     protected $maxWidth = self::MAX_WIDTH;
     protected $maxHeight = self::MAX_HEIGHT;

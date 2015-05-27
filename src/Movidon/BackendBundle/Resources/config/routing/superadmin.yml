@@ -1,0 +1,3 @@
+super_admin_avatar_index:
+  pattern: /avatars
+  defaults: { _controller: BackendBundle:Admin:avatars }
