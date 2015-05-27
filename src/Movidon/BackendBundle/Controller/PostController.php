@@ -35,7 +35,7 @@ class PostController extends CustomController
             if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
                 $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
             } else {
-                $this->setTranslatedFlashMessage('The post has been created successfully. However there is a problem with the images.');
+                $this->setTranslatedFlashMessage('The post has been created successfully. However there is a problem with the images.', 'error');
                 return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
             }
 
@@ -64,7 +64,7 @@ class PostController extends CustomController
             if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
                 $this->setTranslatedFlashMessage('The post has been edited successfully');
             } else {
-                $this->setTranslatedFlashMessage('There is a problem with the images.');
+                $this->setTranslatedFlashMessage('There is a problem with the images.', 'error');
                 return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
             }
 

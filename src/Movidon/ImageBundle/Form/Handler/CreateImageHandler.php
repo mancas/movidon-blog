@@ -80,7 +80,7 @@ class CreateImageHandler
                             $this->imageManager->createImage($image);
                         } catch (\Exception $e) {
                             $this->imageManager->removeImage($image);
-                            return true;
+                            return false;
                         }
                     }
                 }

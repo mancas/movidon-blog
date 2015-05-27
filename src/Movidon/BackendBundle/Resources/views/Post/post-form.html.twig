@@ -51,9 +51,9 @@
 </div>
 
 <div class="form-group">
-    <label for="post_category">{{ 'Other authors' | trans }}</label>
+    <label for="post_authors">{{ 'Other authors' | trans }}</label>
     <div class="line select">
-        {{ form_widget(form.authors, { 'attr': { 'class': 'form-control required', 'placeholder': 'Other authors' | trans} }) }}
+        {{ form_widget(form.authors, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'Other authors' | trans} }) }}
     </div>
 </div>
 

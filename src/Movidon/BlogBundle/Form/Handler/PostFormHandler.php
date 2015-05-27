@@ -22,7 +22,7 @@ class PostFormHandler
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $post = $form->getData();
-                $post->setAuthor($user);
+                $post->addAuthor($user);
                 $this->em->persist($post);
                 $this->em->flush();
                 return true;
