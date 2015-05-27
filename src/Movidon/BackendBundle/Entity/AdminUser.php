@@ -55,6 +55,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      */
     protected $posts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Movidon\ImageBundle\Entity\ImageAvatar")
+     */
+    protected $avatar;
+
     public function serialize()
     {
         return serialize(array($this->id, $this->password, $this->username));
@@ -143,4 +148,19 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
         $this->posts = $posts;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
 }

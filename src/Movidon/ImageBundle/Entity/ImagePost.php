@@ -52,8 +52,8 @@ class ImagePost extends Image
     {
         list($oldRoute, $copies) = parent::createCopies();
 
-        if ($cart = $this->createImagePostCard()) {
-            $copies[] = $cart;
+        if ($imagePostCard = $this->createImagePostCard()) {
+            $copies[] = $imagePostCard;
         }
 
         return array($oldRoute, $copies);
