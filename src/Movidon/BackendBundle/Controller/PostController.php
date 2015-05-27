@@ -4,6 +4,7 @@ namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\BlogBundle\Form\Type\PostType;
+use Movidon\ImageBundle\Entity\ImagePost;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,7 +33,7 @@ class PostController extends CustomController
         $imagesHandler = $this->get('image.form_handler');
 
         if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
+            if ($imagesHandler->handleMultiple($imageForm, $request, 'ImagePost', $post)) {
                 $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
             } else {
                 $this->setTranslatedFlashMessage('The post has been created successfully. However there is a problem with the images.', 'error');
@@ -61,7 +62,7 @@ class PostController extends CustomController
         $imagesHandler = $this->get('image.form_handler');
 
         if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            if ($imagesHandler->handleMultiple($imageForm, $request, $post)) {
+            if ($imagesHandler->handleMultiple($imageForm, $request, 'ImagePost', $post)) {
                 $this->setTranslatedFlashMessage('The post has been edited successfully');
             } else {
                 $this->setTranslatedFlashMessage('There is a problem with the images.', 'error');

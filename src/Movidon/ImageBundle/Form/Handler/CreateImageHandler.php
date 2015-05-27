@@ -8,6 +8,7 @@ use Movidon\ImageBundle\Form\Handler\ImageManager;
 use Movidon\ImageBundle\Entity\Image;
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\ImageBundle\Entity\ImagePost;
+use Movidon\ImageBundle\Entity\ImageAvatar;
 use Symfony\Component\Validator\Validator;
 
 class CreateImageHandler
@@ -46,7 +47,7 @@ class CreateImageHandler
         return false;
     }
 
-    public function handleMultiple(FormInterface $formImg, Request $request, Post $post)
+    public function handleMultiple(FormInterface $formImg, Request $request, $imageClassName, Post $post = null)
     {
         if ($request->getMethod() == 'POST') {
             $formImg->handleRequest($request);
@@ -76,8 +77,11 @@ class CreateImageHandler
                     if (count($errorList) > 0) $error++;
                     if (get_class($file) == "Symfony\\Component\\HttpFoundation\\File\\UploadedFile" and (count($errorList) == 0)) {
                         try {
-                            $image = new ImagePost();
-                            $image->setPost($post);
+                            $className = $this->getClassNameFromObjectName($imageClassName);
+                            $image = new $className();
+                            if (isset($post))
+                                $image->setPost($post);
+
                             $image->setFile($file);
                             $this->imageManager->saveImage($image);
                             $this->imageManager->createImage($image);
@@ -96,5 +100,10 @@ class CreateImageHandler
         }
 
         return false;
+    }
+
+    private function getClassNameFromObjectName($objName)
+    {
+        return "Movidon\\ImageBundle\\Entity\\" . $objName;
     }
 }
