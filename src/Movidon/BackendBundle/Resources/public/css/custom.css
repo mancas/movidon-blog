@@ -401,9 +401,10 @@ header {
   z-index: 12;
   transition: box-shadow 300ms ease 0s;
   transition: background-color 300ms ease 0s; }
-  .float-action-button:hover {
+  .float-action-button:hover, .float-action-button:active, .float-action-button:focus {
     box-shadow: 0 0.2rem 0.7rem rgba(0, 0, 0, 0.3);
-    color: #ffffff; }
+    color: #ffffff;
+    outline: none; }
 
 .fab-pink {
   background-color: #e91e63; }

@@ -25,7 +25,8 @@ class PostController extends CustomController
     public function createAction(Request $request)
     {
         $post = new Post();
-        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
+        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator'),
+                                                               'user' => $this->getCurrentUser()));
         $imageForm = $this->createForm(new MultipleImagesType());
         $handler = $this->get('blog.post_form_handler');
         $imagesHandler = $this->get('image.form_handler');
@@ -53,7 +54,8 @@ class PostController extends CustomController
      */
     public function editAction(Post $post, Request $request)
     {
-        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator')));
+        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator'),
+                                                               'user' => $this->getCurrentUser()));
         $imageForm = $this->createForm(new MultipleImagesType());
         $handler = $this->get('blog.post_form_handler');
         $imagesHandler = $this->get('image.form_handler');

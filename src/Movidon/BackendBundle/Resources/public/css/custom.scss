@@ -656,9 +656,10 @@ header {
   transition: box-shadow 300ms ease 0s;
   transition: background-color 300ms ease 0s;
 
-  &:hover {
+  &:hover, &:active, &:focus {
     box-shadow: 0 0.2rem 0.7rem $box-shadow;
     color: $white;
+    outline: none;
   }
 }
 

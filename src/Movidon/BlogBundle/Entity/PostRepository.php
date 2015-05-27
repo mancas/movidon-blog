@@ -42,6 +42,8 @@ class PostRepository extends CustomEntityRepository
         $and->add($qb->expr()->isNotNull('p.published'));
         $and->add($qb->expr()->isNull('p.deleted'));
 
+        $qb->where($and);
+
         if (isset($limit)) {
             $qb->setMaxResults($limit);
         }

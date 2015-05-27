@@ -15,6 +15,7 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $translator = $options['translator'];
+        $currentUser = $options['user'];
         $builder->add('title', 'text')
                 ->add('subtitle', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')))
                 ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')));
@@ -33,6 +34,20 @@ class PostType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 }, 'expanded' => false));
+        $builder->add('authors', 'entity',
+            array('class' => 'BackendBundle:AdminUser',
+                'required' => false,
+                'multiple' => true,
+                'query_builder' => function (EntityRepository $er) use ($currentUser) {
+                    $qb = $er->createQueryBuilder('u');
+                    $qb->orderBy('u.username', 'ASC');
+                    $and = $qb->expr()->andX();
+
+                    $and->add($qb->expr()->neq('u.username', '\'' . $currentUser->getUsername() . '\''));
+                    $qb->where($and);
+
+                    return $qb;
+                }, 'expanded' => false));
     }
 
     /**
@@ -42,7 +57,8 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'        => 'Movidon\BlogBundle\Entity\Post',
-            'translator'        => 'Symfony\Component\Translation\IdentityTranslator'
+            'translator'        => 'Symfony\Component\Translation\IdentityTranslator',
+            'user'              => 'Movidon\BackendBundle\Entity\AdminUser'
         ));
     }
 
