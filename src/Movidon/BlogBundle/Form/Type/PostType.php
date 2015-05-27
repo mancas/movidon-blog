@@ -17,7 +17,7 @@ class PostType extends AbstractType
         $translator = $options['translator'];
         $currentUser = $options['user'];
         $builder->add('title', 'text')
-                ->add('subtitle', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'bbcode')))
+                ->add('subtitle', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'simple')))
                 ->add('body', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')));
         $builder->add('tags', 'entity',
             array('class' => 'BlogBundle:Tag',

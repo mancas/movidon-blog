@@ -79,8 +79,12 @@ class CreateImageHandler
                     if (get_class($file) == "Symfony\\Component\\HttpFoundation\\File\\UploadedFile" and (count($errorList) == 0)) {
                         try {
                             $image = new $className();
-                            if (isset($post))
+                            if (isset($post)) {
                                 $image->setPost($post);
+                                if (!$post->getImageMain()) {
+                                    $image->setMain(true);
+                                }
+                            }
 
                             $image->setFile($file);
                             $this->imageManager->saveImage($image);

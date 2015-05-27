@@ -2,6 +2,7 @@
 
 namespace Movidon\BackendBundle\Controller;
 
+use Movidon\BackendBundle\Form\Type\AdminUserProfileType;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -26,5 +27,12 @@ class AdminController extends CustomController
 
         return $this->render('BackendBundle:Admin:Avatar/index.html.twig', array('form' => $form->createView(),
                                                                                    'avatars' => $avatars));
+    }
+
+    public function viewProfileAction()
+    {
+        $form = $this->createForm(new AdminUserProfileType());
+
+        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('form' => $form->createView()));
     }
 }

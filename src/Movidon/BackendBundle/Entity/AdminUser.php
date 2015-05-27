@@ -60,6 +60,41 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      */
     protected $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     * @Assert\NotBlank()
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\NotBlank()
+     */
+    protected $lastName;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $summary;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     * @Assert\Email();
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    protected $twitter;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    protected $website;
+
+
+
     public function serialize()
     {
         return serialize(array($this->id, $this->password, $this->username));
@@ -162,5 +197,101 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return ucfirst($this->name);
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return ucfirst($this->lastName);
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param mixed $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param mixed $twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param mixed $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
     }
 }
