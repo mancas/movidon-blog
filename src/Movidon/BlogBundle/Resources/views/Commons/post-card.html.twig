@@ -3,7 +3,8 @@
     <article class="card">
         <header>
             <a href="#" title="{{ 'More' | trans }}">
-                <img class="img-responsive" src="{{ asset('bundles/frontend/img/blog.jpg') }}" alt="{{ post.title }}" />
+                {% set path = post.imageMain.ImagePostCard.getWebFilePath ~ '?' ~ random() %}
+                <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.title }}" />
                 <h1>
                     {{ post.title }}
                 </h1>

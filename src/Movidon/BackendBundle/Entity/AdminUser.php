@@ -69,7 +69,7 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function __toString()
     {
 
-        return $this->getUsername();
+        return ucfirst($this->getUsername());
     }
 
     public function isEqualTo(
@@ -119,7 +119,7 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
 
     public function getUsername()
     {
-        return $this->username;
+        return ucfirst($this->username);
     }
 
     public function setUsername($username)

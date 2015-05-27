@@ -58,6 +58,9 @@ class CreateImageHandler
             if (!empty($files)) {
                 $excludeFiles = explode(';', $request->request->get('not_upload_files'));
                 foreach ($files as $file) {
+                    if (!isset($file)) {
+                        continue;
+                    }
                     if(in_array($file->getClientOriginalName(), $excludeFiles)) {
                         continue;
                     }
