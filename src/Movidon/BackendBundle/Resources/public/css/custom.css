@@ -1375,13 +1375,59 @@ table .btn-purple {
 
 .thumbnails-list-sm li:after {
   line-height: 6rem !important; }
-.thumbnails-list-sm li:nth-child(7) {
+.thumbnails-list-sm li:nth-child(7n) {
   margin-left: 0; }
 
-.thumbnails-list-sm.add-margin li:nth-child(7) {
+.thumbnails-list li:nth-child(7n) {
+  margin-left: 0; }
+
+.thumbnails-list-sm.add-margin li:nth-child(7n) {
   margin-left: 1rem; }
 
-.thumbnails-list.add-margin li:nth-child(7) {
+.thumbnails-list.add-margin li:nth-child(7n) {
   margin-left: 1rem; }
+
+/** USER PROFILE **/
+.p-overview {
+  width: 30rem;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #f4f4f4; }
+
+.p-main {
+  padding-left: 30rem;
+  height: 100%; }
+  .p-main .p-block {
+    padding: 4rem 4rem 0;
+    margin-bottom: 2rem;
+    color: rgba(0, 0, 0, 0.54); }
+    .p-main .p-block:last-child {
+      margin-bottom: 4rem; }
+    .p-main .p-block .p-block-header {
+      margin-bottom: 2rem;
+      position: relative; }
+      .p-main .p-block .p-block-header .actions {
+        position: absolute;
+        top: -0.2rem;
+        right: 0;
+        list-style: outside none none;
+        margin: 0;
+        padding: 0; }
+      .p-main .p-block .p-block-header h2 {
+        font-size: 2rem;
+        color: rgba(0, 0, 0, 0.87); }
+        .p-main .p-block .p-block-header h2 i {
+          margin-right: 0.8rem;
+          font-size: 1.6rem;
+          min-width: 1.8rem; }
+    .p-main .p-block .p-block-body {
+      padding-left: 2.6rem;
+      font-size: 1.3rem; }
+      .p-main .p-block .p-block-body .pbb-view dl dt {
+        text-align: left; }
+      .p-main .p-block .p-block-body .pbb-edit {
+        display: none; }
 
 /*# sourceMappingURL=custom.css.map */

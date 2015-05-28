@@ -39,6 +39,10 @@ admin_posts:
 #    resource: "@BackendBundle/Resources/config/routing/category.yml"
 #    prefix: /category/
 
+admin_user:
+    resource: "@BackendBundle/Resources/config/routing/user.yml"
+    prefix: /u/
+
 super_admin:
     resource: "@BackendBundle/Resources/config/routing/superadmin.yml"
     prefix: /sa/

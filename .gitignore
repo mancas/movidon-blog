@@ -12,3 +12,4 @@
 /app/session/*
 .idea/*
 /web/uploads/*
+/web/css/*

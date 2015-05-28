@@ -2045,7 +2045,15 @@ table {
       line-height: 6rem !important;
     }
 
-    &:nth-child(7) {
+    &:nth-child(7n) {
+      margin-left: 0;
+    }
+  }
+}
+
+.thumbnails-list {
+  li {
+    &:nth-child(7n) {
       margin-left: 0;
     }
   }
@@ -2053,7 +2061,7 @@ table {
 
 .thumbnails-list-sm.add-margin {
   li {
-    &:nth-child(7) {
+    &:nth-child(7n) {
       margin-left: 1rem;
     }
   }
@@ -2061,8 +2069,72 @@ table {
 
 .thumbnails-list.add-margin {
   li {
-    &:nth-child(7) {
+    &:nth-child(7n) {
       margin-left: 1rem;
+    }
+  }
+}
+
+
+/** USER PROFILE **/
+.p-overview {
+  width: 30rem;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: $background-hover;
+}
+
+.p-main {
+  padding-left: 30rem;
+  height: 100%;
+  .p-block {
+    padding: 4rem 4rem 0;
+    margin-bottom: 2rem;
+    color: $secondary-icons;
+
+    &:last-child {
+      margin-bottom: 4rem;
+    }
+
+    .p-block-header {
+      margin-bottom: 2rem;
+      position: relative;
+      .actions {
+        position: absolute;
+        top: -0.2rem;
+        right: 0;
+        list-style: outside none none;
+        margin: 0;
+        padding: 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: $text;
+        i {
+          margin-right: 0.8rem;
+          font-size: 1.6rem;
+          min-width: 1.8rem;
+        }
+      }
+    }
+
+    .p-block-body {
+      padding-left: 2.6rem;
+      font-size: 1.3rem;
+      .pbb-view {
+        dl {
+          dt {
+            text-align: left;
+          }
+        }
+      }
+
+      .pbb-edit {
+        display: none;
+      }
     }
   }
 }

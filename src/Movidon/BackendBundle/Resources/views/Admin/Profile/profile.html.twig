@@ -8,7 +8,118 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <div class="card-item card-deep-purple">
+            <div class="card-item">
+                <div class="p-overview">
+
+                </div>
+
+                <div class="p-main clearfix">
+                    <!-- SUMMARY -->
+                    <div class="p-block">
+                        <div class="p-block-header">
+                            <h2><i class="fa fa-folder-open"></i>{{ 'Summary' | trans }}</h2>
+                        </div>
+
+                        <div class="p-block-body">
+                            <div class="pbb-view">
+                                <p>
+                                    Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
+                                </p>
+                            </div>
+
+                            <div class="pbb-edit">
+                                <div class="line">
+                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
+                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BASIC INFORMATION -->
+                    <div class="p-block">
+                        <div class="p-block-header">
+                            <h2><i class="fa fa-user"></i>{{ 'Basic information' | trans }}</h2>
+                        </div>
+
+                        <div class="p-block-body">
+                            <div class="pbb-view">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        {{ 'Name' }}
+                                    </dt>
+                                    <dd>
+                                        Manuel
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        {{ 'Surname' }}
+                                    </dt>
+                                    <dd>
+                                        Casas Barrado
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="pbb-edit">
+                                <div class="line">
+                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
+                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BASIC INFORMATION -->
+                    <div class="p-block">
+                        <div class="p-block-header">
+                            <h2><i class="fa fa-phone"></i>{{ 'Contact information' | trans }}</h2>
+                        </div>
+
+                        <div class="p-block-body">
+                            <div class="pbb-view">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        {{ 'Email' }}
+                                    </dt>
+                                    <dd>
+                                        manuel.casasbarrado@gmail.com
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        {{ 'Twitter' }}
+                                    </dt>
+                                    <dd>
+                                        @Slink91
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        {{ 'Website' }}
+                                    </dt>
+                                    <dd>
+                                        https://educacity-sevilla.com
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div class="pbb-edit">
+                                <div class="line">
+                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
+                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -21,22 +132,6 @@
     <script>
         window.addEventListener('load', function(evt) {
             ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
-            {% if avatars | length > 0 %}
-            var avatars = document.querySelectorAll('#thumbnails li');
-            console.info(avatars);
-
-            Array.prototype.forEach.call(avatars, function(image) {
-                image.addEventListener('click', function(evt) {
-                    evt.preventDefault();
-                    XMLHttpRequestHelper.sendRequest('post', image.dataset.path, null, function onsuccess(result) {
-                        var response = JSON.parse(result);
-                        if (response.ok) {
-                            image.parentNode.removeChild(image);
-                        }
-                    });
-                })
-            });
-            {% endif %}
         });
     </script>
 {% endblock %}
