@@ -28,7 +28,7 @@
 </div>
 
 <div class="pbb-edit">
-    <form id="personal-data" action="" method="post">
+    <form action="" method="post">
         <dl class="dl-horizontal">
             <dt>
                 {{ 'Email' }}
@@ -52,12 +52,14 @@
                 {{ 'Twitter' }}
             </dt>
             <dd>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-at"></i>
-                    </span>
-                    <div class="line">
-                        <input class="form-control" type="text" id="admin_user_profile_twitter" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" placeholder="{{ 'Your twitter username...' | trans }}" />
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-at"></i>
+                        </span>
+                        <div class="line">
+                            <input class="form-control" type="text" id="admin_user_profile_twitter" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" placeholder="{{ 'Your twitter username...' | trans }}" />
+                        </div>
                     </div>
                 </div>
             </dd>
@@ -68,12 +70,14 @@
                 {{ 'Website' }}
             </dt>
             <dd>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-desktop"></i>
-                    </span>
-                    <div class="line">
-                        <input class="form-control" type="text" id="admin_user_profile_website" value="{% if user.website %}{{ user.website }}{% endif %}" placeholder="{{ 'Your website url...' | trans }}" />
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-desktop"></i>
+                        </span>
+                        <div class="line">
+                            <input class="form-control" type="text" id="admin_user_profile_website" value="{% if user.website %}{{ user.website }}{% endif %}" placeholder="{{ 'Your website url...' | trans }}" />
+                        </div>
                     </div>
                 </div>
             </dd>

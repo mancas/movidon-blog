@@ -5,6 +5,7 @@
             this._initCloseEvents();
             this._initShakeElements();
             this._initDeleteAlertEvents();
+            this._initEditActionEvents();
         },
 
         _initCloseEvents: function() {
@@ -59,6 +60,23 @@
                     AlertHelper.alert('#delete-item-alert');
                 })
             });
+        },
+
+        _initEditActionEvents: function () {
+            var editBtns = document.querySelectorAll('[data-action="edit"]');
+
+            Array.prototype.forEach.call(editBtns, function(btn) {
+                btn.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    var container = document.querySelector(btn.dataset.target);
+                    var editBox = container.querySelector('.pbb-edit');
+                    var viewBox = container.querySelector('.pbb-view');
+
+                    editBox.classList.add('open');
+                    viewBox.classList.add('hidden');
+                });
+            });
+
         }
     };
 

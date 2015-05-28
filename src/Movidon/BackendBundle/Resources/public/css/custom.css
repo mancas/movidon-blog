@@ -1438,6 +1438,8 @@ table .btn-purple {
           margin-bottom: 0; }
         .p-main .p-block .p-block-body .pbb-edit dl dt {
           padding-top: 1rem; }
+      .p-main .p-block .p-block-body .pbb-edit.open {
+        display: block; }
 
 /** ACTION BUTTONS **/
 .actions li a[data-action] {
