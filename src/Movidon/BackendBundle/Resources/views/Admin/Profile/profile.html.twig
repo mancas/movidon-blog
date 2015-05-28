@@ -18,22 +18,17 @@
                     <div class="p-block">
                         <div class="p-block-header">
                             <h2><i class="fa fa-folder-open"></i>{{ 'Summary' | trans }}</h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="" aria-expanded="false" data-action="edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="p-block-body">
-                            <div class="pbb-view">
-                                <p>
-                                    Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
-                                </p>
-                            </div>
-
-                            <div class="pbb-edit">
-                                <div class="line">
-                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
-                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
-                                    </textarea>
-                                </div>
-                            </div>
+                            {% include 'BackendBundle:Admin:Profile/summary.html.twig' %}
                         </div>
                     </div>
 
@@ -41,36 +36,17 @@
                     <div class="p-block">
                         <div class="p-block-header">
                             <h2><i class="fa fa-user"></i>{{ 'Basic information' | trans }}</h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="" aria-expanded="false" data-action="edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="p-block-body">
-                            <div class="pbb-view">
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        {{ 'Name' }}
-                                    </dt>
-                                    <dd>
-                                        Manuel
-                                    </dd>
-                                </dl>
-
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        {{ 'Surname' }}
-                                    </dt>
-                                    <dd>
-                                        Casas Barrado
-                                    </dd>
-                                </dl>
-                            </div>
-
-                            <div class="pbb-edit">
-                                <div class="line">
-                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
-                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
-                                    </textarea>
-                                </div>
-                            </div>
+                            {% include 'BackendBundle:Admin:Profile/personal-data.html.twig' %}
                         </div>
                     </div>
 
@@ -78,45 +54,17 @@
                     <div class="p-block">
                         <div class="p-block-header">
                             <h2><i class="fa fa-phone"></i>{{ 'Contact information' | trans }}</h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="" aria-expanded="false" data-action="edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="p-block-body">
-                            <div class="pbb-view">
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        {{ 'Email' }}
-                                    </dt>
-                                    <dd>
-                                        manuel.casasbarrado@gmail.com
-                                    </dd>
-                                </dl>
-
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        {{ 'Twitter' }}
-                                    </dt>
-                                    <dd>
-                                        @Slink91
-                                    </dd>
-                                </dl>
-
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        {{ 'Website' }}
-                                    </dt>
-                                    <dd>
-                                        https://educacity-sevilla.com
-                                    </dd>
-                                </dl>
-                            </div>
-
-                            <div class="pbb-edit">
-                                <div class="line">
-                                    <textarea placeholder="{{ 'Summary...' }}" rows="5">
-                                        Sed eu est vulputate, fringilla ligula ac, maximus arcu. Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.
-                                    </textarea>
-                                </div>
-                            </div>
+                            {% include 'BackendBundle:Admin:Profile/contact-data.html.twig' %}
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,9 @@ body {
 .transparent {
   opacity: 0; }
 
+.mt1 {
+  margin-top: 1rem; }
+
 /** BACKGROUND COLORS **/
 .bg-red {
   background-color: #f44336; }
@@ -1425,9 +1428,44 @@ table .btn-purple {
     .p-main .p-block .p-block-body {
       padding-left: 2.6rem;
       font-size: 1.3rem; }
-      .p-main .p-block .p-block-body .pbb-view dl dt {
+      .p-main .p-block .p-block-body .pbb-view dl dt, .p-main .p-block .p-block-body .pbb-edit dl dt {
         text-align: left; }
       .p-main .p-block .p-block-body .pbb-edit {
         display: none; }
+        .p-main .p-block .p-block-body .pbb-edit .borderless {
+          box-shadow: none; }
+        .p-main .p-block .p-block-body .pbb-edit .form-group {
+          margin-bottom: 0; }
+        .p-main .p-block .p-block-body .pbb-edit dl dt {
+          padding-top: 1rem; }
+
+/** ACTION BUTTONS **/
+.actions li a[data-action] {
+  width: 3rem;
+  height: 3rem;
+  line-height: 2.9rem;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  color: rgba(0, 0, 0, 0.54); }
+  .actions li a[data-action]:before {
+    left: 0;
+    top: 0;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: scale3d(0, 0, 0);
+    transition: all 250ms ease 0s;
+    backface-visibility: hidden;
+    background-color: #D7D7D7;
+    z-index: 0;
+    border-radius: 50%;
+    opacity: 0; }
+  .actions li a[data-action]:hover {
+    color: rgba(0, 0, 0, 0.87); }
+    .actions li a[data-action]:hover:before {
+      transform: scale(1);
+      opacity: 1; }
 
 /*# sourceMappingURL=custom.css.map */

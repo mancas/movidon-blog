@@ -31,8 +31,15 @@ class AdminController extends CustomController
 
     public function viewProfileAction()
     {
+        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('user' => $this->getCurrentUser()));
+    }
+
+    public function updateProfileAction(Request $request)
+    {
         $form = $this->createForm(new AdminUserProfileType());
 
-        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('form' => $form->createView()));
+        $form->handleRequest($request);
+
+        ldd($form->isValid(), $form->getErrorsAsString());
     }
 }

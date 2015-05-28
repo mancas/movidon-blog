@@ -1,0 +1,54 @@
+<div class="pbb-view">
+    <dl class="dl-horizontal">
+        <dt>
+            {{ 'Name' | trans }}
+        </dt>
+        <dd>
+            {% if user.name %}{{ user.name }}{% else %}{{ user.username }}{% endif %}
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            {{ 'Surname' | trans }}
+        </dt>
+        <dd>
+            {% if user.lastName %}{{ user.lastName }}{% endif %}
+        </dd>
+    </dl>
+</div>
+
+<div class="pbb-edit">
+    <form id="personal-data" action="" method="post">
+        <dl class="dl-horizontal">
+            <dt>
+                {{ 'Name' | trans }}
+            </dt>
+            <dd>
+                <div class="form-group">
+                    <div class="line">
+                        <input class="form-control" type="text" id="admin_user_profile_name" value="{% if user.name is not null %}{{ user.name }}{% endif %}" placeholder="{{ 'Your name...' | trans }}" />
+                    </div>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                {{ 'Surname' | trans }}
+            </dt>
+            <dd>
+                <div class="form-group">
+                    <div class="line">
+                        <input class="form-control" type="text" id="admin_user_profile_surname" value="{% if user.lastName is not null %}{{ user.lastName }}{% endif %}" placeholder="{{ 'Your surname...' | trans }}" />
+                    </div>
+                </div>
+            </dd>
+        </dl>
+
+        <div class="mt1">
+            <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>
+            <button type="button" class="btn btn-default borderless cancel">{{ 'Cancel' | trans }}</button>
+        </div>
+    </form>
+</div>

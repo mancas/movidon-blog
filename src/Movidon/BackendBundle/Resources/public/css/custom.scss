@@ -73,6 +73,10 @@ body {
   opacity: 0;
 }
 
+.mt1 {
+  margin-top: 1rem;
+}
+
 /** BACKGROUND COLORS **/
 .bg-red {
   background-color: $material-red;
@@ -2124,7 +2128,7 @@ table {
     .p-block-body {
       padding-left: 2.6rem;
       font-size: 1.3rem;
-      .pbb-view {
+      .pbb-view, .pbb-edit {
         dl {
           dt {
             text-align: left;
@@ -2134,6 +2138,58 @@ table {
 
       .pbb-edit {
         display: none;
+
+        .borderless {
+          box-shadow: none;
+        }
+
+        .form-group {
+          margin-bottom: 0;
+        }
+        dl {
+          dt {
+            padding-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/** ACTION BUTTONS **/
+.actions {
+  li {
+    a[data-action] {
+      width: 3rem;
+      height: 3rem;
+      line-height: 2.9rem;
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      color: $secondary-icons;
+
+      &:before {
+        left: 0;
+        top: 0;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: scale3d(0, 0, 0);
+        transition: all 250ms ease 0s;
+        backface-visibility: hidden;
+        background-color: $material-paginator-gray-hover;
+        z-index: 0;
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      &:hover {
+        color: $text;
+        &:before {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
     }
   }

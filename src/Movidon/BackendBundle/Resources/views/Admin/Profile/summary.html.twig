@@ -1,0 +1,21 @@
+<div class="pbb-view">
+    <p>
+        {% if user.summary %}{{ user.summary }}{% else %}{{ 'You should type a few lines about you' | trans }}{% endif %}
+    </p>
+</div>
+
+<div class="pbb-edit">
+    <form id="summary" action="" method="post">
+        <div class="form-group">
+            <div class="line">
+                <textarea class="form-control" placeholder="{{ 'Summary...' }}" rows="5">
+                    {% if user.summary %}{{ user.summary }}{% endif %}
+                </textarea>
+            </div>
+            <div class="mt1">
+                <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>
+                <button type="button" class="btn btn-default borderless cancel">{{ 'Cancel' | trans }}</button>
+            </div>
+        </div>
+    </form>
+</div>
