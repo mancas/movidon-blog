@@ -1,8 +1,14 @@
 {% set action = app.request.attributes.get('_route') %}
 {% set params = app.request.attributes.get('_route_params') %}
-<aside id="sidenav" data-toggle="false">
+{% set toggleState = 'false' %}
+
+{% if action == 'admin_user_profile' %}
+    {% set toggleState = 'true' %}
+{% endif %}
+
+<aside id="sidenav" data-toggle="{{ toggleState }}">
     <div class="main-menu-wrapper">
-        {{ render(controller('BackendBundle:Backend:profile')) }}
+        {{ render(controller('BackendBundle:Backend:profile', {'action': action})) }}
         <ul class="list-unstyled">
             {#<li>
                 <a href="" class="active" title="{{ 'Events' | trans }}">

@@ -11,7 +11,7 @@
     </div>
     <ul id="profile-menu" class="list-unstyled">
         <li>
-            <a href="{{ path('admin_user_profile') }}" title="{{ 'View profile' | trans }}">
+            <a href="{{ path('admin_user_profile') }}" title="{{ 'View profile' | trans }}" {% if action == 'admin_user_profile' %}class="active"{% endif %}>
                 <i class="fa fa-user"></i> {{ 'View profile' | trans }}
             </a>
         </li>

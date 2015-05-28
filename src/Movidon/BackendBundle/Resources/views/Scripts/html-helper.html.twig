@@ -64,19 +64,30 @@
 
         _initEditActionEvents: function () {
             var editBtns = document.querySelectorAll('[data-action="edit"]');
+            var self = this;
 
             Array.prototype.forEach.call(editBtns, function(btn) {
                 btn.addEventListener('click', function(evt) {
                     evt.preventDefault();
-                    var container = document.querySelector(btn.dataset.target);
-                    var editBox = container.querySelector('.pbb-edit');
-                    var viewBox = container.querySelector('.pbb-view');
+                    var container = document.querySelector(btn.dataset.target + ' .p-block-body');
+                    if (typeof container === 'undefined' || !container) {
+                        return;
+                    }
+                    container.classList.add('edit-mode');
 
-                    editBox.classList.add('open');
-                    viewBox.classList.add('hidden');
+                    self._attachEventsToResetBtns(container);
                 });
             });
+        },
 
+        _attachEventsToResetBtns: function(container) {
+            var resetBtn = container.querySelector('button[type="reset"]');
+            resetBtn.addEventListener('click', function onClick(evt) {
+                evt.preventDefault();
+                resetBtn.removeEventListener('click', onClick);
+
+                container.classList.remove('edit-mode');
+            })
         }
     };
 

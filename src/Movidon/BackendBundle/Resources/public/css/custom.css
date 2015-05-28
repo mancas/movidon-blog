@@ -1438,8 +1438,10 @@ table .btn-purple {
           margin-bottom: 0; }
         .p-main .p-block .p-block-body .pbb-edit dl dt {
           padding-top: 1rem; }
-      .p-main .p-block .p-block-body .pbb-edit.open {
-        display: block; }
+    .p-main .p-block .p-block-body.edit-mode .pbb-edit {
+      display: block; }
+    .p-main .p-block .p-block-body.edit-mode .pbb-view {
+      display: none; }
 
 /** ACTION BUTTONS **/
 .actions li a[data-action] {
@@ -1449,7 +1451,8 @@ table .btn-purple {
   display: inline-block;
   text-align: center;
   position: relative;
-  color: rgba(0, 0, 0, 0.54); }
+  color: rgba(0, 0, 0, 0.54);
+  outline: none !important; }
   .actions li a[data-action]:before {
     left: 0;
     top: 0;

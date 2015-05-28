@@ -2152,9 +2152,15 @@ table {
           }
         }
       }
+    }
 
-      .pbb-edit.open {
+    .p-block-body.edit-mode {
+      .pbb-edit {
         display: block;
+      }
+      
+      .pbb-view {
+        display: none;
       }
     }
   }
@@ -2171,6 +2177,7 @@ table {
       text-align: center;
       position: relative;
       color: $secondary-icons;
+      outline: none !important;
 
       &:before {
         left: 0;

@@ -41,12 +41,13 @@ class BackendController extends CustomController
     }
 
     /**
+     * @param $action Current action
      * @Template("BackendBundle:Commons:profile-menu.html.twig")
      *
      * @return array
      */
-    public function profileAction()
+    public function profileAction($action)
     {
-        return array('user' => $this->getCurrentUser());
+        return array('user' => $this->getCurrentUser(), 'action' => $action);
     }
 }
