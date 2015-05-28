@@ -5,10 +5,10 @@
 </div>
 
 <div class="pbb-edit">
-    <form action="" method="post">
+    <form action="{{ path('admin_user_profile_update') }}" method="post">
         <div class="form-group">
             <div class="line">
-                <textarea class="form-control" placeholder="{{ 'Summary...' }}" rows="5">{% if user.summary %}{{ user.summary }}{% endif %}</textarea>
+                <textarea name="admin_user_profile[summary]" class="form-control" placeholder="{{ 'Summary...' }}" rows="5">{% if user.summary %}{{ user.summary }}{% endif %}</textarea>
             </div>
             <div class="mt1">
                 <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>

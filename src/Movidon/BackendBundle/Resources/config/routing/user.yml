@@ -1,3 +1,7 @@
 admin_user_profile:
     pattern: /profile
     defaults: { _controller: BackendBundle:Admin:viewProfile }
+
+admin_user_profile_update:
+    pattern: /profile/update
+    defaults: { _controller: BackendBundle:Admin:updateProfile }

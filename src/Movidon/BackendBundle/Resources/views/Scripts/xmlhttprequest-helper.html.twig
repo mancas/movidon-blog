@@ -1,29 +1,30 @@
 <script>
     var XMLHttpRequestHelper = {
-        sendRequest: function(method, path, params, onsuccess, onerror) {
+        sendRequest: function(options) {
             var xhr = new XMLHttpRequest();
-            xhr.open(method, path, true);
-            if (typeof params !== 'undefined' && params !== null) {
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.setRequestHeader('Content-length', params.length);
-                xhr.setRequestHeader('Connection', 'close');
+            xhr.open(options.method, options.path, true);
+            if (options.headers !== null && typeof options.headers !== 'undefined') {
+                for (var key in options.headers) {
+                    xhr.setRequestHeader(key, options.headers[key]);
+                }
             }
-            // Symfony needs this header
+            // Symfony needs these headers
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.send(params);
+            xhr.setRequestHeader('Connection', 'close');
+            xhr.send(options.params);
 
             xhr.onload = function (evt) {
                 if (xhr.status === 200) {
-                    onsuccess && onsuccess(xhr.response);
+                    options.onsuccess && options.onsuccess(xhr.response);
                 } else {
-                    onerror && onerror(xhr.statusText);
+                    options.onerror && options.onerror(xhr.statusText);
                 }
             };
 
-            xhr.onerror = onerror;
+            xhr.onerror = options.onerror;
 
             xhr.onreadystatechange = function () {
-                console.info(xhr);
+                console.info(xhr.response);
             }
         }
     };

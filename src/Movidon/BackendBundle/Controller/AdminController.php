@@ -36,10 +36,10 @@ class AdminController extends CustomController
 
     public function updateProfileAction(Request $request)
     {
-        $form = $this->createForm(new AdminUserProfileType());
+        $form = $this->createForm(new AdminUserProfileType(), $this->getCurrentUser());
 
         $form->handleRequest($request);
 
-        ldd($form->isValid(), $form->getErrorsAsString());
+        ldd($form->getData()->getSummary());
     }
 }

@@ -9,12 +9,12 @@ class AdminUserProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text')
-                ->add('lastName', 'text')
-                ->add('summary', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'simple')))
-                ->add('email', 'email')
-                ->add('twitter', 'text')
-                ->add('website', 'text');
+        $builder->add('name', 'text', array('required' => false))
+                ->add('lastName', 'text', array('required' => false))
+                ->add('summary', 'textarea', array('required' => false, 'attr' => array('class' => 'tinymce', 'data-theme' => 'simple')))
+                ->add('email', 'email', array('required' => false))
+                ->add('twitter', 'text', array('required' => false))
+                ->add('website', 'text', array('required' => false));
     }
 
     public function getDefaultOptions(array $options)
