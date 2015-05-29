@@ -31,15 +31,21 @@ class CreateImageHandler
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
-                $file = $data['file'];
+                $file = $data['image'];
                 $imageConstraint->maxSizeMessage = Image::ERROR_MESSAGE;
                 $imageConstraint->maxSize = Image::MAX_SIZE;
                 $errorList = $this->validator->validateValue($file, $imageConstraint);
                 if (count($errorList) === 0) {
-                    $image = new ImageProfile();
-                    $image->setFile($file);
-                    $image->setUser($user);
-                    $this->imageManager->createImage($image);
+                    try {
+                        $image = new ImageProfile();
+                        $image->setFile($file);
+                        $image->setUser($user);
+                        $this->imageManager->saveImage($image);
+                        $this->imageManager->createImage($image);
+                    } catch (\Exception $e) {
+                        $this->imageManager->removeImage($image);
+                        return false;
+                    }
                 } else {
                     return false;
                 }

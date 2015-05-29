@@ -28,6 +28,10 @@
 
             var inputFileBtn = document.querySelector(this.triggerClass);
             inputFileBtn.addEventListener('click', function(evt) {
+                if (evt.target.nodeName === 'BUTTON' && evt.target.getAttribute('type') === 'submit') {
+                    evt.target.click();
+                    return;
+                }
                 evt.preventDefault();
                 this.input.click();
             }.bind(this))

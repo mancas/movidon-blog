@@ -35,6 +35,7 @@ class AdminController extends CustomController
     {
         $form = $this->createForm(new ImageType());
         $imagesHandler = $this->get('image.form_handler');
+
         if ($request->isMethod('post') &&
             !$imagesHandler->handle($form, $request, $this->getCurrentUser())) {
             $this->setTranslatedFlashMessage('Your profile image could not be updated', 'error');

@@ -61,6 +61,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $avatar;
 
     /**
+     * @ORM\OneToOne(targetEntity="Movidon\ImageBundle\Entity\ImageProfile", mappedBy="user")
+     */
+    protected $imageProfile;
+
+    /**
      * @ORM\Column(type="string", length=250, nullable=true)
      */
     protected $name;
@@ -291,5 +296,21 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setWebsite($website)
     {
         $this->website = $website;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageProfile()
+    {
+        return $this->imageProfile;
+    }
+
+    /**
+     * @param mixed $imageProfile
+     */
+    public function setImageProfile($imageProfile)
+    {
+        $this->imageProfile = $imageProfile;
     }
 }

@@ -230,6 +230,16 @@ abstract class Image
         $this->setUniqueImageCopy($thumbnail);
     }
 
+    public function getImageProfileAvatar()
+    {
+        return $this->getImageCopyFromType('ImageProfileAvatar');
+    }
+
+    public function setImageProfileAvatar(\Movidon\ImageBundle\Entity\ImageProfileAvatar $thumbnail)
+    {
+        $this->setUniqueImageCopy($thumbnail);
+    }
+
     public function setUniqueImageCopy($imageCopy)
     {
         foreach ($this->imageCopies as $imgc) {

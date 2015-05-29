@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="subclase", type="string")
- * @ORM\DiscriminatorMap({"imagethumbnail"="ImageThumbnail", "imagepostcard"="ImagePostCard"})
+ * @ORM\DiscriminatorMap({"imagethumbnail"="ImageThumbnail", "imagepostcard"="ImagePostCard", "imageprofileavatar"="ImageProfileAvatar"})
  */
 abstract class ImageCopy
 {

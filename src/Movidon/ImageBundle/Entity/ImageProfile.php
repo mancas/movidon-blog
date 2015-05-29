@@ -19,7 +19,7 @@ class ImageProfile extends Image
     protected $maxHeight = self::MAX_HEIGHT;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\BackednBundle\Entity\AdminUser", inversedBy="imageProfile")
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="imageProfile")
      */
     protected $user;
 
