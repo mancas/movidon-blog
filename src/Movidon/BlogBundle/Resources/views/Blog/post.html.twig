@@ -18,8 +18,7 @@
             <div class="col-md-12">
                 <article id="post-{{ post.id }}" class="card">
                     <header>
-                        {% set path = post.imageMain.getWebFilePath ~ '?' ~ random() %}
-                        <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.title }}" />
+                        {% include 'BlogBundle:Blog:carousel.html.twig' %}
                         <h1>{{ post.title }}</h1>
                         <h2 class="subtitle">
                             {{ post.subtitle | raw }}

@@ -1,0 +1,20 @@
+<div id="carousel-{{ post.id }}" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    {% if post.images | length > 1 %}
+    <ol class="carousel-indicators">
+        {% for image in post.images %}
+        <li data-target="#carousel-{{ post.id }}" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        {% for image in post.images %}
+        <div class="item {% if loop.first %}active{% endif %}">
+            {% set path = image.getWebFilePath ~ '?' ~ random() %}
+            <img src="{{ asset(path) }}" alt="{{ post.title }}">
+        </div>
+        {% endfor %}
+    </div>
+</div>
