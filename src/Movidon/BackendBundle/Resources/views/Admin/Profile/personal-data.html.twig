@@ -19,7 +19,7 @@
 </div>
 
 <div class="pbb-edit">
-    <form action="" method="post">
+    <form action="{{ path('admin_user_profile_update') }}" method="post">
         <dl class="dl-horizontal">
             <dt>
                 {{ 'Name' | trans }}
@@ -27,7 +27,7 @@
             <dd>
                 <div class="form-group">
                     <div class="line">
-                        <input class="form-control" type="text" id="admin_user_profile_name" value="{% if user.name is not null %}{{ user.name }}{% endif %}" placeholder="{{ 'Your name...' | trans }}" />
+                        <input class="form-control" type="text" name="admin_user_profile[name]" value="{% if user.name is not null %}{{ user.name }}{% endif %}" placeholder="{{ 'Your name...' | trans }}" />
                     </div>
                 </div>
             </dd>
@@ -40,7 +40,7 @@
             <dd>
                 <div class="form-group">
                     <div class="line">
-                        <input class="form-control" type="text" id="admin_user_profile_surname" value="{% if user.lastName is not null %}{{ user.lastName }}{% endif %}" placeholder="{{ 'Your surname...' | trans }}" />
+                        <input class="form-control" type="text" name="admin_user_profile[lastName]" value="{% if user.lastName is not null %}{{ user.lastName }}{% endif %}" placeholder="{{ 'Your surname...' | trans }}" />
                     </div>
                 </div>
             </dd>

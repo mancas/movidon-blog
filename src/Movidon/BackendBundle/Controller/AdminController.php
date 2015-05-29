@@ -36,10 +36,29 @@ class AdminController extends CustomController
 
     public function updateProfileAction(Request $request)
     {
-        $form = $this->createForm(new AdminUserProfileType(), $this->getCurrentUser());
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getEntityManager();
+            $form = $this->createForm(new AdminUserProfileType(), $this->getCurrentUser());
+            $form->handleRequest($request);
 
-        $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $request->request->all();
+                $data = $data['admin_user_profile'];
 
-        ldd($form->getData()->getSummary());
+                $em->persist($form->getData());
+                $em->flush();
+
+                $updatedValues = array();
+                foreach ($data as $key => $value) {
+                    ld($key, $value);
+                    $updatedValues['admin_user_profile_' . $key] = $value;
+                }
+
+                $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
+            }
+        }
+
+        return $this->getHttpJsonResponse($json_response);
     }
 }

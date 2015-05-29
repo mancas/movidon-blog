@@ -27,7 +27,8 @@ class AdminUserProfileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Movidon\BackendBundle\Entity\AdminUser'
+            'data_class' => 'Movidon\BackendBundle\Entity\AdminUser',
+            'csrf_protection' => false
         ));
     }
 

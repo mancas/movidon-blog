@@ -62,13 +62,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
-     * @Assert\NotBlank()
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Assert\NotBlank()
      */
     protected $lastName;
 
