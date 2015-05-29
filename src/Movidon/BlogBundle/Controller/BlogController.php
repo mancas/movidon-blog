@@ -18,6 +18,14 @@ class BlogController extends CustomController
     }
 
     /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
+    public function viewAction(Post $post)
+    {
+        return $this->render('BlogBundle:Blog:post.html.twig', array('post' => $post));
+    }
+
+    /**
      * @param Post $post
      * @Template("BlogBundle:Commons:post-card.html.twig")
      *

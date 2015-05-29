@@ -6,14 +6,6 @@
 
 {% block body %}
     <div class="container container-main">
-        {% block error %}
-            <div class="row">
-                <div class="col-md-12">
-                    {% include 'FrontendBundle:Commons:flashes.html.twig' %}
-                </div>
-            </div>
-        {% endblock %}
-
         <div class="row">
             <div class="col-md-8">
                 {% block content %}{% endblock %}
