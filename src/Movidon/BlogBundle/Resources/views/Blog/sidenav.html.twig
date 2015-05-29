@@ -1,0 +1,23 @@
+<section class="sidenav">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="sidenav-content card">
+                <div class="authors">
+                    <h3>{{ 'Authors' | trans }}</h3>
+                    <ul class="list-unstyled">
+                        {% for author in post.authors %}
+                            {% if author.name | length > 0 and author.imageProfile is not null%}
+                                <li>
+                                    <a href="#view-profile" title="{{ 'View ' ~ author.name ~ ' profile' | trans }}">
+                                        {% set path = author.imageProfile.webFilePath ~ '?' ~ random() %}
+                                        <img src="{{ asset(path) }}">
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

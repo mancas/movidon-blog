@@ -173,7 +173,51 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     #post .card .post-body {
       padding-top: 2rem; }
   #post footer {
-    background: none; }
+    background: none;
+    padding: 0; }
+    #post footer .tags li {
+      display: inline-block;
+      margin-right: 1rem; }
+      #post footer .tags li a {
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        background-color: #D42F43;
+        transition: background-color 250ms ease 0s; }
+        #post footer .tags li a:hover {
+          background-color: #9b1e3a; }
+
+/** CAROUSEL **/
+.carousel {
+  height: 40rem; }
+
+/** POST SIDENAV **/
+.sidenav .sidenav-content {
+  padding: 1rem 2rem; }
+  .sidenav .sidenav-content h3 {
+    color: #D42F43; }
+  .sidenav .sidenav-content ul li {
+    display: inline-block;
+    margin-right: 1rem;
+    position: relative; }
+    .sidenav .sidenav-content ul li img {
+      border-radius: 50%;
+      height: 5.6rem;
+      width: 5.6rem;
+      border: solid 0.2rem #D42F43; }
+    .sidenav .sidenav-content ul li a:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      opacity: 0.2;
+      background-color: #D42F43;
+      transition: transform 250ms ease 0s;
+      transform: scale(0); }
+    .sidenav .sidenav-content ul li a:hover:before {
+      transform: scale(1); }
 
 /** FOOTER **/
 footer {

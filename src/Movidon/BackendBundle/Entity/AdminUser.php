@@ -96,7 +96,10 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      */
     protected $website;
 
-
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $visits;
 
     public function serialize()
     {
@@ -312,5 +315,21 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setImageProfile($imageProfile)
     {
         $this->imageProfile = $imageProfile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVisits()
+    {
+        return $this->visits;
+    }
+
+    /**
+     * @param mixed $visits
+     */
+    public function setVisits($visits)
+    {
+        $this->visits = $visits;
     }
 }

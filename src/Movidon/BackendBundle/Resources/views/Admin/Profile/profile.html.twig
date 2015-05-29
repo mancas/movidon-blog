@@ -13,12 +13,12 @@
                     <form method="post" action="{{ path('admin_user_profile') }}" {{ form_enctype(form) }}>
                         <div class="p-picture">
                             <a id="profile-image" href="" class="upload-photo">
-                                {% if user.imageProfile is defined %}
+                                {% if user.imageProfile is defined and user.imageProfile is not null %}
                                 {% set image = user.imageProfile.getWebFilePath ~ '?' ~ random() %}
-                                    <img class="img-responsive" src="{{ asset(image) }}" />
                                 {% else %}
-                                <img class="img-responsive" src="http://byrushan.com/projects/ma/v1-3-1/img/profile-pics/profile-pic-2.jpg">
+                                    {% set image = 'bundles/backend/img/no-photo.png' %}
                                 {% endif %}
+                                <img class="img-responsive" src="{{ asset(image) }}" />
                                 <button type="submit" class="hidden float-action-button fab-green borderless"><i class="fa fa-check"></i></button>
                             </a>
                             <div class="edit-mode">

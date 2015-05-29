@@ -37,7 +37,13 @@
                         {{ post.body | raw }}
                     </section>
                     <footer>
-
+                        <div class="tags">
+                            <ul class="list-unstyled">
+                            {% for tag in post.tags %}
+                                <li><a href="#view-post-of-tag" title="{{ 'View related posts' | trans }}">{{ tag }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
                     </footer>
                 </article>
             </div>
@@ -46,28 +52,7 @@
 {% endblock %}
 
 {% block sidenav %}
-    <section class="sidenav">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="sidenav-content card">
-                    <div class="authors">
-                        <h3>{{ 'Authors' | trans }}</h3>
-                        <ul class="list-unstyled">
-                            {% for author in post.authors %}
-                                {% if author.name | length > 0 %}
-                                <li>
-                                    <a href="#view-profile">
-                                        {{ author.name }}
-                                    </a>
-                                </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'BlogBundle:Blog:sidenav.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

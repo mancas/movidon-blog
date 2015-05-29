@@ -3,9 +3,11 @@
 $white: #FFFFFF;
 $text-shadow: #333333;
 $red: #D42F43;
+$red-hover: #9b1e3a;
 $light-gray: #eeeeee;
 $box-shadow: rgba(0, 0, 0, 0.3);
 $gray: #dddddd;
+$black: #000000;
 
 * {
   margin: 0;
@@ -255,6 +257,75 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
 
   footer {
     background: none;
+    padding: 0;
+
+    .tags {
+      li {
+        display: inline-block;
+        margin-right: 1rem;
+        a {
+          color: $white;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          background-color: $red;
+          transition: background-color 250ms ease 0s;
+          &:hover {
+            background-color: $red-hover;
+          }
+        }
+      }
+    }
+  }
+}
+
+/** CAROUSEL **/
+.carousel {
+  height: 40rem;
+}
+
+/** POST SIDENAV **/
+.sidenav {
+  .sidenav-content {
+    padding: 1rem 2rem;
+
+    h3 {
+      color: $red;
+    }
+
+    ul {
+      li {
+        display: inline-block;
+        margin-right: 1rem;
+        position: relative;
+        img {
+          border-radius: 50%;
+          height: 5.6rem;
+          width: 5.6rem;
+          border: solid 0.2rem $red;
+        }
+
+        a {
+          &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0.2;
+            background-color: $red;
+            transition: transform 250ms ease 0s;
+            transform: scale(0);
+          }
+
+          &:hover {
+            &:before {
+              transform: scale(1);
+            }
+          }
+        }
+      }
+    }
   }
 }
 

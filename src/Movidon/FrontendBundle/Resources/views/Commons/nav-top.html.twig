@@ -17,8 +17,8 @@
                 <li {% if action == 'view_categories' %}class="active"{% endif %}>
                     <a href="" alt="{{ 'Descubre los eventos que organizamos' | trans }}">{{ 'Eventos' | trans }}</a>
                 </li>
-                <li {% if action == 'ecommerce_homepage' %}class="active"{% endif %}>
-                    <a href="" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
+                <li {% if action == 'blog' or action == 'blog_view_post' %}class="active"{% endif %}>
+                    <a href="{{ path('blog') }}" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
                 </li>
                 <li {% if action == 'contact' %}class="active"{% endif %}>
                     <a href="" title="{{ '¿Tienes alguna consulta? Escríbenos' }}">{{ 'Contacta' | trans }}</a>
