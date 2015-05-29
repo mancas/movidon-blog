@@ -51,6 +51,8 @@ $material-body-background: #fafafa;
 $material-paginator-gray: #e2e2e2;
 $material-paginator-gray-hover: #D7D7D7;
 
+$black-transparent-05: rgba(0, 0, 0, 0.5);
+
 body, html {
   height: 100%;
 }
@@ -335,7 +337,7 @@ header {
       left: 0;
       padding: 1rem 1.5rem;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: $black-transparent-05;
       color: $white;
       font-size: 1.2rem;
       cursor: pointer;
@@ -2088,6 +2090,57 @@ table {
   top: 0;
   left: 0;
   background-color: $background-hover;
+
+  .p-picture {
+    margin: 2rem 2rem 0;
+    position: relative;
+    overflow: hidden;
+    a {
+      display: block;
+    }
+
+    &:hover {
+      .edit-mode {
+        transform: translate(0, 0);
+      }
+    }
+
+    .edit-mode {
+      display: block;
+      width: 100%;
+      min-height: 4rem;
+      position: absolute;
+      top: 0;
+      background-color: $black-transparent-05;
+      text-align: center;
+      color: $white;
+      line-height: 4rem;
+      transition: transform 250ms ease 0s;
+      transform: translate(0, -100%);
+
+      i {
+        margin-right: 1rem;
+      }
+    }
+
+    .p-visits {
+      background-color: $material-amber;
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+      color: $white;
+      border-bottom-left-radius: 0.2rem;
+      border-bottom-right-radius: 0.2rem;
+
+      h2 {
+        margin: 0;
+        font-size: 3.2rem;
+      }
+
+      small {
+        font-size: 1.4rem;
+      }
+    }
+  }
 }
 
 .p-main {
