@@ -10,18 +10,23 @@
         <div class="col-md-12">
             <div class="card-item">
                 <div class="p-overview">
-                    <div class="p-picture">
-                        <a href="">
-                            <img class="img-responsive" src="http://byrushan.com/projects/ma/v1-3-1/img/profile-pics/profile-pic-2.jpg">
-                        </a>
-                        <div class="edit-mode">
-                            <span><i class="fa fa-camera"></i>{{ 'Upload new photo' | trans }}</span>
+                    <form method="post" action="{{ path('admin_user_profile') }}" {{ form_enctype(form) }}></form>
+                        <div class="p-picture">
+                            <a id="profile-image" href="" class="upload-photo">
+                                <img class="img-responsive" src="http://byrushan.com/projects/ma/v1-3-1/img/profile-pics/profile-pic-2.jpg">
+                                <button type="submit" class="hidden float-action-button fab-green borderless"><i class="fa fa-check"></i></button>
+                            </a>
+                            <div class="edit-mode">
+                                <span><i class="fa fa-camera"></i>{{ 'Upload new photo' | trans }}</span>
+                            </div>
+                            <div class="p-visits">
+                                <h2>152</h2>
+                                <small>visits</small>
+                            </div>
                         </div>
-                        <div class="p-visits">
-                            <h2>152</h2>
-                            <small>visits</small>
-                        </div>
-                    </div>
+                        {{ form_widget(form.image, { 'attr': { 'class': 'hidden'} }) }}
+                        {{ form_rest(form) }}
+                    </form>
                 </div>
 
                 <div class="p-main clearfix">
@@ -90,8 +95,15 @@
     {% include 'BackendBundle:Scripts:image-thumbnail-helper.html.twig' %}
     {% include 'BackendBundle:Scripts:profile-helper.html.twig' %}
     <script>
-        window.addEventListener('load', function(evt) {
-            //ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
+        window.addEventListener('load', function() {
+            function onLoad(evt) {
+                var img = this.container.querySelector('img');
+                img.src = evt.target.result;
+                var submitBtn = this.container.querySelector('button[type="submit"]');
+                submitBtn.classList.remove('hidden');
+            }
+
+            ImageThumbnail.single('#image_image', '#profile-image', null, '.upload-photo', onLoad);
         });
     </script>
 {% endblock %}

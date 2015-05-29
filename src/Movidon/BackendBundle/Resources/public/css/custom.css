@@ -19,6 +19,9 @@ body {
 .mt1 {
   margin-top: 1rem; }
 
+a:hover, a:focus, a:active, a:visited {
+  outline: none; }
+
 /** BACKGROUND COLORS **/
 .bg-red {
   background-color: #f44336; }
@@ -1403,7 +1406,11 @@ table .btn-purple {
     position: relative;
     overflow: hidden; }
     .p-overview .p-picture a {
-      display: block; }
+      display: block;
+      position: relative; }
+      .p-overview .p-picture a .float-action-button {
+        right: 50%;
+        transform: translate(50%, -50%); }
     .p-overview .p-picture:hover .edit-mode {
       transform: translate(0, 0); }
     .p-overview .p-picture .edit-mode {
@@ -1423,7 +1430,7 @@ table .btn-purple {
     .p-overview .p-picture .p-visits {
       background-color: #ffc107;
       text-align: center;
-      padding: 2rem 0 1.5rem;
+      padding: 4rem 0 1.5rem;
       color: #ffffff;
       border-bottom-left-radius: 0.2rem;
       border-bottom-right-radius: 0.2rem; }

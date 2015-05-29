@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"post"="ImagePost", "avatar"="ImageAvatar"})
+ * @ORM\DiscriminatorMap({"post"="ImagePost", "avatar"="ImageAvatar", "profile"="ImageProfile"})
  */
 abstract class Image
 {

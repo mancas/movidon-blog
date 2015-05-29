@@ -79,6 +79,12 @@ body {
   margin-top: 1rem;
 }
 
+a {
+  &:hover, &:focus, &:active, &:visited {
+    outline: none;
+  }
+}
+
 /** BACKGROUND COLORS **/
 .bg-red {
   background-color: $material-red;
@@ -2097,6 +2103,12 @@ table {
     overflow: hidden;
     a {
       display: block;
+      position: relative;
+
+      .float-action-button {
+        right: 50%;
+        transform: translate(50%, -50%);
+      }
     }
 
     &:hover {
@@ -2126,7 +2138,7 @@ table {
     .p-visits {
       background-color: $material-amber;
       text-align: center;
-      padding: 2rem 0 1.5rem;
+      padding: 4rem 0 1.5rem;
       color: $white;
       border-bottom-left-radius: 0.2rem;
       border-bottom-right-radius: 0.2rem;

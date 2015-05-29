@@ -4,6 +4,7 @@ namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BackendBundle\Form\Type\AdminUserProfileType;
+use Movidon\ImageBundle\Form\Type\ImageType;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -30,9 +31,16 @@ class AdminController extends CustomController
                                                                                    'avatars' => $avatars));
     }
 
-    public function viewProfileAction()
+    public function viewProfileAction(Request $request)
     {
-        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('user' => $this->getCurrentUser()));
+        $form = $this->createForm(new ImageType());
+        $imagesHandler = $this->get('image.form_handler');
+        if ($request->isMethod('post') &&
+            !$imagesHandler->handle($form, $request, $this->getCurrentUser())) {
+            $this->setTranslatedFlashMessage('Your profile image could not be updated', 'error');
+        }
+
+        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('user' => $this->getCurrentUser(), 'form' => $form->createView()));
     }
 
     public function updateProfileAction(Request $request)

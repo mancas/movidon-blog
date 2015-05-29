@@ -2,6 +2,8 @@
 
 namespace Movidon\ImageBundle\Form\Handler;
 
+use Movidon\BackendBundle\Entity\AdminUser;
+use Movidon\ImageBundle\Entity\ImageProfile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
 use Movidon\ImageBundle\Form\Handler\ImageManager;
@@ -22,19 +24,21 @@ class CreateImageHandler
         $this->validator = $validator;
     }
 
-    public function handle(FormInterface $form, Request $request, Image $image)
+    public function handle(FormInterface $form, Request $request, AdminUser $user)
     {
         if ($request->isMethod('POST')) {
             $imageConstraint = new \Symfony\Component\Validator\Constraints\Image();
-            $form->bind($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
                 $file = $data['file'];
                 $imageConstraint->maxSizeMessage = Image::ERROR_MESSAGE;
                 $imageConstraint->maxSize = Image::MAX_SIZE;
                 $errorList = $this->validator->validateValue($file, $imageConstraint);
-                if (count($errorList) == 0) {
+                if (count($errorList) === 0) {
+                    $image = new ImageProfile();
                     $image->setFile($file);
+                    $image->setUser($user);
                     $this->imageManager->createImage($image);
                 } else {
                     return false;

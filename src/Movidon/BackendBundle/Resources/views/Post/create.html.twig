@@ -57,7 +57,7 @@
     <script>
         window.addEventListener('load', function(evt) {
             $(".select2").select2();
-            ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails');
+            ImageThumbnail.multiple('#multiple_images_images', '#upload-thumbnails');
 
             {% if edition is defined and post.images | length > 0 %}
             var postImages = document.querySelectorAll('#thumbnails li');

@@ -69,7 +69,7 @@
     {% include 'BackendBundle:Scripts:image-thumbnail-helper.html.twig' %}
     <script>
         window.addEventListener('load', function(evt) {
-            ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
+            ImageThumbnail.multiple('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
             {% if avatars | length > 0 %}
             var avatars = document.querySelectorAll('#thumbnails li');
             console.info(avatars);
