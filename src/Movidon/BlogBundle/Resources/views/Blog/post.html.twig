@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <article id="post-{{ post.id }}" class="card">
                     <header>
-                        {% set path = post.imageMain.ImagePostCard.getWebFilePath ~ '?' ~ random() %}
+                        {% set path = post.imageMain.getWebFilePath ~ '?' ~ random() %}
                         <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.title }}" />
                         <h1>{{ post.title }}</h1>
                         <h2 class="subtitle">
@@ -41,6 +41,31 @@
 
                     </footer>
                 </article>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block sidenav %}
+    <section class="sidenav">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sidenav-content card">
+                    <div class="authors">
+                        <h3>{{ 'Authors' | trans }}</h3>
+                        <ul class="list-unstyled">
+                            {% for author in post.authors %}
+                                {% if author.name | length > 0 %}
+                                <li>
+                                    <a href="#view-profile">
+                                        {{ author.name }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
