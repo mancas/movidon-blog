@@ -5,7 +5,6 @@
             this._initCloseEvents();
             this._initShakeElements();
             this._initDeleteAlertEvents();
-            this._initEditActionEvents();
         },
 
         _initCloseEvents: function() {
@@ -60,34 +59,6 @@
                     AlertHelper.alert('#delete-item-alert');
                 })
             });
-        },
-
-        _initEditActionEvents: function () {
-            var editBtns = document.querySelectorAll('[data-action="edit"]');
-            var self = this;
-
-            Array.prototype.forEach.call(editBtns, function(btn) {
-                btn.addEventListener('click', function(evt) {
-                    evt.preventDefault();
-                    var container = document.querySelector(btn.dataset.target + ' .p-block-body');
-                    if (typeof container === 'undefined' || !container) {
-                        return;
-                    }
-                    container.classList.add('edit-mode');
-
-                    self._attachEventsToResetBtns(container);
-                });
-            });
-        },
-
-        _attachEventsToResetBtns: function(container) {
-            var resetBtn = container.querySelector('button[type="reset"]');
-            resetBtn.addEventListener('click', function onClick(evt) {
-                evt.preventDefault();
-                resetBtn.removeEventListener('click', onClick);
-
-                container.classList.remove('edit-mode');
-            })
         }
     };
 

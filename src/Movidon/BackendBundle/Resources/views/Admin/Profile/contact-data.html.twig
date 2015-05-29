@@ -3,8 +3,8 @@
         <dt>
             {{ 'Email' | trans }}
         </dt>
-        <dd>
-            {% if user.email %}<i class="fa fa-envelope"></i>{{ user.email }}{% endif %}
+        <dd data-update="admin_user_profile_email">
+            {% if user.email %}{{ user.email }}{% endif %}
         </dd>
     </dl>
 
@@ -13,7 +13,7 @@
             {{ 'Twitter' | trans }}
         </dt>
         <dd>
-            {% if user.twitter %}<i class="fa fa-at"></i>{{ user.twitter }}{% endif %}
+            {% if user.twitter %}<i class="fa fa-at"></i><span data-update="admin_user_profile_twitter">{{ user.twitter }}</span>{% endif %}
         </dd>
     </dl>
 
@@ -21,14 +21,14 @@
         <dt>
             {{ 'Website' | trans }}
         </dt>
-        <dd>
+        <dd data-update="admin_user_profile_website">
             {% if user.website %}{{ user.website }}{% endif %}
         </dd>
     </dl>
 </div>
 
 <div class="pbb-edit">
-    <form action="{{ path('admin_user_profile_update') }}" method="post">
+    <form id="profile-contact-data" action="{{ path('admin_user_profile_update') }}" method="post">
         <dl class="dl-horizontal">
             <dt>
                 {{ 'Email' | trans }}

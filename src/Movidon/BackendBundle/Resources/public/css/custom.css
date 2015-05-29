@@ -1405,7 +1405,8 @@ table .btn-purple {
   .p-main .p-block {
     padding: 4rem 4rem 0;
     margin-bottom: 2rem;
-    color: rgba(0, 0, 0, 0.54); }
+    color: rgba(0, 0, 0, 0.54);
+    position: relative; }
     .p-main .p-block:last-child {
       margin-bottom: 4rem; }
     .p-main .p-block .p-block-header {

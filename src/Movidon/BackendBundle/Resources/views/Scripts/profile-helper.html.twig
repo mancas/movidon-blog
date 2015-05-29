@@ -1,0 +1,121 @@
+<script>
+    var ProfileHelper = {
+        forEach: Array.prototype.forEach,
+        containers: {},
+        loading: false,
+
+        init: function() {
+            this._initEditActionEvents();
+        },
+
+        onSubmit: function(evt) {
+            evt.preventDefault();
+            this.loading = true;
+            console.info(evt.target);
+            this.toggleEditIcon(evt.target);
+            // Send a XMLHttpRequest
+            var path = evt.target.getAttribute('action');
+            var data = new FormData(evt.target);
+            console.info(data, evt.target);
+            XMLHttpRequestHelper.sendRequest({method: 'post', path: path,
+                params: data, onsuccess: this.updateProfile.bind(this)});
+        },
+
+        updateProfile: function(responseText) {
+            var response = JSON.parse(responseText);
+
+            if (response.ok) {
+                var updatedValues = response.updatedValues;
+                for (var key in updatedValues) {
+                    var elemsToUpdate = document.querySelectorAll('[data-update="' + key + '"]');
+                    this.forEach.call(elemsToUpdate, function(elm) {
+                        elm.textContent = updatedValues[key];
+                    });
+                }
+            }
+
+            this.toggleEditIcon();
+            this.loading = false;
+        },
+
+        _initEditActionEvents: function () {
+            var editBtns = document.querySelectorAll('[data-action="edit"]');
+            var self = this;
+
+            Array.prototype.forEach.call(editBtns, function(btn) {
+                var container = document.querySelector(btn.dataset.target + ' .p-block-body');
+                btn.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    if (typeof container === 'undefined' || !container || self.loading) {
+                        return;
+                    }
+                    container.classList.add('edit-mode');
+
+                    self._attachEventsToBtns(container);
+                });
+
+                var form = container.querySelector('form');
+                this.containers[form.id] = document.querySelector(btn.dataset.target);
+                this._attachBehaviorToForm(form);
+            }.bind(this));
+        },
+
+        _attachEventsToBtns: function(container) {
+            var resetBtn = container.querySelector('button[type="reset"]');
+            var submitBtn = container.querySelector('button[type="submit"]');
+
+            function onClick(evt) {
+                if (evt.target.getAttribute('type') !== 'submit') {
+                    evt.preventDefault();
+                }
+                evt.target.removeEventListener('click', onClick);
+
+                container.classList.remove('edit-mode');
+            }
+            resetBtn.addEventListener('click', onClick);
+            submitBtn.addEventListener('click', onClick);
+        },
+
+        _attachBehaviorToForm: function(form) {
+            var formInputs = form.querySelectorAll('.form-control');
+            var self = this;
+            this.forEach.call(formInputs, function(input) {
+                input.dataset.currentValue = input.value;
+            });
+
+            var resetBtn = form.querySelector('button[type="reset"]');
+            resetBtn.addEventListener('click', function(evt) {
+                evt.preventDefault();
+                // If the user exits from edit mode, input value must be restored
+                self.forEach.call(formInputs, function(input) {
+                    if (input.nodeName === 'TEXTAREA') {
+                        input.textContent = input.dataset.currentValue;
+                        return;
+                    }
+                    input.value = input.dataset.currentValue;
+                });
+            });
+
+            form.addEventListener('submit', self.onSubmit.bind(self));
+        },
+
+        toggleEditIcon: function(form) {
+            if (typeof form !== 'undefined' && this.containers[form.id]) {
+                var editIcon = this.containers[form.id].querySelector('.fa-pencil');
+                console.info(this.containers[form.id]);
+                editIcon.classList.add('fa-spinner');
+                editIcon.classList.add('fa-spin');
+                editIcon.classList.remove('.fa-pencil');
+            } else {
+                var spinIcon = document.querySelector('.p-main .fa-spin');
+                spinIcon.classList.add('fa-pencil');
+                spinIcon.classList.remove('fa-spinner');
+                spinIcon.classList.remove('fa-spin');
+            }
+        }
+    };
+
+    window.addEventListener('load', function() {
+        ProfileHelper.init();
+    });
+</script>

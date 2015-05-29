@@ -77,42 +77,10 @@
     {{ parent() }}
     {% include 'BackendBundle:Scripts:xmlhttprequest-helper.html.twig' %}
     {% include 'BackendBundle:Scripts:image-thumbnail-helper.html.twig' %}
+    {% include 'BackendBundle:Scripts:profile-helper.html.twig' %}
     <script>
         window.addEventListener('load', function(evt) {
             //ImageThumbnail.init('#multiple_images_images', '#upload-thumbnails', 'image-thumbnail-avatar');
-            var forms = document.querySelectorAll('.p-main form');
-
-            var forEach = Array.prototype.forEach;
-console.info(forms);
-            forEach.call(forms, function(form) {
-                var formInputs = form.querySelectorAll('.form-control');
-                forEach.call(formInputs, function(input) {
-                    input.dataset.currentValue = input.value;
-                });
-
-                var resetBtn = form.querySelector('button[type="reset"]');
-                resetBtn.addEventListener('click', function(evt) {
-                    evt.preventDefault();
-                    // If the user exits from edit mode, input value must be restored
-                    forEach.call(formInputs, function(input) {
-                        input.value = input.dataset.currentValue;
-                    });
-                });
-
-                form.addEventListener('submit', function(evt) {
-                    evt.preventDefault();
-                    console.info('here');
-                    // Send a XMLHttpRequest
-                    var path = evt.target.getAttribute('action');
-                    var data = new FormData(form);
-                    console.info(data, form);
-                    XMLHttpRequestHelper.sendRequest({method: 'post', path: path, params: data, onsuccess: function(response) {
-                        console.info(response);
-                    }, onerror: function(error) {
-                        console.error(error);
-                    }});
-                });
-            });
         });
     </script>
 {% endblock %}

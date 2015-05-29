@@ -1,14 +1,14 @@
 <div class="pbb-view">
-    <p>
+    <p data-update="admin_user_profile_summary">
         {% if user.summary %}{{ user.summary }}{% else %}{{ 'You should type a few lines about you' | trans }}{% endif %}
     </p>
 </div>
 
 <div class="pbb-edit">
-    <form action="{{ path('admin_user_profile_update') }}" method="post">
+    <form id="profile-summary" action="{{ path('admin_user_profile_update') }}" method="post">
         <div class="form-group">
             <div class="line">
-                <textarea name="admin_user_profile[summary]" class="form-control" placeholder="{{ 'Summary...' }}" rows="5">{% if user.summary %}{{ user.summary }}{% endif %}</textarea>
+                <textarea name="admin_user_profile[summary]" class="form-control" value="{% if user.summary %}{{ user.summary }}{% endif %}" placeholder="{{ 'Summary...' }}" rows="5">{% if user.summary %}{{ user.summary }}{% endif %}</textarea>
             </div>
             <div class="mt1">
                 <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>

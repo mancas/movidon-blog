@@ -2,6 +2,7 @@
 
 namespace Movidon\BackendBundle\Controller;
 
+use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BackendBundle\Form\Type\AdminUserProfileType;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,24 +40,23 @@ class AdminController extends CustomController
         $json_response = json_encode(array('ok' => false));
         if ($request->isXmlHttpRequest()) {
             $em = $this->getEntityManager();
-            $form = $this->createForm(new AdminUserProfileType(), $this->getCurrentUser());
-            $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $data = $request->request->all();
-                $data = $data['admin_user_profile'];
+            $data = $request->request->all();
+            $data = $data['admin_user_profile'];
+            $user = $this->getCurrentUser();
 
-                $em->persist($form->getData());
-                $em->flush();
-
-                $updatedValues = array();
-                foreach ($data as $key => $value) {
-                    ld($key, $value);
+            $updatedValues = array();
+            foreach ($data as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($user, $method)) {
+                    $user->$method($value);
                     $updatedValues['admin_user_profile_' . $key] = $value;
                 }
-
-                $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
             }
+
+            $em->persist($user);
+            $em->flush();
+            $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
         }
 
         return $this->getHttpJsonResponse($json_response);
