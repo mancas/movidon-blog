@@ -1,0 +1,57 @@
+{% extends 'FrontendBundle:Layouts:2columns.html.twig' %}
+
+{% block title %}{{ 'MOVERS by FUE'|trans }} | {{ post.title }}{% endblock %}
+{% block description %}{{''|trans}}{% endblock %}
+{% block sectionclass %}blog page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <section id="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <article id="post-{{ post.id }}" class="card">
+                        <header>
+                            {% set path = post.imageMain.ImagePostCard.getWebFilePath ~ '?' ~ random() %}
+                            <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.title }}" />
+                            <h1>{{ post.title }}</h1>
+                            <h2 class="subtitle">
+                                {{ post.subtitle | raw }}
+                            </h2>
+                            {% if post.category is defined %}
+                            <span class="category">{{ post.category }}</span>
+                            {% endif %}
+                            <span class="date">{{ post.created | date("F jS \\a\\t g:ia") }}</span>
+                            <span class="social-buttons">
+                                <a class="" href=""><i class="fa fa-twitter"></i> Twitter</a>
+                                <a class="" href=""><i class="fa fa-facebook"></i> Facebook</a>
+                                <a class="" href=""><i class="fa fa-linkedin"></i> LinkedId</a>
+                            </span>
+                        </header>
+                        <section class="post-body">
+                            {{ post.body | raw }}
+                        </section>
+                        <footer>
+
+                        </footer>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
