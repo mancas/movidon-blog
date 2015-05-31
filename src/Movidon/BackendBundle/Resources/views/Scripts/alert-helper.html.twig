@@ -18,9 +18,23 @@
                 return;
             }
 
+            this.onClose = this._onClose.bind(this);
+
+            this._attachCloseEvents();
+
             this.overlay.classList.add('open');
             this.currentAlert.classList.add('open');
             this._dispatchEvent('ma-opened');
+        },
+
+        _onClose: function(evt) {
+            if (evt.target.getAttribute('type') !== 'reset') {
+                evt.preventDefault();
+            }
+            evt.target.removeEventListener('click', this.onClose);
+            if (this.currentAlert) {
+                this._close();
+            }
         },
 
         close: function(selector) {
@@ -33,6 +47,7 @@
         },
 
         _close: function() {
+            this._removeCloseEvents();
             this.currentAlert.classList.remove('open');
             this.overlay.classList.remove('open');
             this._dispatchEvent('ma-closed');
@@ -58,6 +73,40 @@
             }
 
             document.dispatchEvent(event);
+        },
+
+        _attachCloseEvents: function () {
+            var elems = document.querySelectorAll('[data-close="#' + this.currentAlert.id + '"]');
+
+            Array.prototype.forEach.call(elems, function(elm) {
+                elm.addEventListener('click', this.onClose);
+            }.bind(this));
+        },
+
+        _removeCloseEvents: function () {
+            var elems = document.querySelectorAll('[data-close="#' + this.currentAlert.id + '"]');
+
+            Array.prototype.forEach.call(elems, function(elm) {
+                elm.removeEventListener('click', this.onClose);
+            }.bind(this));
+
+            this.overlay.removeEventListener('click', this.onClose);
+        },
+
+        updateContent: function(alertSelector, newContent) {
+            var alert = document.querySelector(alertSelector);
+            if (typeof newContent !== 'object' || !alert) {
+                return;
+            }
+
+            for (var key in newContent) {
+                var element = alert.querySelector('[data-update="' + key + '"]');
+                if (!element) {
+                    continue;
+                }
+
+                element.setAttribute(key, newContent[key]);
+            }
         }
     };
 </script>

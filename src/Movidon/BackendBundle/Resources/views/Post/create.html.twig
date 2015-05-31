@@ -52,19 +52,19 @@
 {% block alerts %}
     <!-- ALERTS -->
     <div id="edit-img-alert" class="material-alert">
-        <img src="/movidon/web/uploads/images/posts/032/32-thumb.png?1072799454" />
+        <img data-update="src" src="/movidon/web/uploads/images/posts/032/32-thumb.png?1072799454" />
         <h2>{{ 'Edit image' | trans }}</h2>
-        <form action="" id="edit-image" method="post">
+        <form data-update="action" action="" id="edit-image" method="post">
             <div class="form-group text-left">
                 <label for="post_subtitle">{{ 'Image alt' | trans }}</label>
                 <div class="line">
-                    <input type="text" class="form-control" name="image_alt" />
+                    <input data-update="value" type="text" class="form-control" name="image[description]" />
                 </div>
                 <small class="help-block">
                     {{ 'Alt attribute is used in SEO' | trans }}
                 </small>
             </div>
-            <button id="dia-cancel" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
+            <button id="dia-cancel" data-close="#edit-img-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
             <button id="dia-save" type="submit" class="btn btn-blue">{{ 'Save changes' | trans }}</button>
         </form>
     </div>
@@ -87,13 +87,44 @@
             Array.prototype.forEach.call(postImages, function(image) {
                 image.addEventListener('click', function(evt) {
                     evt.preventDefault();
-                    XMLHttpRequestHelper.sendRequest('post', image.dataset.path, null, function onsuccess(result) {
+                    var newContent = {
+                        src: image.dataset.src,
+                        value: image.dataset.description,
+                        action: image.dataset.action
+                    };
+                    AlertHelper.updateContent('#edit-img-alert', newContent);
+                    AlertHelper.alert('#edit-img-alert');
+                    /*XMLHttpRequestHelper.sendRequest('post', image.dataset.path, null, function onsuccess(result) {
                         var response = JSON.parse(result);
                         if (response.ok) {
                             image.parentNode.removeChild(image);
                         }
-                    });
+                    });*/
                 })
+            });
+
+            var form = document.querySelector('form#edit-image');
+            form.addEventListener('submit', function(evt) {
+                evt.preventDefault();
+                var path = evt.target.getAttribute('action');
+                var data = new FormData(evt.target);
+
+                function onSuccess(responseText) {
+                    var response = JSON.parse(responseText);
+                    if (response.ok) {
+                        AlertHelper.close('#edit-img-alert');
+                        var updatedValues = response.updatedValues;
+                        for (var key in updatedValues) {
+                            var elemsToUpdate = document.querySelectorAll('[data-' + key + ']');
+                            Array.prototype.forEach.call(elemsToUpdate, function(elm) {
+                                elm.dataset[key] = updatedValues[key];
+                            });
+                        }
+                    }
+                }
+
+                XMLHttpRequestHelper.sendRequest({method: 'post', path: path,
+                    params: data, onsuccess: onSuccess});
             });
             {% endif %}
         });
@@ -101,8 +132,6 @@
             var theText = ed.selection.getContent();
             ed.selection.setContent('<strong>'+theText+'</strong>');
         }
-
-        AlertHelper.alert('#edit-img-alert');
     </script>
     {{ tinymce_init() }}
 {% endblock %}

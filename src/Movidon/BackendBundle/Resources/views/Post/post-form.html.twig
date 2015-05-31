@@ -68,8 +68,8 @@
     {% if edition is defined and post.images | length > 0 %}
     <ul id="thumbnails" class="list-unstyled thumbnails-list">
         {% for image in post.images %}
-            <li data-path="{{ path('delete_image', {'id' : image.id}) }}">
-                {% set path = image.ImageThumbnail.getWebFilePath ~ '?' ~ random() %}
+            {% set path = image.ImageThumbnail.getWebFilePath ~ '?' ~ random() %}
+            <li data-delete-path="{{ path('delete_image', {'id' : image.id}) }}" data-action="{{ path('update_image', {'id': image.id}) }}" data-src="{{ asset(path) }}" data-description="{{ image.description }}">
                 <img src="{{ asset(path) }}" class="image-thumbnail" />
             </li>
         {% endfor %}

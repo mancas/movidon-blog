@@ -75,4 +75,33 @@ class ImageController extends CustomController
 
         return $this->getHttpJsonResponse($jsonResponse);
     }
+
+    /**
+     * @ParamConverter("image", class="ImageBundle:Image")
+     */
+    public function updateImageAction(Image $image, Request $request)
+    {
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getEntityManager();
+
+            $data = $request->request->all();
+            $data = $data['image'];
+
+            $updatedValues = array();
+            foreach ($data as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($image, $method)) {
+                    $image->$method($value);
+                    $updatedValues[$key] = $value;
+                }
+            }
+
+            $em->persist($image);
+            $em->flush();
+            $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
+        }
+
+        return $this->getHttpJsonResponse($json_response);
+    }
 }

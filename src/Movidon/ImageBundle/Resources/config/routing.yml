@@ -2,6 +2,10 @@ delete_image:
     pattern:  /delete-image/{id}
     defaults: { _controller: ImageBundle:Image:deleteImage }
 
+update_image:
+    pattern:  /update-image/{id}
+    defaults: { _controller: ImageBundle:Image:updateImage }
+
 change_image_main:
     pattern:  /change-image-main/{id}
     defaults: { _controller: ImageBundle:Image:changeImageMain }
