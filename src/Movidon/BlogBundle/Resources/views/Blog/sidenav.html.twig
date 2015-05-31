@@ -2,6 +2,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="sidenav-content card">
+                {{ render(controller('BlogBundle:Blog:tagCloud')) }}
+
                 <div class="authors">
                     <h3>{{ 'Authors' | trans }}</h3>
                     <ul class="list-unstyled">

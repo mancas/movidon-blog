@@ -30,4 +30,20 @@ class TagRepository extends CustomEntityRepository
 
         return $qb->getQuery();
     }
+
+    public function findTagsWithPostsCount($limit = null)
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('t.id', 't.name', 't.slug', 'count(t.id) AS postCount');
+        $qb->innerJoin('t.posts', 'p');
+
+        $qb->addOrderBy('t.name','ASC');
+        $qb->groupBy('t.id');
+
+        if (isset($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

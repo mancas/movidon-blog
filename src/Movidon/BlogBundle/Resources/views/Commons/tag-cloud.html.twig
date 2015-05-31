@@ -1,0 +1,12 @@
+{% if tags | length > 0 %}
+<div class="tags-cloud">
+    <h3>{{ 'Tags' | trans }}</h3>
+    <ul>
+        {% for tag in tags %}
+            <li class="tag{{ tag.value }}">
+                <a href="" title="">{{ tag.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

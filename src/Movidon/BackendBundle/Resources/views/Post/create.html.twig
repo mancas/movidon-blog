@@ -49,6 +49,27 @@
     </div>
 {% endblock %}
 
+{% block alerts %}
+    <!-- ALERTS -->
+    <div id="edit-img-alert" class="material-alert">
+        <img src="/movidon/web/uploads/images/posts/032/32-thumb.png?1072799454" />
+        <h2>{{ 'Edit image' | trans }}</h2>
+        <form action="" id="edit-image" method="post">
+            <div class="form-group text-left">
+                <label for="post_subtitle">{{ 'Image alt' | trans }}</label>
+                <div class="line">
+                    <input type="text" class="form-control" name="image_alt" />
+                </div>
+                <small class="help-block">
+                    {{ 'Alt attribute is used in SEO' | trans }}
+                </small>
+            </div>
+            <button id="dia-cancel" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
+            <button id="dia-save" type="submit" class="btn btn-blue">{{ 'Save changes' | trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
@@ -80,6 +101,8 @@
             var theText = ed.selection.getContent();
             ed.selection.setContent('<strong>'+theText+'</strong>');
         }
+
+        AlertHelper.alert('#edit-img-alert');
     </script>
     {{ tinymce_init() }}
 {% endblock %}

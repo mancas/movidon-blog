@@ -292,41 +292,72 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
       color: $red;
     }
 
-    ul {
-      li {
-        display: inline-block;
-        margin-right: 1rem;
-        position: relative;
-        img {
-          border-radius: 50%;
-          height: 5.6rem;
-          width: 5.6rem;
-          border: solid 0.2rem $red;
-        }
-
-        a {
-          &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
+    .authors {
+      ul {
+        li {
+          display: inline-block;
+          margin-right: 1rem;
+          position: relative;
+          img {
             border-radius: 50%;
-            opacity: 0.2;
-            background-color: $red;
-            transition: transform 250ms ease 0s;
-            transform: scale(0);
+            height: 5.6rem;
+            width: 5.6rem;
+            border: solid 0.2rem $red;
           }
 
-          &:hover {
+          a {
             &:before {
-              transform: scale(1);
+              content: '';
+              display: block;
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              opacity: 0.2;
+              background-color: $red;
+              transition: transform 250ms ease 0s;
+              transform: scale(0);
+            }
+
+            &:hover {
+              &:before {
+                transform: scale(1);
+              }
             }
           }
         }
       }
     }
   }
+}
+
+/** TAGS CLOUD **/
+.tags-cloud {
+  ul {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: $text-shadow;
+        text-decoration: none;
+        padding: 0 0.2rem;
+
+        &:hover {
+          color: $red-hover;
+        }
+      }
+    }
+  }
+
+  .tag1{font-size:100%;}
+  .tag2{font-size:120%;}
+  .tag3{font-size:140%;}
+  .tag4{font-size:160%;}
+  .tag5{font-size:180%;}
 }
 
 

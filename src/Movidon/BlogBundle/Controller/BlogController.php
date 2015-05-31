@@ -4,6 +4,7 @@ namespace Movidon\BlogBundle\Controller;
 
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\FrontendBundle\Controller\CustomController;
+use Movidon\FrontendBundle\Util\ArrayHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -22,7 +23,32 @@ class BlogController extends CustomController
      */
     public function viewAction(Post $post)
     {
+        $this->tagCloudAction();
         return $this->render('BlogBundle:Blog:post.html.twig', array('post' => $post));
+    }
+
+    /**
+     * @Template("BlogBundle:Commons:tag-cloud.html.twig")
+     *
+     * @return array
+     */
+    public function tagCloudAction() {
+        $em = $this->getEntityManager();
+        $tags = $em->getRepository('BlogBundle:Tag')->findTagsWithPostsCount();
+
+        $arrayValues = array();
+        if (count($tags) > 0) {
+            $tagsValues = array();
+            foreach ($tags as $tag) {
+                $arrayValues[] = $tag['postCount'];
+            }
+            foreach ($tags as $tag) {
+                $tag['value'] = ArrayHelper::getBoundPosition($tag['postCount'], $arrayValues);
+                $tagsValues[] = $tag;
+            }
+        }
+
+        return array('tags' => $tagsValues);
     }
 
     /**

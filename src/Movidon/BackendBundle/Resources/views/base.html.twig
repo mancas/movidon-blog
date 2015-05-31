@@ -38,6 +38,8 @@
         <button id="dia-delete" class="btn btn-red">{{ 'Yes, delete it' | trans }}</button>
     </div>
 
+    {% block alerts %}{% endblock %}
+
     {% block javascripts %}
         <script>
             $(document).ready(function(){
