@@ -13,6 +13,10 @@ $black: #000000;
   margin: 0;
 }
 
+b, strong {
+  color: $red !important;
+}
+
 html, body {
   height: 100%;
   width: 100%;

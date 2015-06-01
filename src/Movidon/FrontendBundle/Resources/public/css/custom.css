@@ -2,6 +2,9 @@
 * {
   margin: 0; }
 
+b, strong {
+  color: #D42F43 !important; }
+
 html, body {
   height: 100%;
   width: 100%;

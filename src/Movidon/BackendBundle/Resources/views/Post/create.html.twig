@@ -50,6 +50,7 @@
 {% endblock %}
 
 {% block alerts %}
+    {% if edition is defined %}
     <!-- ALERTS -->
     <div id="edit-img-alert" class="material-alert">
         <img data-update="src" src="/movidon/web/uploads/images/posts/032/32-thumb.png?1072799454" />
@@ -64,10 +65,15 @@
                     {{ 'Alt attribute is used in SEO' | trans }}
                 </small>
             </div>
+
+            <div class="delete-image">
+                <a data-update="href" href="" class="btn btn-danger"><i class="fa fa-trash"></i>{{ 'Delete image' | trans }}</a>
+            </div>
             <button id="dia-cancel" data-close="#edit-img-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
             <button id="dia-save" type="submit" class="btn btn-blue">{{ 'Save changes' | trans }}</button>
         </form>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
@@ -82,7 +88,6 @@
 
             {% if edition is defined and post.images | length > 0 %}
             var postImages = document.querySelectorAll('#thumbnails li');
-            console.info(postImages);
 
             Array.prototype.forEach.call(postImages, function(image) {
                 image.addEventListener('click', function(evt) {
@@ -90,7 +95,8 @@
                     var newContent = {
                         src: image.dataset.src,
                         value: image.dataset.description,
-                        action: image.dataset.action
+                        action: image.dataset.action,
+                        href: image.dataset.deletePath
                     };
                     AlertHelper.updateContent('#edit-img-alert', newContent);
                     AlertHelper.alert('#edit-img-alert');
