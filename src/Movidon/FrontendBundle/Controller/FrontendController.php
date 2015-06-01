@@ -7,16 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FrontendController extends CustomController
 {
-    const ITEMS_LIMIT_DQL = 12;
+    const POSTS_LIMIT_DQL = 4;
 
     public function indexAction()
     {
-        /*$em = $this->getEntityManager();
-        $nextEvents = $em->getRepository('EventBundle:Event')->findNextEventsFromDate(new \DateTime('now'), 1);
-        $firstEvent = null;
-        if (count($nextEvents) > 0) {
-            $firstEvent = $nextEvents[0];
-        }*/
-        return $this->render('FrontendBundle:Pages:home.html.twig');
+        $em = $this->getEntityManager();
+        $posts = $em->getRepository('BlogBundle:Post')->findAllBlog(self::POSTS_LIMIT_DQL);
+
+        return $this->render('FrontendBundle:Pages:home.html.twig', array('posts' => $posts));
     }
 }

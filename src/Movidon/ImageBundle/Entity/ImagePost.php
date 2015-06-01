@@ -48,12 +48,26 @@ class ImagePost extends Image
         return $thumb;
     }
 
+    public function createImagePostCarousel()
+    {
+        $thumb = $this->getImagePostCarousel();
+        if (!$thumb) {
+            $thumb = new ImagePostCarousel();
+        }
+
+        return $thumb;
+    }
+
     public function createCopies()
     {
         list($oldRoute, $copies) = parent::createCopies();
 
         if ($imagePostCard = $this->createImagePostCard()) {
             $copies[] = $imagePostCard;
+        }
+
+        if ($imagePostCarousel = $this->createImagePostCarousel()) {
+            $copies[] = $imagePostCarousel;
         }
 
         return array($oldRoute, $copies);

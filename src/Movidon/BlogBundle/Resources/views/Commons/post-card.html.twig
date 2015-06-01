@@ -2,9 +2,9 @@
     <!-- Post card -->
     <article class="card">
         <header>
-            <a href="{{ path('blog_view_post', {'slug' : post.slug}) }}" title="{{ 'More' | trans }}">
+            <a href="{{ path('blog_view_post', {'slug' : post.slug}) }}" title="{{ 'Read more' | trans }}">
                 {% set path = post.imageMain.ImagePostCard.getWebFilePath ~ '?' ~ random() %}
-                <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.title }}" />
+                <img class="img-responsive" src="{{ asset(path) }}" alt="{{ post.imageMain.description }}" />
                 <h1>
                     {{ post.title }}
                 </h1>

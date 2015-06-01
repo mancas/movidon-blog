@@ -142,53 +142,62 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   height: 50rem;
   text-align: justify;
   background-color: #FFFFFF; }
-  .card header h1 {
+  .card h1 {
     color: #D42F43; }
-  .card header a {
+  .card a {
     color: #D42F43;
     text-decoration: none; }
   .card section a.read-more {
     color: #D42F43;
     float: right; }
 
-#post {
+#post, #post-home {
   background-color: #eeeeee; }
-  #post .card {
+  #post .card, #post-home .card {
     min-height: 50rem;
     height: auto;
     padding: 1.5rem;
     background-color: #FFFFFF; }
-    #post .card .subtitle {
+    #post .card .subtitle, #post-home .card .subtitle {
       font-style: italic;
       font-size: 1.6rem; }
-    #post .card .date, #post .card .category {
+    #post .card .date, #post .card .category, #post-home .card .date, #post-home .card .category {
       display: block; }
-    #post .card .category {
+    #post .card .category, #post-home .card .category {
       font-weight: bold;
       font-size: 1.5rem; }
-    #post .card .social-buttons {
+    #post .card .social-buttons, #post-home .card .social-buttons {
       display: block;
       margin-top: 1rem; }
-      #post .card .social-buttons a {
+      #post .card .social-buttons a, #post-home .card .social-buttons a {
         margin-right: 1rem; }
-        #post .card .social-buttons a:last-child {
+        #post .card .social-buttons a:last-child, #post-home .card .social-buttons a:last-child {
           margin-right: 0; }
-    #post .card .post-body {
+    #post .card .post-body, #post-home .card .post-body {
       padding-top: 2rem; }
-  #post footer {
+  #post footer, #post-home footer {
     background: none;
     padding: 0; }
-    #post footer .tags li {
-      display: inline-block;
-      margin-right: 1rem; }
-      #post footer .tags li a {
-        color: #FFFFFF;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        background-color: #D42F43;
-        transition: background-color 250ms ease 0s; }
-        #post footer .tags li a:hover {
-          background-color: #9b1e3a; }
+  #post .tags li, #post-home .tags li {
+    display: inline-block;
+    margin-right: 1rem; }
+    #post .tags li a, #post-home .tags li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #D42F43;
+      transition: background-color 250ms ease 0s; }
+      #post .tags li a:hover, #post-home .tags li a:hover {
+        background-color: #9b1e3a; }
+
+#post-home h1 {
+  margin-top: 0; }
+#post-home .sidenav .social-buttons {
+  margin-bottom: 4rem; }
+#post-home .sidenav img {
+  margin-bottom: 1rem; }
+#post-home .sidenav h3 {
+  color: #D42F43; }
 
 /** CAROUSEL **/
 .carousel {

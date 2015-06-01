@@ -215,7 +215,17 @@ abstract class Image
         return $this->getImageCopyFromType('ImagePostCard');
     }
 
-    public function setImagePostCard(\Movidon\ImageBundle\Entity\ImagePostCard $thumbnail)
+    public function setImagePostCard(\Movidon\ImageBundle\Entity\ImagePostCarousel $thumbnail)
+    {
+        $this->setUniqueImageCopy($thumbnail);
+    }
+
+    public function getImagePostCarousel()
+    {
+        return $this->getImageCopyFromType('ImagePostCarousel');
+    }
+
+    public function setImagePostCarousel(\Movidon\ImageBundle\Entity\ImagePostCarousel $thumbnail)
     {
         $this->setUniqueImageCopy($thumbnail);
     }

@@ -53,7 +53,7 @@
     {% if edition is defined %}
     <!-- ALERTS -->
     <div id="edit-img-alert" class="material-alert">
-        <img data-update="src" src="/movidon/web/uploads/images/posts/032/32-thumb.png?1072799454" />
+        <img data-update="src" src="" />
         <h2>{{ 'Edit image' | trans }}</h2>
         <form data-update="action" action="" id="edit-image" method="post">
             <div class="form-group text-left">
@@ -67,7 +67,7 @@
             </div>
 
             <div class="delete-image">
-                <a data-update="href" href="" class="btn btn-danger"><i class="fa fa-trash"></i>{{ 'Delete image' | trans }}</a>
+                <a data-update="href" href="" class="delete-img btn btn-danger"><i class="fa fa-trash"></i>{{ 'Delete image' | trans }}</a>
             </div>
             <button id="dia-cancel" data-close="#edit-img-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
             <button id="dia-save" type="submit" class="btn btn-blue">{{ 'Save changes' | trans }}</button>
@@ -100,12 +100,6 @@
                     };
                     AlertHelper.updateContent('#edit-img-alert', newContent);
                     AlertHelper.alert('#edit-img-alert');
-                    /*XMLHttpRequestHelper.sendRequest('post', image.dataset.path, null, function onsuccess(result) {
-                        var response = JSON.parse(result);
-                        if (response.ok) {
-                            image.parentNode.removeChild(image);
-                        }
-                    });*/
                 })
             });
 
@@ -131,6 +125,20 @@
 
                 XMLHttpRequestHelper.sendRequest({method: 'post', path: path,
                     params: data, onsuccess: onSuccess});
+            });
+
+            var deleteImgBtn = document.querySelector('.delete-img');
+            deleteImgBtn.addEventListener('click', function(evt) {
+                var path = evt.target.getAttribute('href');
+                evt.preventDefault();
+                XMLHttpRequestHelper.sendRequest({method: 'post', path: path, data: null, onsuccess: function onsuccess(result) {
+                    var response = JSON.parse(result);
+                    if (response.ok) {
+                        var li = document.querySelector('[data-delete-path="' + path + '"]')
+                        li.parentNode.removeChild(li);
+                        AlertHelper.close('#edit-img-alert');
+                    }
+                }});
             });
             {% endif %}
         });
