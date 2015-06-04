@@ -1,0 +1,70 @@
+{% extends 'FrontendBundle:Layouts:1column.html.twig' %}
+
+{% block title %}{{ 'MOVERS by FUE'|trans }}{% endblock %}
+{% block description %}{{''|trans}}{% endblock %}
+{% block sectionclass %}blog page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container container-main">
+        <section>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile card card-padding">
+                        {% set path = user.ImageProfile.getWebFilePath ~ '?' ~ random() %}
+                        <img class="img-responsive img-profile" src="{{ asset(path) }}" alt="{{ user.name }}" />
+                        <small>
+                            {{ user.summary }}
+                        </small>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="profile-data card card-padding">
+                        <h1>{{ user.name }} {{ user.lastName }}</h1>
+                        <i>{{ user.degree }}</i>
+
+                        <p>
+                            {{ user.aboutMe }}
+                        </p>
+
+                        <ul class="contact-me list-unstyled">
+                            {% if user.email is defined %}
+                                <li>
+                                    <i class="fa fa-envelope"></i> {{ user.email }}
+                                </li>
+                            {% endif %}
+
+                            {% if user.twitter is defined %}
+                                <li>
+                                    <i class="fa fa-at"></i>{{ user.twitter }}
+                                </li>
+                            {% endif %}
+
+                            {% if user.website is defined %}
+                                <li>
+                                    <i class="fa fa-desktop"></i> {{ user.website }}
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

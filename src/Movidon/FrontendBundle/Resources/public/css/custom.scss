@@ -219,6 +219,10 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   }
 }
 
+.card-padding {
+  padding: 2rem 1.5rem;
+}
+
 #post, #post-home {
   background-color: $light-gray;
   .card {
@@ -362,6 +366,46 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   margin: auto;
   border-radius: 50%;
   border: solid 0.3rem $red;
+}
+
+/** PROFILE **/
+.profile {
+  img {
+    margin-bottom: 3rem;
+  }
+
+  small {
+    display: block;
+    font-size: 1.4rem;
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+.profile-data {
+  h1 {
+    margin-top: 0;
+  }
+
+  i {
+    font-size: 1.6rem;
+  }
+
+  .contact-me {
+    padding-top: 2rem;
+
+    li {
+      display: inline;
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .my-posts {
+
+  }
 }
 
 /** CAROUSEL **/

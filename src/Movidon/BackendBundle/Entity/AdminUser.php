@@ -81,6 +81,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $summary;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    protected $aboutMe;
+
+    /**
      * @ORM\Column(type="string", length=250, nullable=true)
      * @Assert\Email();
      */
@@ -374,5 +379,21 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAboutMe()
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * @param mixed $aboutMe
+     */
+    public function setAboutMe($aboutMe)
+    {
+        $this->aboutMe = $aboutMe;
     }
 }

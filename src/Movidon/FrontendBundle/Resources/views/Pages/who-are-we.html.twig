@@ -1,0 +1,37 @@
+{% extends 'FrontendBundle:Layouts:1column.html.twig' %}
+
+{% block title %}{{ 'MOVERS by FUE'|trans }}{% endblock %}
+{% block description %}{{''|trans}}{% endblock %}
+{% block sectionclass %}blog page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section id="authors">
+        <div class="container">
+            {% for author in authors %}
+                {% if loop.index0 is divisible by(3) %}
+                    <div class="row">
+                {% endif %}
+                {{ render(controller("FrontendBundle:Frontend:authorCard", {'user': author})) }}
+                {% if loop.index is divisible by(3) or loop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

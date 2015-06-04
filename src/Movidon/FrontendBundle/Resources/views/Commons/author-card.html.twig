@@ -1,0 +1,17 @@
+{% if user.ImageProfile is defined and user.ImageProfile is not null %}
+<div class="col-md-4">
+    <!-- Author card -->
+    <article class="author-card">
+        <div class="essential-info">
+            {% set path = user.ImageProfile.getWebFilePath ~ '?' ~ random() %}
+            <img class="img-responsive img-profile" src="{{ asset(path) }}" alt="{{ user.name }}" />
+
+            <h1>{{ user.name }} {{ user.lastName }}</h1>
+            <i>{{ user.degree }}</i>
+        </div>
+        <div class="extra-info">
+            <a href="{{ path('view_profile', {'slug': user.slug}) }}" title="{{ 'View profile' }}">{{ 'Let\'s view my profile' | trans }} <i class="fa fa-angle-double-right"></i></a>
+        </div>
+    </article>
+</div>
+{% endif %}
