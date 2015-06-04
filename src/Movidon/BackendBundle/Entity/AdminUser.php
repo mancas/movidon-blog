@@ -97,6 +97,17 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $website;
 
     /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    protected $degree;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "lastName"}, updatable=true)
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    protected $slug;
+
+    /**
      * @ORM\Column(type="integer")
      */
     protected $visits;
@@ -331,5 +342,37 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setVisits($visits)
     {
         $this->visits = $visits;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDegree()
+    {
+        return $this->degree;
+    }
+
+    /**
+     * @param mixed $degree
+     */
+    public function setDegree($degree)
+    {
+        $this->degree = $degree;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

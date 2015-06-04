@@ -20,7 +20,7 @@
                 <div class="row">
                 {% endif %}
                 {{ render(controller("BlogBundle:Blog:postCard", {'post': post})) }}
-                {% if loop.index0 + 1 is divisible by(3) or loop.last %}
+                {% if loop.index is divisible by(3) or loop.last %}
                 </div>
                 {% endif %}
             {% endfor %}

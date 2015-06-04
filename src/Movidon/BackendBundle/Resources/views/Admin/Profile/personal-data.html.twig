@@ -16,6 +16,15 @@
             {% if user.lastName %}{{ user.lastName }}{% endif %}
         </dd>
     </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            {{ 'Degree' | trans }}
+        </dt>
+        <dd data-update="admin_user_profile_degree">
+            {% if user.degree %}{{ user.degree }}{% endif %}
+        </dd>
+    </dl>
 </div>
 
 <div class="pbb-edit">
@@ -41,6 +50,19 @@
                 <div class="form-group">
                     <div class="line">
                         <input class="form-control" type="text" name="admin_user_profile[lastName]" value="{% if user.lastName is not null %}{{ user.lastName }}{% endif %}" placeholder="{{ 'Your surname...' | trans }}" />
+                    </div>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                {{ 'Degree' | trans }}
+            </dt>
+            <dd>
+                <div class="form-group">
+                    <div class="line">
+                        <input class="form-control" type="text" name="admin_user_profile[degree]" value="{% if user.degree is not null %}{{ user.degree }}{% endif %}" placeholder="{{ 'Your degree...' | trans }}" />
                     </div>
                 </div>
             </dd>

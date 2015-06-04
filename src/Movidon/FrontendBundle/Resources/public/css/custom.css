@@ -199,6 +199,50 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
 #post-home .sidenav h3 {
   color: #D42F43; }
 
+#authors .author-card {
+  text-align: center;
+  position: relative;
+  padding: 1rem 2rem 6rem;
+  transform: translate(0, 0); }
+  #authors .author-card h1 {
+    color: #D42F43; }
+  #authors .author-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    z-index: -1;
+    transition: transform 0.3s ease 0s;
+    transform: scale(0);
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3); }
+  #authors .author-card:hover:before, #authors .author-card:hover .extra-info {
+    transform: scale(1); }
+  #authors .author-card .extra-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    text-align: center;
+    transform: scale(0);
+    transition: all 0.2s ease 0s; }
+    #authors .author-card .extra-info a {
+      text-decoration: none;
+      color: #D42F43; }
+  #authors .author-card .img-profile {
+    width: 25rem;
+    height: 25rem; }
+  #authors .author-card i {
+    font-size: 1.6rem; }
+
+.img-profile {
+  margin: auto;
+  border-radius: 50%;
+  border: solid 0.3rem #D42F43; }
+
 /** CAROUSEL **/
 .carousel {
   height: 40rem; }
