@@ -5,3 +5,7 @@ blog:
 blog_view_post:
     path: /blog/p/{slug}
     defaults: { _controller: BlogBundle:Blog:view }
+
+blog_view_post_by_user:
+    path: /blog/u/{slug}
+    defaults: { _controller: BlogBundle:Blog:viewUserPosts }

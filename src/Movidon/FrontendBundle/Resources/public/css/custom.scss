@@ -196,6 +196,15 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   padding: 4rem 0;
 }
 
+#blog {
+  .row {
+    margin-bottom: 3rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .card {
   box-shadow: 0 0.1rem 0.4rem $box-shadow;
   padding: 0.5rem;
@@ -203,7 +212,7 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   text-align: justify;
   background-color: $white;
 
-  h1 {
+  h1, h2, h3, h4, h5, h6 {
     color: $red;
   }
   a {
@@ -229,7 +238,7 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     min-height: 50rem;
     height: auto;
     padding: 1.5rem;
-    background-color: $white;
+    background-color: $white;BLOG
 
     .subtitle {
       font-style: italic;
@@ -368,9 +377,40 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   border: solid 0.3rem $red;
 }
 
+.box{
+  position: relative;
+  width: 100%;
+}
+
+.box:before{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.center-cropped {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block;
+}
+
 /** PROFILE **/
 .profile {
   img {
+    height: 100%;
+  }
+
+  .box {
     margin-bottom: 3rem;
   }
 
@@ -403,8 +443,24 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     }
   }
 
-  .my-posts {
+  .posts {
+    li {
+      display: block;
+      float: left;
+      margin: 0 1rem 1rem 0;
+    }
 
+    a {
+      color: $white;
+      display: block;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: $red;
+      transition: background-color 250ms ease 0s;
+      &:hover {
+        background-color: $red-hover;
+      }
+    }
   }
 }
 

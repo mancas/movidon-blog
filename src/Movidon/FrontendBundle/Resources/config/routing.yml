@@ -2,8 +2,8 @@ frontend_homepage:
     path:     /
     defaults: { _controller: FrontendBundle:Frontend:index }
 
-who_are_we:
-    path:     /who-ar-we
+who_we_are:
+    path:     /who-we-are
     defaults: { _controller: FrontendBundle:Frontend:whoAreWe }
 
 view_profile:

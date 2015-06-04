@@ -34,12 +34,8 @@ class ImageManager
         $this->entityManager->flush();
     }
 
-    public function saveImage($image, $user = null)
+    public function saveImage($image)
     {
-        if (isset($user)) {
-            $user->setImageProfile($image);
-            $this->entityManager->persist($user);
-        }
         $this->entityManager->persist($image);
         $this->entityManager->flush();
     }

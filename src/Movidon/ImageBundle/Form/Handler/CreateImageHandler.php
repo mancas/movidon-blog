@@ -40,7 +40,10 @@ class CreateImageHandler
                         $image = new ImageProfile();
                         $image->setFile($file);
                         $image->setUser($user);
-                        $this->imageManager->saveImage($image, $user);
+                        $imageMain = $user->getImageProfile();
+                        $imageMain->setMain(0);
+                        $this->imageManager->saveImage($imageMain);
+                        $this->imageManager->saveImage($image);
                         $this->imageManager->createImage($image);
                     } catch (\Exception $e) {
                         $this->imageManager->removeImage($image);

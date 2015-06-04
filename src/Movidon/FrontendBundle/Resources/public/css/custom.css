@@ -136,13 +136,18 @@ body.blog {
 section:not(#banner-top):not(.post-body):not(.card-content) {
   padding: 4rem 0; }
 
+#blog .row {
+  margin-bottom: 3rem; }
+  #blog .row:last-child {
+    margin-bottom: 0; }
+
 .card {
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
   height: 50rem;
   text-align: justify;
   background-color: #FFFFFF; }
-  .card h1 {
+  .card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
     color: #D42F43; }
   .card a {
     color: #D42F43;
@@ -161,7 +166,9 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     height: auto;
     padding: 1.5rem;
     background-color: #FFFFFF; }
-    #post .card .subtitle, #post-home .card .subtitle {
+    #post .card BLOG
+    .subtitle, #post-home .card BLOG
+    .subtitle {
       font-style: italic;
       font-size: 1.6rem; }
     #post .card .date, #post .card .category, #post-home .card .date, #post-home .card .category {
@@ -246,8 +253,33 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   border-radius: 50%;
   border: solid 0.3rem #D42F43; }
 
+.box {
+  position: relative;
+  width: 100%; }
+
+.box:before {
+  content: "";
+  display: block;
+  padding-top: 100%; }
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }
+
+.center-cropped {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block; }
+
 /** PROFILE **/
 .profile img {
+  height: 100%; }
+.profile .box {
   margin-bottom: 3rem; }
 .profile small {
   display: block;
@@ -266,6 +298,19 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     margin-right: 2rem; }
     .profile-data .contact-me li:last-child {
       margin-right: 0; }
+.profile-data .posts li {
+  display: block;
+  float: left;
+  margin: 0 1rem 1rem 0; }
+.profile-data .posts a {
+  color: #FFFFFF;
+  display: block;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #D42F43;
+  transition: background-color 250ms ease 0s; }
+  .profile-data .posts a:hover {
+    background-color: #9b1e3a; }
 
 /** CAROUSEL **/
 .carousel {

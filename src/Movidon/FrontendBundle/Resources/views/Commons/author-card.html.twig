@@ -3,7 +3,7 @@
     <!-- Author card -->
     <article class="author-card">
         <div class="essential-info">
-            {% set path = user.ImageProfile.getWebFilePath ~ '?' ~ random() %}
+            {% set path = user.ImageProfile.ImageProfileSquare.getWebFilePath ~ '?' ~ random() %}
             <img class="img-responsive img-profile" src="{{ asset(path) }}" alt="{{ user.name }}" />
 
             <h1>{{ user.name }} {{ user.lastName }}</h1>

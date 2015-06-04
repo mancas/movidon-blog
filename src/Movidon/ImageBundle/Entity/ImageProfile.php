@@ -19,9 +19,14 @@ class ImageProfile extends Image
     protected $maxHeight = self::MAX_HEIGHT;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="imageProfile")
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="imagesProfile", cascade={"persist", "remove", "merge"})
      */
     protected $user;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" = 0})
+     */
+    protected $main = false;
 
     public function setUser(\Movidon\BackendBundle\Entity\AdminUser $user)
     {
@@ -43,6 +48,16 @@ class ImageProfile extends Image
         return $thumb;
     }
 
+    public function createImageProfileSquare()
+    {
+        $thumb = $this->getImageProfileSquare();
+        if (!$thumb) {
+            $thumb = new ImageProfileSquare();
+        }
+
+        return $thumb;
+    }
+
     public function createCopies()
     {
         list($oldRoute, $copies) = parent::createCopies();
@@ -51,6 +66,19 @@ class ImageProfile extends Image
             $copies[] = $imageProfileAvatar;
         }
 
+        if ($imageProfileSquare = $this->createImageProfileSquare()) {
+            $copies[] = $imageProfileSquare;
+        }
+
         return array($oldRoute, $copies);
+    }
+    public function getMain()
+    {
+        return $this->main;
+    }
+
+    public function setMain($main)
+    {
+        $this->main = $main;
     }
 }

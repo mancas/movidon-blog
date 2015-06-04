@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Movidon\BackendBundle\Entity\AdminUserRepository")
  * @DoctrineAssert\UniqueEntity("username")
  * @UniqueEntity("username")
  */
@@ -61,9 +61,9 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $avatar;
 
     /**
-     * @ORM\OneToOne(targetEntity="Movidon\ImageBundle\Entity\ImageProfile", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Movidon\ImageBundle\Entity\ImageProfile", mappedBy="user", cascade={"persist", "remove", "merge"})
      */
-    protected $imageProfile;
+    protected $imagesProfile;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
@@ -116,6 +116,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      * @ORM\Column(type="integer")
      */
     protected $visits;
+
+    public function __construct()
+    {
+        $this->imagesProfile = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function serialize()
     {
@@ -320,17 +325,28 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     /**
      * @return mixed
      */
-    public function getImageProfile()
+    public function getImagesProfile()
     {
-        return $this->imageProfile;
+        return $this->imagesProfile;
     }
 
     /**
      * @param mixed $imageProfile
      */
-    public function setImageProfile($imageProfile)
+    public function setImagesProfile($imagesProfile)
     {
-        $this->imageProfile = $imageProfile;
+        $this->imagesProfile = $imagesProfile;
+    }
+
+    public function getImageProfile()
+    {
+        foreach ($this->imagesProfile as $image) {
+            if ($image->getMain()) {
+                return $image;
+            }
+        }
+
+        return false;
     }
 
     /**

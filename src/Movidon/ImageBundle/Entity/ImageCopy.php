@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="subclase", type="string")
  * @ORM\DiscriminatorMap({"imagethumbnail"="ImageThumbnail", "imagepostcard"="ImagePostCard", "imageprofileavatar"="ImageProfileAvatar",
- * "imagepostcarousel"="ImagePostCarousel"})
+ * "imagepostcarousel"="ImagePostCarousel", "imageprofilesquare"="ImageProfileSquare"})
  */
 abstract class ImageCopy
 {

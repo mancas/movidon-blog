@@ -17,11 +17,11 @@
                 <li {% if action == 'view_categories' %}class="active"{% endif %}>
                     <a href="" alt="{{ 'Descubre los eventos que organizamos' | trans }}">{{ 'Eventos' | trans }}</a>
                 </li>
-                <li {% if action == 'blog' or action == 'blog_view_post' %}class="active"{% endif %}>
+                <li {% if action == 'blog' or action == 'blog_view_post' or action == 'blog_view_post_by_user' %}class="active"{% endif %}>
                     <a href="{{ path('blog') }}" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
                 </li>
-                <li {% if action == 'who_are_we' %}class="active"{% endif %}>
-                    <a href="{{ path('who_are_we') }}" title="{{ '' }}">{{ 'Who are we' | trans }}</a>
+                <li {% if action == 'who_we_are' or action == 'view_profile' %}class="active"{% endif %}>
+                    <a href="{{ path('who_we_are') }}" title="{{ '' }}">{{ 'Who we are' | trans }}</a>
                 </li>
             </ul>
         </div>

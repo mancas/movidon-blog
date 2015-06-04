@@ -2,6 +2,7 @@
 
 namespace Movidon\BlogBundle\Controller;
 
+use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\FrontendBundle\Controller\CustomController;
 use Movidon\FrontendBundle\Util\ArrayHelper;
@@ -23,8 +24,15 @@ class BlogController extends CustomController
      */
     public function viewAction(Post $post)
     {
-        $this->tagCloudAction();
         return $this->render('BlogBundle:Blog:post.html.twig', array('post' => $post));
+    }
+
+    /**
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
+     */
+    public function viewUserPostsAction(AdminUser $user)
+    {
+        return $this->render('BlogBundle:Blog:posts-by-user.html.twig', array('user' => $user));
     }
 
     /**

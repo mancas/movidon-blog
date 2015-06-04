@@ -3,6 +3,7 @@
 namespace Movidon\FrontendBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
+use Movidon\FrontendBundle\Util\ArrayHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,7 +23,7 @@ class FrontendController extends CustomController
     public function whoAreWeAction()
     {
         $em = $this->getEntityManager();
-        $authors = $em->getRepository('BackendBundle:AdminUser')->findAll();
+        $authors = $em->getRepository('BackendBundle:AdminUser')->findAllOrderedByPostCount();
 
         return $this->render('FrontendBundle:Pages:who-are-we.html.twig', array('authors' => $authors));
     }
@@ -32,9 +33,7 @@ class FrontendController extends CustomController
      */
     public function viewProfileAction(AdminUser $user)
     {
-        $posts = $user->getPosts();
-
-        return $this->render('FrontendBundle:Pages:profile.html.twig', array('posts' => $posts, 'user' => $user));
+        return $this->render('FrontendBundle:Pages:profile.html.twig', array('user' => $user));
     }
 
     /**
