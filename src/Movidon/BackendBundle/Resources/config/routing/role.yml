@@ -1,0 +1,15 @@
+super_admin_role_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:Role:list }
+
+super_admin_role_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:Role:edit }
+
+super_admin_role_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:Role:delete }
+
+super_admin_role_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Role:create }

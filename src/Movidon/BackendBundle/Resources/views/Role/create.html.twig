@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% if edition is defined %}
-        {% set crumbs = {'Tags': path('admin_tag_index'), 'Edit tag': '' } %}
+        {% set crumbs = {'Roles': path('admin_role_index'), 'Edit role': '' } %}
     {% else %}
-        {% set crumbs = {'Tags': path('admin_tag_index'), 'Create tag': '' } %}
+        {% set crumbs = {'Roles': path('admin_role_index'), 'Create role': '' } %}
     {% endif %}
 
     {{ setCrumbs(crumbs) }}
@@ -15,21 +15,21 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-item card-indigo">
-                <form method="post" action="{% if edition is defined %}{{ path('admin_tag_edit',{'slug':tag.slug}) }} {% else %} {{ path('admin_tag_create') }}{% endif %}">
+                <form method="post" action="{% if edition is defined %}{{ path('admin_role_edit',{'slug':role.slug}) }} {% else %} {{ path('admin_role_create') }}{% endif %}">
                     <div class="card-title">
                         <h2>
                             {% if edition is defined %}
-                                {{ 'Tag edition' | trans }}
+                                {{ 'Role edition' | trans }}
                             {% else %}
-                                {{ 'Tag creation' | trans }}
+                                {{ 'Role creation' | trans }}
                             {% endif %}
                         </h2>
 
                         <h3>
                             {% if edition is defined %}
-                                {{ 'Here you can create edit the tag' | trans }}
+                                {{ 'Here you can edit the role' | trans }}
                             {% else %}
-                                {{ 'Here you can create new tags for your posts' | trans }}
+                                {{ 'Here you can create new role' | trans }}
                             {% endif %}
                         </h3>
 
@@ -40,7 +40,7 @@
                     <div class="card-description card-padding">
                         <div class="row">
                             <div class="col-md-8">
-                                {% include 'BackendBundle:Tag:tag-form.html.twig' %}
+                                {% include 'BackendBundle:Role:role-form.html.twig' %}
                             </div>
                         </div>
                     </div>

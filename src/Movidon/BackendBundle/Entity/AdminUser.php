@@ -117,9 +117,19 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      */
     protected $visits;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\Role", inversedBy="users")
+     * @ORM\JoinTable(name="users_roles",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $roles;
+
     public function __construct()
     {
         $this->imagesProfile = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function serialize()
@@ -151,7 +161,22 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
 
     public function getRoles()
     {
-        return array('ROLE_SUPER_ADMIN');
+        $roles = array();
+        foreach ($this->roles as $role) {
+            $roles[] = $role->getName();
+        }
+
+        // Default role
+        if (count($roles) === 0) {
+            $roles[] = 'ROLE_SUPER_ADMIN';
+        }
+
+        return $roles;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
     public function getId()
