@@ -51,7 +51,7 @@ security:
         - { path: ^/bo/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/bo/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/bo/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/bo/.*, role: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/.*, roles: ROLE_SUPER_ADMIN }
         - { path: ^/u/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/u/email-disponible, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/u/recuperar-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }

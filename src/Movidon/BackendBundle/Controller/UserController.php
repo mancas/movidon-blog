@@ -3,16 +3,12 @@
 namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
-use Movidon\BackendBundle\Entity\Role;
 use Movidon\BackendBundle\Form\Type\AdminUserType;
-use Movidon\BackendBundle\Form\Type\RoleType;
-use Movidon\FrontendBundle\Util\ArrayHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Movidon\FrontendBundle\Controller\CustomController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class UserController extends CustomController
 {
@@ -21,59 +17,59 @@ class UserController extends CustomController
         $em = $this->getEntityManager();
         $paginator = $this->get('ideup.simple_paginator');
         $paginator->setItemsPerPage(CustomController::ITEMS_PER_PAGE, 'users');
-        $users = $paginator->paginate($em->getRepository('BackendBundler:AdminUser')->findAllDQL(), 'users')->getResult();
+        $users = $paginator->paginate($em->getRepository('BackendBundle:AdminUser')->findAllDQL(), 'users')->getResult();
 
-        return $this->render('BackendBundle:User:list.html.twig', array('users' => $users));
+        return $this->render('BackendBundle:Admin:User/list.html.twig', array('users' => $users));
     }
 
     public function createAction(Request $request)
     {
-        $role = new Role();
-        $form = $this->createForm(new RoleType(), $role);
-        $handler = $this->get('admin.admin_role_form_handler');
+        $user = new AdminUser();
+        $form = $this->createForm(new AdminUserType(), $user);
+        $handler = $this->get('admin.admin_user_form_handler');
 
         if ($handler->handle($form, $request)) {
-            $this->setTranslatedFlashMessage('The new role has been created successfully');
+            $this->setTranslatedFlashMessage('The new user has been created successfully');
 
-            return $this->redirect($this->generateUrl('admin_role_index'));
+            return $this->redirect($this->generateUrl('super_admin_user_index'));
         } else {
             if ($request->isMethod('POST'))
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Role:create.html.twig', array('form' => $form->createView()));
+        return $this->render('BackendBundle:Admin:User/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @ParamConverter("role", class="BackendBundle:Role")
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
      */
-    public function editAction(Role $role, Request $request)
+    public function editAction(AdminUser $user, Request $request)
     {
-        $form = $this->createForm(new RoleType(), $role);
-        $handler = $this->get('admin.admin_role_form_handler');
+        $form = $this->createForm(new AdminUserType(), $user);
+        $handler = $this->get('admin.admin_user_form_handler');
 
         if ($handler->handle($form, $request)) {
-            $this->setTranslatedFlashMessage('The role has been edited successfully');
+            $this->setTranslatedFlashMessage('The user has been edited successfully');
 
-            return $this->redirect($this->generateUrl('admin_role_index'));
+            return $this->redirect($this->generateUrl('super_admin_user_index'));
         } else {
             if ($request->isMethod('POST'))
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Role:create.html.twig', array('edition' => true, 'role' => $role, 'form' => $form->createView()));
+        return $this->render('BackendBundle:Admin:User/create.html.twig', array('edition' => true, 'user' => $user, 'form' => $form->createView()));
     }
 
     /**
-     * @ParamConverter("role", class="BackendBundle:Role")
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
      */
-    public function deleteAction(Role $role)
+    public function deleteAction(AdminUser $user)
     {
         $em = $this->getEntityManager();
-        $em->remove($role);
+        $em->remove($user);
         $em->flush();
-        $this->setTranslatedFlashMessage('The role has been removed successfully');
+        $this->setTranslatedFlashMessage('The user has been removed successfully');
 
-        return $this->redirect($this->generateUrl('admin_role_index'));
+        return $this->redirect($this->generateUrl('super_admin_user_index'));
     }
 }

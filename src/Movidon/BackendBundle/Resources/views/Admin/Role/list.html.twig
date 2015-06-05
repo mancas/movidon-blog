@@ -18,7 +18,7 @@
                             {{ 'In this panel you can edit or delete every role that you have created' | trans }}
                         </h3>
 
-                        <a title="{{ 'Create new Role' }}" class="float-action-button fab-red" href="{{ path('admin_role_create') }}">
+                        <a title="{{ 'Create new Role' }}" class="float-action-button fab-red" href="{{ path('super_admin_role_create') }}">
                             <i class="fa fa-plus"></i>
                         </a>
                     </div>
@@ -38,11 +38,11 @@
                         {% for role in roles %}
                         <tr>
                             <td>{{ role.id }}</td>
-                            <td>{{ role.name }}</td>
+                            <td>{{ role.nameWithPrefix }}</td>
                             <td>{{ role.users | length }}</td>
                             <td>
-                                <a class="edit btn btn-blue" href="{{ path('admin_role_edit', {'slug': role.slug}) }}" title="{{ 'Edit role' | trans }}"><i class="fa fa-pencil"></i></a>
-                                <a class="delete btn btn-red" href="{{ path('admin_role_delete', {'slug': role.slug}) }}" title="{{ 'Delete role' | trans }}"><i class="fa fa-trash"></i></a>
+                                <a class="edit btn btn-blue" href="{{ path('super_admin_role_edit', {'slug': role.slug}) }}" title="{{ 'Edit role' | trans }}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete btn btn-red" href="{{ path('super_admin_role_delete', {'slug': role.slug}) }}" title="{{ 'Delete role' | trans }}"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         {% endfor %}

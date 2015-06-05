@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% if edition is defined %}
-        {% set crumbs = {'Roles': path('admin_role_index'), 'Edit role': '' } %}
+        {% set crumbs = {'Roles': path('super_admin_role_index'), 'Edit role': '' } %}
     {% else %}
-        {% set crumbs = {'Roles': path('admin_role_index'), 'Create role': '' } %}
+        {% set crumbs = {'Roles': path('super_admin_role_index'), 'Create role': '' } %}
     {% endif %}
 
     {{ setCrumbs(crumbs) }}
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-item card-indigo">
-                <form method="post" action="{% if edition is defined %}{{ path('admin_role_edit',{'slug':role.slug}) }} {% else %} {{ path('admin_role_create') }}{% endif %}">
+                <form method="post" action="{% if edition is defined %}{{ path('super_admin_role_edit',{'slug':role.slug}) }} {% else %} {{ path('super_admin_role_create') }}{% endif %}">
                     <div class="card-title">
                         <h2>
                             {% if edition is defined %}
@@ -40,7 +40,7 @@
                     <div class="card-description card-padding">
                         <div class="row">
                             <div class="col-md-8">
-                                {% include 'BackendBundle:Role:role-form.html.twig' %}
+                                {% include 'BackendBundle:Admin:Role/role-form.html.twig' %}
                             </div>
                         </div>
                     </div>

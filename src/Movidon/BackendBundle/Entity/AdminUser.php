@@ -163,7 +163,7 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     {
         $roles = array();
         foreach ($this->roles as $role) {
-            $roles[] = $role->getName();
+            $roles[] = $role->getNameWithPrefix();
         }
 
         // Default role
@@ -172,6 +172,28 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
         }
 
         return $roles;
+    }
+
+    public function getCustomRoles()
+    {
+        return $this->roles;
+    }
+
+    public function getRolesAsString()
+    {
+        $result = '';
+        foreach ($this->roles as $role) {
+            $result .= $role->getNameWithPrefix();
+            if ($role !== $this->roles->last()) {
+                $result .= ', ';
+            }
+        }
+
+        // Default role
+        if (strlen($result) === 0) {
+            $result = 'ROLE_SUPER_ADMIN';
+        }
+        return $result;
     }
 
     public function setRoles($roles)

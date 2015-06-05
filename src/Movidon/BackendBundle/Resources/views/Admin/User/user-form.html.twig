@@ -1,0 +1,51 @@
+{% if edition is defined %}
+    {% set required = 'false' %}
+    {% set placeholder = 'New password' | trans %}
+{% else %}
+    {% set required = 'true' %}
+    {% set placeholder = 'Password' | trans %}
+{% endif %}
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-user"></i>
+        </span>
+        <div class="line">
+            {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-lock"></i>
+        </span>
+        <div class="line">
+            {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': placeholder, 'autocomplete': 'off'}}) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-lock"></i>
+        </span>
+        <div class="line">
+            {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Repeat password'}}) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>{{ 'User roles' | trans }}</label>
+    <div class="line">
+        {{ form_widget(form.customRoles, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'User roles' | trans} }) }}
+    </div>
+    <small class="help-block">
+        {{ 'Choose as many roles as you want' | trans }}
+    </small>
+</div>
+
+{{ form_rest(form) }}

@@ -3,3 +3,7 @@ services:
         class: Movidon\FrontendBundle\Twig\Extension\BreadcrumbExtension
         tags:
             - { name: twig.extension }
+    twig.extension.isSuperadminAction:
+        class: Movidon\FrontendBundle\Twig\Extension\IsSuperadminAction
+        tags:
+            - { name: twig.extension }

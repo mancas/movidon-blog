@@ -1,0 +1,74 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Users': path('super_admin_user_index'), 'Edit user': '' } %}
+    {% else %}
+        {% set crumbs = {'Users': path('super_admin_user_index'), 'Create user': '' } %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-item card-green">
+                <form method="post" action="{% if edition is defined %}{{ path('super_admin_user_edit',{'slug':user.slug}) }} {% else %} {{ path('super_admin_user_create') }}{% endif %}">
+                    <div class="card-title">
+                        <h2>
+                            {% if edition is defined %}
+                                {{ 'User edition' | trans }}
+                            {% else %}
+                                {{ 'User creation' | trans }}
+                            {% endif %}
+                        </h2>
+
+                        <h3>
+                            {% if edition is defined %}
+                                {{ 'Here you can edit the user' | trans }}
+                            {% else %}
+                                {{ 'Here you can create new users' | trans }}
+                            {% endif %}
+                        </h3>
+
+                        <button type="submit" class="float-action-button fab-red borderless">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </div>
+                    <div class="card-description card-padding">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% include 'BackendBundle:Admin:User/user-form.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
+    <script>
+        window.addEventListener('load', function(evt) {
+            $(".select2").select2();
+            {% if edition is defined %}
+                var pwd = document.querySelector('#admin_user_password_first');
+                pwd.required = '';
+                var pwd2 = document.querySelector('#admin_user_password_second');
+                pwd2.required = '';
+                console.info(pwd.setAttribute('value', ''));
+            {% endif %}
+        });
+    </script>
+{% endblock %}

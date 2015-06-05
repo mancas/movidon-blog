@@ -1,0 +1,61 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {{ setCrumbs({'Users': ''}) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-item card-green">
+                    <div class="card-title">
+                        <h2>
+                            {{ 'Users list' | trans }}
+                        </h2>
+
+                        <h3>
+                            {{ 'In this panel you can edit or delete every registered user' | trans }}
+                        </h3>
+
+                        <a title="{{ 'Create new User' }}" class="float-action-button fab-red" href="{{ path('super_admin_user_create') }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                <div class="card-description {% if users | length == 0 %}card-padding{% endif %}">
+                    {% if users | length > 0 %}
+                    <table class="table table-hover table-striped data-table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'ID' | trans }}</th>
+                            <th>{{ 'Username' | trans }}</th>
+                            <th>{{ 'Roles' | trans }}</th>
+                            <th>{{ 'Action' | trans }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.rolesAsString }}</td>
+                            <td>
+                                <a class="edit btn btn-blue" href="{{ path('super_admin_user_edit', {'slug': user.slug}) }}" title="{{ 'Edit role' | trans }}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete btn btn-red" href="{{ path('super_admin_user_delete', {'slug': user.slug}) }}" title="{{ 'Delete role' | trans }}"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+                        <p>
+                            {{ 'No entries were found' | trans }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

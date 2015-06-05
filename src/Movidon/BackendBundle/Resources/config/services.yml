@@ -4,21 +4,21 @@ imports:
 parameters:
     admin.adminformhandler.class: Movidon\BackendBundle\Form\Handler\AdminUserFormHandler
     admin.adminmanager.class: Movidon\BackendBundle\Form\Handler\AdminUserManager
-    admin.create_salt.class: Movidon\BackendBundle\EventListener\RegisterAdminEventSubscriber
+    #admin.create_salt.class: Movidon\BackendBundle\EventListener\RegisterAdminEventSubscriber
     admin.roleformhandler.class: Movidon\BackendBundle\Form\Handler\RoleFormHandler
 
 services:
     admin.admin_user_manager:
         class: %admin.adminmanager.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @security.encoder_factory]
     admin.admin_user_form_handler:
         class: %admin.adminformhandler.class%
         arguments: [@admin.admin_user_manager]
     admin.admin_role_form_handler:
         class: %admin.roleformhandler.class%
         arguments: [@doctrine.orm.entity_manager]
-    admin.create_salt_listener:
-        class: %admin.create_salt.class%
-        arguments: [@security.encoder_factory]
-        tags:
-            - { name: doctrine.event_subscriber }
+    #admin.create_salt_listener:
+    #    class: %admin.create_salt.class%
+    #   arguments: [@security.encoder_factory]
+    #   tags:
+    #       - { name: doctrine.event_subscriber }

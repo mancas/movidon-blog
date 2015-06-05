@@ -16,6 +16,8 @@ use Doctrine\Common\Collections\Collection;
  */
 class Role
 {
+    const PREFIX = 'ROLE_';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -53,7 +55,7 @@ class Role
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\AdminUser", mappedBy="roles", cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\AdminUser", mappedBy="roles")
      */
     protected $users;
 
@@ -84,6 +86,14 @@ class Role
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameWithPrefix()
+    {
+        return self::PREFIX . $this->name;
     }
 
     /**
@@ -172,5 +182,10 @@ class Role
     public function setUsers($users)
     {
         $this->users = $users;
+    }
+
+    function __toString()
+    {
+        return $this->name;
     }
 }

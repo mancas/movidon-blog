@@ -1,0 +1,23 @@
+super_admin_user_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:User:list }
+
+super_admin_user_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:User:edit }
+
+super_admin_user_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:User:delete }
+
+super_admin_user_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:User:create }
+
+super_admin_user_profile:
+    pattern: /profile/{slug}
+    defaults: { _controller: BackendBundle:User:profile }
+
+super_admin_user_update_profile:
+    pattern: /update/profile/{slug}
+    defaults: { _controller: BackendBundle:User:updateProfile }

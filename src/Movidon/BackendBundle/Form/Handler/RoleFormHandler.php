@@ -21,9 +21,7 @@ class RoleFormHandler
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $role = $form->getData();
-                $roleName = $role->getName();
-
-                $role->setName($this->sanitizeRoleName($roleName));
+                $role->setName(strtoupper($role->getName()));
                 $this->entityManager->persist($role);
                 $this->entityManager->flush();
 
@@ -33,10 +31,4 @@ class RoleFormHandler
 
         return false;
     }
-
-    private function sanitizeRoleName($role)
-    {
-        return 'ROLE_' . strtoupper($role);
-    }
-
 }

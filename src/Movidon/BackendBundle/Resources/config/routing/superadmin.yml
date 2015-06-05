@@ -3,9 +3,9 @@ super_admin_avatar_index:
   defaults: { _controller: BackendBundle:Admin:avatars }
 
 super_admin_role:
-    resource: "@BackendBundle/Resources/config/routing/role.yml"
+    resource: "@BackendBundle/Resources/config/routing/admin/role.yml"
     prefix: /roles/
 
 super_admin_user:
-    resource: "@BackendBundle/Resources/config/routing/superadmin_user.yml"
+    resource: "@BackendBundle/Resources/config/routing/admin/user.yml"
     prefix: /users/

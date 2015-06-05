@@ -21,14 +21,14 @@
                 </a>
             </li>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <li class="submenu {% if action == 'super_admin_role_index' or action == 'admin_tag_create' or action == 'admin_tag_edit' or action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' %}open{% endif %}">
+            <li class="submenu {% if isSuperadminAction(action) %}open{% endif %}">
                 <a href="" title="{{ 'Superadmin' | trans }}">
                     <i class="fa fa-lock"></i> {{ 'Superadmin' | trans }}
                     <i class="fa fa-caret-down pull-right"></i>
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="{{ path('super_admin_user_index') }}" title="{{ 'Posts' | trans }}" {% if action == 'super_admin_user_index' or action == 'super_admin_user_create' or action == 'super_admin_user_edit' %}class="active"{% endif %}>
+                        <a href="{{ path('super_admin_user_index') }}" title="{{ 'Users' | trans }}" {% if action == 'super_admin_user_index' or action == 'super_admin_user_create' or action == 'super_admin_user_edit' %}class="active"{% endif %}>
                             {{ 'Users' | trans }}
                         </a>
                     </li>

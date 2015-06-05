@@ -21,7 +21,7 @@ class RoleController extends CustomController
         $em = $this->getEntityManager();
         $roles = $em->getRepository('BackendBundle:Role')->findAll();
 
-        return $this->render('BackendBundle:Role:list.html.twig', array('roles' => $roles));
+        return $this->render('BackendBundle:Admin:Role/list.html.twig', array('roles' => $roles));
     }
 
     public function createAction(Request $request)
@@ -33,13 +33,13 @@ class RoleController extends CustomController
         if ($handler->handle($form, $request)) {
             $this->setTranslatedFlashMessage('The new role has been created successfully');
 
-            return $this->redirect($this->generateUrl('admin_role_index'));
+            return $this->redirect($this->generateUrl('super_admin_role_index'));
         } else {
             if ($request->isMethod('POST'))
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Role:create.html.twig', array('form' => $form->createView()));
+        return $this->render('BackendBundle:Admin:Role/create.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -53,13 +53,13 @@ class RoleController extends CustomController
         if ($handler->handle($form, $request)) {
             $this->setTranslatedFlashMessage('The role has been edited successfully');
 
-            return $this->redirect($this->generateUrl('admin_role_index'));
+            return $this->redirect($this->generateUrl('super_admin_role_index'));
         } else {
             if ($request->isMethod('POST'))
                 $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Role:create.html.twig', array('edition' => true, 'role' => $role, 'form' => $form->createView()));
+        return $this->render('BackendBundle:Admin:Role/create.html.twig', array('edition' => true, 'role' => $role, 'form' => $form->createView()));
     }
 
     /**
@@ -72,6 +72,6 @@ class RoleController extends CustomController
         $em->flush();
         $this->setTranslatedFlashMessage('The role has been removed successfully');
 
-        return $this->redirect($this->generateUrl('admin_role_index'));
+        return $this->redirect($this->generateUrl('super_admin_role_index'));
     }
 }

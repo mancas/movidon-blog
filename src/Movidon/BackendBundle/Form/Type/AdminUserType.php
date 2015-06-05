@@ -1,6 +1,7 @@
 <?php
 namespace Movidon\BackendBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,6 +16,13 @@ class AdminUserType extends AbstractType
                 'first_options' => array('attr' => array('placeholder' => 'Password')),
                 'second_options' => array('attr' => array('placeholder' => 'Confirmar password')),
                 'error_bubbling' => 'true'));
+        $builder->add('customRoles', 'entity',
+            array('class' => 'BackendBundle:Role',
+                'required' => false,
+                'multiple' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')->orderBy('r.name', 'ASC');
+                }, 'expanded' => false));
     }
 
     public function getDefaultOptions(array $options)
