@@ -18,10 +18,16 @@ class AdminUserFormHandler
     public function handle(FormInterface $form, Request $request)
     {
         if ($request->isMethod('POST')) {
+            $originalPassword = $form->getData()->getPassword();
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $user = $form->getData();
-                $this->adminUserManager->save($user);
+                $updatePwd = true;
+                if ($user->getPassword() === null) {
+                    $user->setPassword($originalPassword);
+                    $updatePwd = false;
+                }
+                $this->adminUserManager->save($user, $updatePwd);
 
                 return true;
             }

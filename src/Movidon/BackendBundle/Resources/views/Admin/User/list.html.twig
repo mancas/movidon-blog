@@ -30,6 +30,7 @@
                             <th>{{ 'ID' | trans }}</th>
                             <th>{{ 'Username' | trans }}</th>
                             <th>{{ 'Roles' | trans }}</th>
+                            <th>{{ 'Banned' | trans }}</th>
                             <th>{{ 'Action' | trans }}</th>
                         </tr>
                         </thead>
@@ -40,9 +41,16 @@
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.rolesAsString }}</td>
+                            <td>{% if user.banned %}{{ 'Yes' | trans }}{% else %}{{ 'No' | trans }}{% endif %}</td>
                             <td>
-                                <a class="edit btn btn-blue" href="{{ path('super_admin_user_edit', {'slug': user.slug}) }}" title="{{ 'Edit role' | trans }}"><i class="fa fa-pencil"></i></a>
-                                <a class="delete btn btn-red" href="{{ path('super_admin_user_delete', {'slug': user.slug}) }}" title="{{ 'Delete role' | trans }}"><i class="fa fa-trash"></i></a>
+                                {% if user.banned %}
+                                    <a class="publish btn btn-amber" href="{{ path('super_admin_user_toggle_ban', {'id': user.id}) }}" title="{{ 'Active user' | trans }}"><i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a class="publish btn btn-amber" href="{{ path('super_admin_user_toggle_ban', {'id': user.id}) }}" title="{{ 'Ban user' | trans }}"><i class="fa fa-times"></i></a>
+                                {% endif %}
+                                <a class="edit btn btn-blue" href="{{ path('super_admin_user_edit', {'id': user.id}) }}" title="{{ 'Edit user' | trans }}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete btn btn-purple" href="{{ path('super_admin_user_profile', {'id': user.id}) }}" title="{{ 'View profile' | trans }}"><i class="fa fa-eye"></i></a>
+                                <a class="delete btn btn-red" href="{{ path('super_admin_user_delete', {'id': user.id}) }}" title="{{ 'Delete user' | trans }}"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         {% endfor %}

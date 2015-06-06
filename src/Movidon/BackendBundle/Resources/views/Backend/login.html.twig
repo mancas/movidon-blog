@@ -2,6 +2,8 @@
 
 {% block content %}
     <form action="{{ path('admin_login_check') }}" method="post">
+        {% include 'BackendBundle:Commons:notifications.html.twig' %}
+
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">

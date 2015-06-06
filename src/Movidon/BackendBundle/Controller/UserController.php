@@ -72,4 +72,26 @@ class UserController extends CustomController
 
         return $this->redirect($this->generateUrl('super_admin_user_index'));
     }
+
+    /**
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
+     */
+    public function toggleBanAction(AdminUser $user)
+    {
+        if ($user === $this->getCurrentUser()) {
+            $this->setTranslatedFlashMessage('You can not ban yourself!', 'error');
+        } else {
+            $em = $this->getEntityManager();
+            $user->setBanned(!$user->getBanned());
+            $em->persist($user);
+            $em->flush();
+            if ($user->getBanned()) {
+                $this->setTranslatedFlashMessage('The user has been banned successfully');
+            } else {
+                $this->setTranslatedFlashMessage('The user is no longer banned');
+            }
+        }
+
+        return $this->redirect($this->generateUrl('super_admin_user_index'));
+    }
 }

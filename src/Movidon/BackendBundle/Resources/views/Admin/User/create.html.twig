@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-item card-green">
-                <form method="post" action="{% if edition is defined %}{{ path('super_admin_user_edit',{'slug':user.slug}) }} {% else %} {{ path('super_admin_user_create') }}{% endif %}">
+                <form autocomplete="off" method="post" action="{% if edition is defined %}{{ path('super_admin_user_edit',{'id':user.id}) }} {% else %} {{ path('super_admin_user_create') }}{% endif %}">
                     <div class="card-title">
                         <h2>
                             {% if edition is defined %}
@@ -67,7 +67,7 @@
                 pwd.required = '';
                 var pwd2 = document.querySelector('#admin_user_password_second');
                 pwd2.required = '';
-                console.info(pwd.setAttribute('value', ''));
+                //console.info(pwd.setAttribute('value', ''));
             {% endif %}
         });
     </script>

@@ -3,11 +3,11 @@ super_admin_user_index:
     defaults: { _controller: BackendBundle:User:list }
 
 super_admin_user_edit:
-    pattern: /edit/{slug}
+    pattern: /edit/{id}
     defaults: { _controller: BackendBundle:User:edit }
 
 super_admin_user_delete:
-    pattern: /delete/{slug}
+    pattern: /delete/{id}
     defaults: { _controller: BackendBundle:User:delete }
 
 super_admin_user_create:
@@ -15,9 +15,13 @@ super_admin_user_create:
     defaults: { _controller: BackendBundle:User:create }
 
 super_admin_user_profile:
-    pattern: /profile/{slug}
+    pattern: /profile/{id}
     defaults: { _controller: BackendBundle:User:profile }
 
 super_admin_user_update_profile:
-    pattern: /update/profile/{slug}
+    pattern: /update/profile/{id}
     defaults: { _controller: BackendBundle:User:updateProfile }
+
+super_admin_user_toggle_ban:
+    pattern: /toggle-ban/{id}
+    defaults: { _controller: BackendBundle:User:toggleBan }

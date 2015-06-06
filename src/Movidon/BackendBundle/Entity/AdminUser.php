@@ -1,6 +1,6 @@
 <?php
 namespace Movidon\BackendBundle\Entity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  * @DoctrineAssert\UniqueEntity("username")
  * @UniqueEntity("username")
  */
-class AdminUser implements UserInterface, \Serializable, EquatableInterface
+class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterface
 {
     const AUTH_SALT = "R4y0d3Lu24b1sMa7";
 
@@ -33,7 +33,6 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      * @Assert\Length(min = 6)
      * */
     protected $password;
@@ -76,12 +75,12 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $lastName;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $summary;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $aboutMe;
 
@@ -113,7 +112,7 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     protected $slug;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $visits;
 
@@ -125,6 +124,11 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
      *      )
      */
     protected $roles;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" = 0})
+     */
+    protected $banned = false;
 
     public function __construct()
     {
@@ -161,6 +165,10 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
 
     public function getRoles()
     {
+        if ($this->banned) {
+            return array('ROLE_BANNED');
+        }
+
         $roles = array();
         foreach ($this->roles as $role) {
             $roles[] = $role->getNameWithPrefix();
@@ -458,5 +466,81 @@ class AdminUser implements UserInterface, \Serializable, EquatableInterface
     public function setAboutMe($aboutMe)
     {
         $this->aboutMe = $aboutMe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBanned()
+    {
+        return $this->banned;
+    }
+
+    /**
+     * @param mixed $banned
+     */
+    public function setBanned($banned)
+    {
+        $this->banned = $banned;
+    }
+
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw an AccountExpiredException and prevent login.
+     *
+     * @return bool true if the user's account is non expired, false otherwise
+     *
+     * @see AccountExpiredException
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a LockedException and prevent login.
+     *
+     * @return bool true if the user is not locked, false otherwise
+     *
+     * @see LockedException
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a CredentialsExpiredException and prevent login.
+     *
+     * @return bool true if the user's credentials are non expired, false otherwise
+     *
+     * @see CredentialsExpiredException
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a DisabledException and prevent login.
+     *
+     * @return bool true if the user is enabled, false otherwise
+     *
+     * @see DisabledException
+     */
+    public function isEnabled()
+    {
+        return !$this->banned;
     }
 }

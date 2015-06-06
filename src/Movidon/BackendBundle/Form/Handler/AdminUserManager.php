@@ -18,14 +18,17 @@ class AdminUserManager
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function save(AdminUser $user)
+    public function save(AdminUser $user, $updatePwd = false)
     {
         if (!$user->getSalt()) {
             $user->setSalt(md5(time() . AdminUser::AUTH_SALT));
         }
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $passwordEncoded = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-        $user->setPassword($passwordEncoded);
+
+        if ($updatePwd) {
+            $encoder = $this->encoderFactory->getEncoder($user);
+            $passwordEncoded = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+            $user->setPassword($passwordEncoded);
+        }
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }

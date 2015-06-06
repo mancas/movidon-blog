@@ -57,6 +57,8 @@ class CustomController extends Controller
     {
         $session = $request->getSession();
         $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $session->get(SecurityContext::AUTHENTICATION_ERROR));
+        if (isset($error))
+            $this->setTranslatedFlashMessage($error->getMessage(), 'error');
 
         return $this->render($template, array(
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
