@@ -4,6 +4,8 @@ namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BackendBundle\Form\Type\AdminUserType;
+use Movidon\BackendBundle\Utils\UpdateEntityHelper;
+use Movidon\ImageBundle\Form\Type\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -93,5 +95,43 @@ class UserController extends CustomController
         }
 
         return $this->redirect($this->generateUrl('super_admin_user_index'));
+    }
+
+    /**
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
+     */
+    public function profileAction(AdminUser $user, Request $request)
+    {
+        $form = $this->createForm(new ImageType());
+        $imagesHandler = $this->get('image.form_handler');
+
+        if ($request->isMethod('post') &&
+            !$imagesHandler->handle($form, $request, $user)) {
+            $this->setTranslatedFlashMessage('Profile image could not be updated', 'error');
+        }
+
+        return $this->render('BackendBundle:Admin:Profile/profile.html.twig', array('user' => $user, 'form' => $form->createView(), 'superadmin' => true));
+    }
+
+    /**
+     * @ParamConverter("user", class="BackendBundle:AdminUser")
+     */
+    public function updateProfileAction(AdminUser $user, Request $request)
+    {
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getEntityManager();
+
+            $data = $request->request->all();
+            $data = $data['admin_user_profile'];
+
+            $updatedValues = UpdateEntityHelper::updateEntity($data, $user, 'admin_user_profile_');
+
+            $em->persist($user);
+            $em->flush();
+            $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
+        }
+
+        return $this->getHttpJsonResponse($json_response);
     }
 }

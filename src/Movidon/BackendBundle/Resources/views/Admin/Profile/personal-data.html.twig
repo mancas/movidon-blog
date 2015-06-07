@@ -37,7 +37,7 @@
 </div>
 
 <div class="pbb-edit">
-    <form id="profile-personal-data" action="{{ path('admin_user_profile_update') }}" method="post">
+    <form id="profile-personal-data" action="{% if superadmin is defined %}{{ path('super_admin_user_update_profile', {'id': user.id}) }}{% else %}{{ path('admin_user_profile_update') }}{% endif %}" method="post">
         <dl class="dl-horizontal">
             <dt>
                 {{ 'Name' | trans }}

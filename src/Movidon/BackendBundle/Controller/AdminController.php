@@ -4,6 +4,7 @@ namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BackendBundle\Form\Type\AdminUserProfileType;
+use Movidon\BackendBundle\Utils\UpdateEntityHelper;
 use Movidon\ImageBundle\Form\Type\ImageType;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -54,14 +55,7 @@ class AdminController extends CustomController
             $data = $data['admin_user_profile'];
             $user = $this->getCurrentUser();
 
-            $updatedValues = array();
-            foreach ($data as $key => $value) {
-                $method = 'set' . ucfirst($key);
-                if (method_exists($user, $method)) {
-                    $user->$method($value);
-                    $updatedValues['admin_user_profile_' . $key] = $value;
-                }
-            }
+            $updatedValues = UpdateEntityHelper::updateEntity($data, $user, 'admin_user_profile_');
 
             $em->persist($user);
             $em->flush();

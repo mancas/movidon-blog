@@ -5,7 +5,7 @@
 </div>
 
 <div class="pbb-edit">
-    <form id="profile-summary" action="{{ path('admin_user_profile_update') }}" method="post">
+    <form id="profile-summary" action="{% if superadmin is defined %}{{ path('super_admin_user_update_profile', {'id': user.id}) }}{% else %}{{ path('admin_user_profile_update') }}{% endif %}" method="post">
         <div class="form-group">
             <div class="line">
                 <textarea name="admin_user_profile[summary]" class="form-control" value="{% if user.summary %}{{ user.summary }}{% endif %}" placeholder="{{ 'Summary...' }}" rows="5">{% if user.summary %}{{ user.summary }}{% endif %}</textarea>

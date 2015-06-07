@@ -1,7 +1,12 @@
 {% extends "BackendBundle:Layouts:2columns.html.twig" %}
 
 {% block breadcrumb %}
-    {{ setCrumbs({'Profile': ''}) }}
+    {% if superadmin is defined %}
+        {% set crumbs = {'Users': path('super_admin_user_index'), 'View user profile': '' } %}
+    {% else %}
+        {% set crumbs = {'Profile': '' } %}
+    {% endif %}
+    {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
 
@@ -10,7 +15,7 @@
         <div class="col-md-12">
             <div class="card-item">
                 <div class="p-overview">
-                    <form method="post" action="{{ path('admin_user_profile') }}" {{ form_enctype(form) }}>
+                    <form method="post" action="{% if superadmin is defined %}{{ path('super_admin_user_profile', {'id': user.id}) }}{% else %}{{ path('admin_user_profile') }}{% endif %}" {{ form_enctype(form) }}>
                         <div class="p-picture">
                             <a id="profile-image" href="" class="upload-photo">
                                 {% if user.imageProfile is defined and user.imageProfile is not null %}

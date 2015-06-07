@@ -49,7 +49,7 @@
                                     <a class="publish btn btn-amber" href="{{ path('super_admin_user_toggle_ban', {'id': user.id}) }}" title="{{ 'Ban user' | trans }}"><i class="fa fa-times"></i></a>
                                 {% endif %}
                                 <a class="edit btn btn-blue" href="{{ path('super_admin_user_edit', {'id': user.id}) }}" title="{{ 'Edit user' | trans }}"><i class="fa fa-pencil"></i></a>
-                                <a class="delete btn btn-purple" href="{{ path('super_admin_user_profile', {'id': user.id}) }}" title="{{ 'View profile' | trans }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-purple" href="{{ path('super_admin_user_profile', {'id': user.id}) }}" title="{{ 'View profile' | trans }}"><i class="fa fa-eye"></i></a>
                                 <a class="delete btn btn-red" href="{{ path('super_admin_user_delete', {'id': user.id}) }}" title="{{ 'Delete user' | trans }}"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

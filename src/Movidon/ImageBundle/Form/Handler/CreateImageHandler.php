@@ -42,6 +42,7 @@ class CreateImageHandler
                         $image->setUser($user);
                         $imageMain = $user->getImageProfile();
                         $imageMain->setMain(0);
+                        $image->setMain(1);
                         $this->imageManager->saveImage($imageMain);
                         $this->imageManager->saveImage($image);
                         $this->imageManager->createImage($image);
