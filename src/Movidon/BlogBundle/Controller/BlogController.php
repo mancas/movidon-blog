@@ -4,6 +4,7 @@ namespace Movidon\BlogBundle\Controller;
 
 use Movidon\BackendBundle\Entity\AdminUser;
 use Movidon\BlogBundle\Entity\Post;
+use Movidon\BlogBundle\Entity\Tag;
 use Movidon\FrontendBundle\Controller\CustomController;
 use Movidon\FrontendBundle\Util\ArrayHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -67,5 +68,16 @@ class BlogController extends CustomController
      */
     public function postCardAction(Post $post) {
         return array('post' => $post);
+    }
+
+    /**
+     * @ParamConverter("tag", class="BlogBundle:Tag")
+     */
+    public function viewPostsByTagAction(Tag $tag)
+    {
+        $em = $this->getEntityManager();
+        $posts = $em->getRepository('BlogBundle:Post')->findAllByTag($tag);
+
+        return $this->render('BlogBundle:Blog:index.html.twig', array('posts' => $posts));
     }
 }

@@ -10,7 +10,11 @@ class UpdateEntityHelper
             $method = 'set' . ucfirst($key);
             $getMethod = 'get' . ucfirst($key);
             if (method_exists($entity, $method) && $entity->$getMethod() !== $value) {
-                $entity->$method($value);
+                if (strlen($value) === 0) {
+                    $entity->$method(null);
+                } else {
+                    $entity->$method($value);
+                }
                 $updatedValues[$prefix . $key] = $value;
             }
         }

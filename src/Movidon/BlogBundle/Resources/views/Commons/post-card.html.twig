@@ -18,6 +18,14 @@
             </p>
             <a class="read-more" href="{{ path('blog_view_post', {'slug' : post.slug}) }}">{{ 'Read more' | trans }} <i class="fa fa-angle-double-right"></i></a>
         </section>
+
+        <div class="tags">
+            <ul class="list-unstyled">
+                {% for tag in post.tags %}
+                    <li><a href="#view-post-of-tag" title="{{ 'View related posts' | trans }}">{{ tag }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </article>
 </div>
 {% endif %}

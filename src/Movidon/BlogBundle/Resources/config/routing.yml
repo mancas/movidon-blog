@@ -9,3 +9,7 @@ blog_view_post:
 blog_view_post_by_user:
     path: /blog/u/{slug}
     defaults: { _controller: BlogBundle:Blog:viewUserPosts }
+
+blog_view_post_by_tag:
+    path: /blog/t/{slug}
+    defaults: { _controller: BlogBundle:Blog:viewPostsByTag }

@@ -10,7 +10,7 @@
                         {% for author in post.authors %}
                             {% if author.name | length > 0 and author.imageProfile is not null%}
                                 <li>
-                                    <a href="#view-profile" title="{{ 'View ' ~ author.name ~ ' profile' | trans }}">
+                                    <a href="{{ path('view_profile', {'slug': author.slug}) }}" title="{{ 'View ' ~ author.name ~ ' profile' | trans }}">
                                         {% set path = author.imageProfile.webFilePath ~ '?' ~ random() %}
                                         <img src="{{ asset(path) }}">
                                     </a>

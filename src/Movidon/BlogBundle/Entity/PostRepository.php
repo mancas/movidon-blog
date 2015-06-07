@@ -50,4 +50,31 @@ class PostRepository extends CustomEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllByTag($tag, $limit = null)
+    {
+        return $this->findAllByTagDQL($tag, $limit)->getResult();
+    }
+
+    public function findAllByTagDQL($tag, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p');
+        $qb->innerJoin('p.tags', 't');
+
+        $qb->addOrderBy('p.updated','DESC');
+        $and = $qb->expr()->andX();
+
+        $and->add($qb->expr()->isNotNull('p.published'));
+        $and->add($qb->expr()->isNull('p.deleted'));
+        $and->add($qb->expr()->eq('t.name', '\'' .$tag->getName() . '\''));
+
+        $qb->where($and);
+
+        if (isset($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery();
+    }
 }

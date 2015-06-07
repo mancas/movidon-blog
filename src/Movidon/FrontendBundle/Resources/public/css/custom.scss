@@ -203,6 +203,11 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
       margin-bottom: 0;
     }
   }
+
+  .tags {
+    position: absolute;
+    bottom: 0;
+  }
 }
 
 .card {
@@ -238,7 +243,7 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     min-height: 50rem;
     height: auto;
     padding: 1.5rem;
-    background-color: $white;BLOG
+    background-color: $white;
 
     .subtitle {
       font-style: italic;
@@ -275,19 +280,20 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     padding: 0;
   }
 
-  .tags {
-    li {
-      display: inline-block;
-      margin-right: 1rem;
-      a {
-        color: $white;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        background-color: $red;
-        transition: background-color 250ms ease 0s;
-        &:hover {
-          background-color: $red-hover;
-        }
+}
+
+.tags {
+  li {
+    display: inline-block;
+    margin-right: 1rem;
+    a {
+      color: $white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: $red;
+      transition: background-color 250ms ease 0s;
+      &:hover {
+        background-color: $red-hover;
       }
     }
   }
@@ -467,6 +473,17 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
 /** CAROUSEL **/
 .carousel {
   height: 40rem;
+}
+
+.carousel-indicators {
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8rem;
+  background-color: $box-shadow;
+  line-height: 8rem;
 }
 
 /** POST SIDENAV **/

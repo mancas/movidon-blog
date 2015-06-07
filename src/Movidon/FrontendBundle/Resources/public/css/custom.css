@@ -140,6 +140,9 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   margin-bottom: 3rem; }
   #blog .row:last-child {
     margin-bottom: 0; }
+#blog .tags {
+  position: absolute;
+  bottom: 0; }
 
 .card {
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
@@ -166,9 +169,7 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
     height: auto;
     padding: 1.5rem;
     background-color: #FFFFFF; }
-    #post .card BLOG
-    .subtitle, #post-home .card BLOG
-    .subtitle {
+    #post .card .subtitle, #post-home .card .subtitle {
       font-style: italic;
       font-size: 1.6rem; }
     #post .card .date, #post .card .category, #post-home .card .date, #post-home .card .category {
@@ -188,17 +189,18 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
   #post footer, #post-home footer {
     background: none;
     padding: 0; }
-  #post .tags li, #post-home .tags li {
-    display: inline-block;
-    margin-right: 1rem; }
-    #post .tags li a, #post-home .tags li a {
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      background-color: #D42F43;
-      transition: background-color 250ms ease 0s; }
-      #post .tags li a:hover, #post-home .tags li a:hover {
-        background-color: #9b1e3a; }
+
+.tags li {
+  display: inline-block;
+  margin-right: 1rem; }
+  .tags li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: #D42F43;
+    transition: background-color 250ms ease 0s; }
+    .tags li a:hover {
+      background-color: #9b1e3a; }
 
 #post-home h1 {
   margin-top: 0; }
@@ -315,6 +317,16 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
 /** CAROUSEL **/
 .carousel {
   height: 40rem; }
+
+.carousel-indicators {
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  line-height: 8rem; }
 
 /** POST SIDENAV **/
 .sidenav .sidenav-content {

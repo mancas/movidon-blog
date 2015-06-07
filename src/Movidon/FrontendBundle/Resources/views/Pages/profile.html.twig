@@ -40,19 +40,19 @@
                         </p>
 
                         <ul class="contact-me list-unstyled">
-                            {% if user.email is defined %}
+                            {% if user.email is defined and user.email is not null %}
                                 <li>
                                     <i class="fa fa-envelope"></i> {{ user.email }}
                                 </li>
                             {% endif %}
 
-                            {% if user.twitter is defined %}
+                            {% if user.twitter is defined and user.twitter is not null %}
                                 <li>
                                     <i class="fa fa-at"></i>{{ user.twitter }}
                                 </li>
                             {% endif %}
 
-                            {% if user.website is defined %}
+                            {% if user.website is defined and user.website is not null %}
                                 <li>
                                     <i class="fa fa-desktop"></i> {{ user.website }}
                                 </li>
