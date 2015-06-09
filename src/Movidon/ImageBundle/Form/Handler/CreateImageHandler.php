@@ -35,6 +35,7 @@ class CreateImageHandler
                 $imageConstraint->maxSizeMessage = Image::ERROR_MESSAGE;
                 $imageConstraint->maxSize = Image::MAX_SIZE;
                 $errorList = $this->validator->validateValue($file, $imageConstraint);
+                ld($errorList);
                 if (count($errorList) === 0) {
                     try {
                         $image = new ImageProfile();
@@ -43,10 +44,11 @@ class CreateImageHandler
                         $imageMain = $user->getImageProfile();
                         $imageMain->setMain(0);
                         $image->setMain(1);
-                        $this->imageManager->saveImage($imageMain);
                         $this->imageManager->saveImage($image);
+                        $this->imageManager->saveImage($imageMain);
                         $this->imageManager->createImage($image);
                     } catch (\Exception $e) {
+                        ld($e);
                         $this->imageManager->removeImage($image);
                         return false;
                     }
