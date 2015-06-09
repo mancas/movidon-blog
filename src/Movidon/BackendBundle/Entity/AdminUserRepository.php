@@ -43,7 +43,7 @@ class AdminUserRepository extends CustomEntityRepository
         if (isset($limit)) {
             $qb->setMaxResults($limit);
         }
-
+ldd($qb->getQuery()->getSQL());
         return $qb->getQuery()->getResult();
     }
 }

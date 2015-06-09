@@ -23,7 +23,9 @@ class FrontendController extends CustomController
     public function whoAreWeAction()
     {
         $em = $this->getEntityManager();
-        $authors = $em->getRepository('BackendBundle:AdminUser')->findAllOrderedByPostCount();
+        //TODO
+        //$authors = $em->getRepository('BackendBundle:AdminUser')->findAllOrderedByPostCount();
+        $authors = $em->getRepository('BackendBundle:AdminUser')->findAll();
 
         return $this->render('FrontendBundle:Pages:who-are-we.html.twig', array('authors' => $authors));
     }
