@@ -407,7 +407,7 @@ class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterf
             }
         }
 
-        return false;
+        return null;
     }
 
     /**

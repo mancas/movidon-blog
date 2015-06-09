@@ -1,0 +1,34 @@
+<VirtualHost *:80>
+        ServerName      blog.moversbyfue.com
+        ServerAlias     www.blog.moversbyfue.com
+
+        DocumentRoot    "/var/www/html/movidon/web"
+        DirectoryIndex  app.php
+        AddDefaultCharset utf-8
+
+        <Directory /var/www/html/movidon/web>
+                Options FollowSymLinks MultiViews
+
+                AllowOverride None
+                Allow from All
+
+                <IfModule mod_rewrite.c>
+                    Options -MultiViews
+                    RewriteEngine On
+                    RewriteCond %{REQUEST_FILENAME} !-f
+                    RewriteRule ^(.*)$ app.php [QSA,L]
+                </IfModule>
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/movidon-error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel debug
+
+        CustomLog ${APACHE_LOG_DIR}/movidon-access.log combined
+</VirtualHost>
+<VirtualHost *:80>
+        ServerName blog.moversbyfue.com
+    Redirect 301 / http://www.blog.moversbyfue.com/
+</VirtualHost>
