@@ -35,7 +35,7 @@ echo "*************************************"
 adduser --disabled-password --gecos "" mover
 adduser mover www-data
 chpasswd <<__END__
-clop:pq3M0v3r
+mover:pq3M0v3r
 __END__
 
 echo "*************************************"

@@ -130,10 +130,16 @@ class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterf
      */
     protected $banned = false;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Movidon\MessageBundle\Entity\Thread", mappedBy="participants")
+     */
+    protected $threads;
+
     public function __construct()
     {
         $this->imagesProfile = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->threads = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function serialize()
@@ -542,5 +548,21 @@ class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterf
     public function isEnabled()
     {
         return !$this->banned;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThreads()
+    {
+        return $this->threads;
+    }
+
+    /**
+     * @param mixed $threads
+     */
+    public function setThreads($threads)
+    {
+        $this->threads = $threads;
     }
 }

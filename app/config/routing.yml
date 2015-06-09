@@ -1,3 +1,7 @@
+message:
+    resource: "@MessageBundle/Resources/config/routing.yml"
+    prefix:   /
+
 image:
     resource: "@ImageBundle/Resources/config/routing.yml"
     prefix:   /

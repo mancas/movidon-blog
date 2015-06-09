@@ -47,7 +47,7 @@ echo "*************************************"
 echo "***            SUDO               ***"
 echo "*************************************"
 aptitude install sudo
-echo "clop    ALL=(ALL) ALL" >> /etc/sudoers
+echo "mover    ALL=(ALL) ALL" >> /etc/sudoers
 
 echo "*************************************"
 echo "***       Installing PHP          ***"
@@ -93,9 +93,15 @@ gcc lockrun.c -o lockrun
 cp lockrun /usr/local/bin/cd /hosts
 
 echo "*************************************"
-echo "***       Install SASS         ***"
+echo "***       Install SASS            ***"
 echo "*************************************"
+apt-get --yes install ruby
+gem install sass
 
+echo "*************************************"
+echo "***       Install CURL            ***"
+echo "*************************************"
+apt-get --yes install curl
 
 echo -e '\E[01;32m*************************************'
 echo -e '\E[01;32m***            DONE!              ***'
