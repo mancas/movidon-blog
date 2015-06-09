@@ -581,7 +581,8 @@ header {
     overflow-y: auto;
     cursor: inherit; }
   .card-chat .card-chat-messages {
-    background-color: #ffffff; }
+    background-color: #ffffff;
+    min-height: 28rem; }
   .card-chat .chat-body {
     border-left: solid 0.1rem rgba(0, 0, 0, 0.12); }
   .card-chat .list-item:hover {
@@ -622,6 +623,9 @@ header {
   .card-chat .card-chat-thread {
     background-color: #f4f4f4;
     overflow: hidden; }
+    .card-chat .card-chat-thread .add-thread .li-small {
+      line-height: 3.5rem !important;
+      background-color: #2196f3; }
     .card-chat .card-chat-thread .list-view {
       width: calc(100% + 3.2rem);
       padding-right: 1.8rem;

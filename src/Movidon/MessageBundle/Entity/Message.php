@@ -48,6 +48,11 @@ abstract class Message
     protected $body;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" = 1})
+     */
+    protected $unread = true;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -125,5 +130,26 @@ abstract class Message
     public function setBody($body)
     {
         $this->body = $body;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUnread()
+    {
+        return $this->unread;
+    }
+
+    /**
+     * @param mixed $unread
+     */
+    public function setUnread($unread)
+    {
+        $this->unread = $unread;
+    }
+
+    public function isUnread()
+    {
+        return $this->unread;
     }
 }

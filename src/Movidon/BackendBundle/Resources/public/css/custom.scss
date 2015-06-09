@@ -909,6 +909,7 @@ header {
 
   .card-chat-messages {
     background-color: $white;
+    min-height: 28rem;
   }
 
   .chat-body {
@@ -975,6 +976,13 @@ header {
   .card-chat-thread {
     background-color: $background-hover;
     overflow: hidden;
+
+    .add-thread {
+      .li-small {
+        line-height: 3.5rem !important;
+        background-color: $material-blue;
+      }
+    }
 
     .list-view {
       width: calc(100% + 3.2rem);

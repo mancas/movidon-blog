@@ -1,0 +1,174 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {{ setCrumbs({'Messages': ''}) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-item card-chat">
+                <div class="row">
+                    <div class="col-md-3 chat-menu">
+                        <div class="card-title text-center">
+                            <h2>
+                                Private Messages
+                            </h2>
+                        </div>
+                        <div class="card-description card-chat-thread">
+                            <div class="list-view">
+                                {% for thread in threads %}
+                                {% set participant = thread.participant %}
+                                {% if participant %}
+                                <a class="list-item{% if loop.first %} active{% endif %}">
+                                    {% if participant.imageProfile is defined and participant.imageProfile is not null %}
+                                        {% set path = participant.imageProfile.imageProfileAvatar.webFilePath %}
+                                    {% else %}
+                                        {% set path = 'bundles/backend/img/user-1.jpg' %}
+                                    {% endif %}
+                                    <img class="li-small pull-left" src="{{ asset(path) }}" />
+                                    <span class="list-content media-body">
+                                        <b class="li-title">{% if participant.name %}{{ participant.name }} {{ participant.lastName }}{% else %}{{ participant.username }}{% endif %}</b>
+                                        <small class="li-description">{{ thread.lastMessage }}</small>
+                                    </span>
+                                </a>
+                                {% endif %}
+                                {% endfor %}
+
+                                <a class="list-item add-thread">
+                                    <span class="li-small pull-left">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                    <span class="list-content media-body">
+                                        <b class="li-title">{{ 'Add thread' | trans }}</b>
+                                        <small class="li-description">{{ 'Talk with someone' | trans }}</small>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if threads | length > 0 %}
+                    {% set firstThread = threads[0] %}
+                    {% endif %}
+                    <div class="col-md-9 chat-body">
+                        <div class="card-title">
+                            <h2>
+                                {% if firstThread is defined and firstThread is not null %}
+                                    {% set participant = thread.participant %}
+                                    {% if participant.imageProfile is defined and participant.imageProfile is not null %}
+                                        {% set path = participant.imageProfile.imageProfileAvatar.webFilePath %}
+                                    {% else %}
+                                        {% set path = 'bundles/backend/img/user-1.jpg' %}
+                                    {% endif %}
+                                    <img src="{{ asset(path) }}" />
+                                    {% if participant.name %}{{ participant.name }} {{ participant.lastName }}{% else %}{{ participant.username }}{% endif %}
+                                {% else %}
+                                    {{ 'You have no messages' | trans }}
+                                {% endif %}
+                            </h2>
+
+                            <div class="card-options">
+                                {#<ul class="options list-unstyled">
+                                    <li>
+                                        <a title="Delete thread" class="delete-thread" data-id="1" href="">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </li>
+                                </ul>#}
+                            </div>
+                        </div>
+                        <div class="card-description card-chat-messages">
+                            {% if firstThread is defined and firstThread is not null %}
+                            <ul class="list-view">
+                                <li class="list-item">
+                                    <img class="list-avatar pull-left" src="{{ asset('bundles/backend/img/user-1.jpg') }}" />
+                                    <div class="media-body">
+                                        <div class="list-bubble">
+                                            <p>
+                                                Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+                                            </p>
+                                        </div>
+                                        <small class="bubble-date">
+                                            <i class="fa fa-clock-o"></i>
+                                            08/05/2015 - 19:27
+                                        </small>
+                                    </div>
+                                </li>
+
+                                <li class="right list-item">
+                                    <img class="list-avatar pull-right" src="{{ asset('bundles/backend/img/user-2.jpg') }}" />
+                                    <div class="media-body">
+                                        <div class="list-bubble">
+                                            <p>
+                                                Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum.
+                                            </p>
+                                        </div>
+                                        <small class="bubble-date">
+                                            <i class="fa fa-clock-o"></i>
+                                            08/05/2015 - 19:30
+                                        </small>
+                                    </div>
+                                </li>
+                            </ul>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer card-chat-footer">
+                            <form id="message-chat" action="" method="post">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <textarea class="form-control" placeholder="What's on your mind?"></textarea>
+                                        <span class="input-group-addon">
+                                            <a class="btn send" href="" title="Send message">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block alerts %}
+    <!-- ALERTS -->
+    <div id="add-thread-alert" class="material-alert">
+        <h2>{{ 'Add thread' | trans }}</h2>
+        <form data-update="action" action="" id="add-thread-form" method="post">
+            <div class="form-group text-left">
+                <label for="thread_user">{{ 'User' | trans }}</label>
+                <div class="line">
+                    {{ form_widget(form.participants, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'User' | trans} }) }}
+                </div>
+            </div>
+
+            <button id="dia-cancel" data-close="#edit-img-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
+            <button id="dia-create" type="submit" class="btn btn-blue">{{ 'Create thread' | trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'BackendBundle:Scripts:chat.html.twig' %}
+
+    <script>
+        ChatHelper.init('message-chat');
+    </script>
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
+    <script>
+        window.addEventListener('load', function() {
+            $(".select2").select2();
+        });
+    </script>
+{% endblock %}

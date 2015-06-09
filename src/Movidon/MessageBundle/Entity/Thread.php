@@ -40,7 +40,7 @@ class Thread
     protected $messages;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\AdminUser", mappedBy="threads")
+     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="threads")
      * @ORM\JoinTable(name="threads_users",
      *      joinColumns={@ORM\JoinColumn(name="thread_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -116,5 +116,48 @@ class Thread
     public function setMessages($messages)
     {
         $this->messages = $messages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @param mixed $participants
+     */
+    public function setParticipants($participants)
+    {
+        $this->participants = $participants;
+    }
+
+    public function getParticipant($userId)
+    {
+        foreach ($this->participants as $participant) {
+            if ($participant->getId() !== $userId) {
+                return $participant;
+            }
+        }
+
+        return null;
+    }
+
+    public function getLastMessage()
+    {
+        return $this->messages->last();
+    }
+
+    public function isUnread()
+    {
+        foreach ($this->messages as $message) {
+            if ($message->isUnread()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ImageProfile extends Image
 {
     CONST MAX_WIDTH = 1024;
-    CONST MAX_HEIGHT = 768;
+    CONST MAX_HEIGHT = 1024;
     protected $subdirectory = "images/profile";
     protected $maxWidth = self::MAX_WIDTH;
     protected $maxHeight = self::MAX_HEIGHT;
