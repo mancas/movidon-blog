@@ -20,6 +20,7 @@
             this.threads = document.querySelectorAll('.card-chat-thread .list-item');
             this._initSendEvents();
             this._initSelectThreadEvents();
+            this._initClickEvents();
         },
 
         _initSendEvents: function() {
@@ -149,6 +150,56 @@
             }
 
             this.titleContainer.innerHTML += name;
+        },
+
+        _initClickEvents: function() {
+            var addThreadBtns = document.querySelectorAll('.add-thread');
+
+            Array.prototype.forEach.call(addThreadBtns, function(btn) {
+                btn.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    AlertHelper.alert('#add-thread-alert');
+                })
+            });
+
+            var usersBtns = document.querySelectorAll('#add-thread-alert a.list-item');
+            var select = document.querySelector('#add-thread-alert select');
+            Array.prototype.forEach.call(usersBtns, function(btn) {
+                btn.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    var selected = btn.dataset.selected;
+                    btn.dataset.selected = selected === "true" ? false : true;
+                    var option = select.querySelector('option[value="' + btn.dataset.id + '"]');
+                    option.selected = !option.selected;
+                    console.info(option.selected);
+                })
+            });
+
+            var form = document.querySelector('#add-thread-alert form');
+            form.addEventListener('submit', function(evt) {
+                evt.preventDefault();
+                var data = new FormData(evt.target);
+                this.createNewThread(form.getAttribute('action'), data);
+            }.bind(this));
+        },
+
+        createNewThread: function(path, data) {
+            var participants = document.querySelectorAll('#add-thread-alert a[data-selected="true"]');
+            var ids = [];
+            Array.prototype.forEach.call(participants, function(participant) {
+                ids.push(participant.dataset.id);
+                // Clear selected flag
+                participant.dataset.selected = false;
+            });
+console.info(ids);
+            var onSuccess = function(response) {
+                console.info(response);
+            };
+
+            if (ids.length > 0) {
+                XMLHttpRequestHelper.sendRequest({method: 'post', path: path,
+                    params: data, onsuccess: onSuccess});
+            }
         }
-    }
+    };
 </script>

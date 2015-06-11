@@ -810,65 +810,6 @@ header {
 
   .card-description {
     padding: 1.5rem 0;
-    .list-view {
-      position: relative;
-
-      .list-item {
-        text-decoration: none;
-        padding: 1rem 2rem;
-        position: relative;
-        display: block;
-        overflow: hidden;
-        transition: background-color 300ms ease 0s, opacity 300ms ease 0s;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $material-cyan-list-view-hover;
-        }
-
-        .li-small {
-          width: 3.5rem;
-          height: 3.5rem;
-          border-radius: 10rem;
-          margin-right: 1rem;
-        }
-
-        span.li-small {
-          text-align: center;
-          line-height: 3.4rem;
-          font-size: 1.5rem;
-          color: white;
-          font-weight: normal;
-          text-transform: uppercase;
-        }
-
-        .list-content {
-          display: block;
-          width: auto;
-          .li-title {
-            font-weight: bold;
-            display: block;
-            font-size: 1.3rem;
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: $text;
-            line-height: 1.4rem;
-          }
-
-          .li-description {
-            font-size: 1.2rem;
-            width: 100%;
-            color: $secondary-icons;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            display: block;
-          }
-        }
-      }
-    }
   }
 
   .card-padding {
@@ -896,6 +837,68 @@ header {
   }
 }
 
+/** LIST ITEMS **/
+
+.list-content {
+  display: block;
+  width: auto;
+  .li-title {
+    font-weight: bold;
+    display: block;
+    font-size: 1.3rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $text;
+    line-height: 1.4rem;
+  }
+
+  .li-description {
+    font-size: 1.2rem;
+    width: 100%;
+    color: $secondary-icons;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+}
+
+.list-view {
+  position: relative;
+
+  .list-item {
+    text-decoration: none;
+    padding: 1rem 2rem;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    transition: background-color 300ms ease 0s, opacity 300ms ease 0s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $material-cyan-list-view-hover;
+    }
+  }
+}
+
+.li-small {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
+}
+
+span.li-small {
+  text-align: center;
+  line-height: 3.4rem;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
 .card-chat {
   background-color: $background-hover;
   ul {
@@ -910,6 +913,25 @@ header {
   .card-chat-messages {
     background-color: $white;
     min-height: 28rem;
+    position: relative;
+
+    .no-threads {
+      display: table;
+      height: 28rem;
+      width: 100%;
+      text-align: center;
+      .message {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        position: relative;
+        span {
+          display: block;
+          font-size: 2.4rem;
+          color: $disabled-hint;
+        }
+      }
+    }
   }
 
   .chat-body {
@@ -1049,6 +1071,48 @@ header {
     }
   }
 
+}
+
+#add-thread-alert {
+  h2 {
+    margin-top: 0;
+  }
+
+  .users {
+    max-height: 15rem;
+    overflow-y: auto;
+    .list-item {
+      text-align: left;
+      position: relative;
+      i {
+        color: $white;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transition: transform 0.3s ease 0s;
+        transform: scale(0) translate(0%, -50%);
+      }
+
+      .li-title {
+        line-height: 3.5rem;
+      }
+    }
+
+    a[data-selected="true"] {
+      background-color: $material-blue;
+      .li-title {
+        color: $white;
+      }
+
+      &:hover {
+        background-color: $material-blue;
+      }
+
+      i {
+        transform: scale(1) translate(0%, -50%);
+      }
+    }
+  }
 }
 
 .card-cyan{

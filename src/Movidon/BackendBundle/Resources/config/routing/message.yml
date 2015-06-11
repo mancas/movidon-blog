@@ -1,3 +1,7 @@
 admin_message_index:
     pattern: /
     defaults: { _controller: BackendBundle:Message:list }
+
+admin_message_new_thread:
+    pattern: /create-new-thread
+    defaults: { _controller: BackendBundle:Message:newThread }

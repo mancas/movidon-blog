@@ -1,6 +1,7 @@
 <script>
     var XMLHttpRequestHelper = {
         sendRequest: function(options) {
+            console.info(options.params);
             var xhr = new XMLHttpRequest();
             xhr.open(options.method, options.path, true);
             if (options.headers !== null && typeof options.headers !== 'undefined') {
@@ -10,7 +11,6 @@
             }
             // Symfony needs these headers
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Connection', 'close');
             xhr.send(options.params);
 
             xhr.onload = function (evt) {

@@ -19,16 +19,33 @@ class AdminUserRepository extends CustomEntityRepository
 
     public function findAllDQL($limit = null)
     {
-        $qb = $this->createQueryBuilder('t');
-        $qb->select('t');
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u');
 
-        $qb->addOrderBy('t.id','ASC');
+        $qb->addOrderBy('u.id','ASC');
 
         if (isset($limit)) {
             $qb->setMaxResults($limit);
         }
 
         return $qb->getQuery();
+    }
+
+    public function findAllExcept($user, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u');
+
+        $qb->addOrderBy('u.id','ASC');
+        $and = $qb->expr()->andX();
+
+        $and->add($qb->expr()->neq('u.id', '\'' . $user->getId() . '\''));
+
+        if (isset($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     public function findAllOrderedByPostCount($limit = null)

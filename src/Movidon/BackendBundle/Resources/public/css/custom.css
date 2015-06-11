@@ -511,51 +511,6 @@ header {
             transform: scale(0); }
   .card-item .card-description {
     padding: 1.5rem 0; }
-    .card-item .card-description .list-view {
-      position: relative; }
-      .card-item .card-description .list-view .list-item {
-        text-decoration: none;
-        padding: 1rem 2rem;
-        position: relative;
-        display: block;
-        overflow: hidden;
-        transition: background-color 300ms ease 0s, opacity 300ms ease 0s;
-        cursor: pointer; }
-        .card-item .card-description .list-view .list-item:hover {
-          background-color: #e0f7fa; }
-        .card-item .card-description .list-view .list-item .li-small {
-          width: 3.5rem;
-          height: 3.5rem;
-          border-radius: 10rem;
-          margin-right: 1rem; }
-        .card-item .card-description .list-view .list-item span.li-small {
-          text-align: center;
-          line-height: 3.4rem;
-          font-size: 1.5rem;
-          color: white;
-          font-weight: normal;
-          text-transform: uppercase; }
-        .card-item .card-description .list-view .list-item .list-content {
-          display: block;
-          width: auto; }
-          .card-item .card-description .list-view .list-item .list-content .li-title {
-            font-weight: bold;
-            display: block;
-            font-size: 1.3rem;
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: rgba(0, 0, 0, 0.87);
-            line-height: 1.4rem; }
-          .card-item .card-description .list-view .list-item .list-content .li-description {
-            font-size: 1.2rem;
-            width: 100%;
-            color: rgba(0, 0, 0, 0.54);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            display: block; }
   .card-item .card-padding {
     padding: 1.5rem 2rem; }
     .card-item .card-padding .material-paginator {
@@ -571,6 +526,56 @@ header {
       .card-item .card-footer a:hover {
         color: rgba(0, 0, 0, 0.87); }
 
+/** LIST ITEMS **/
+.list-content {
+  display: block;
+  width: auto; }
+  .list-content .li-title {
+    font-weight: bold;
+    display: block;
+    font-size: 1.3rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.4rem; }
+  .list-content .li-description {
+    font-size: 1.2rem;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.54);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block; }
+
+.list-view {
+  position: relative; }
+  .list-view .list-item {
+    text-decoration: none;
+    padding: 1rem 2rem;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    transition: background-color 300ms ease 0s, opacity 300ms ease 0s;
+    cursor: pointer; }
+    .list-view .list-item:hover {
+      background-color: #e0f7fa; }
+
+.li-small {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10rem;
+  margin-right: 1rem; }
+
+span.li-small {
+  text-align: center;
+  line-height: 3.4rem;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: normal;
+  text-transform: uppercase; }
+
 .card-chat {
   background-color: #f4f4f4; }
   .card-chat ul {
@@ -582,7 +587,22 @@ header {
     cursor: inherit; }
   .card-chat .card-chat-messages {
     background-color: #ffffff;
-    min-height: 28rem; }
+    min-height: 28rem;
+    position: relative; }
+    .card-chat .card-chat-messages .no-threads {
+      display: table;
+      height: 28rem;
+      width: 100%;
+      text-align: center; }
+      .card-chat .card-chat-messages .no-threads .message {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        position: relative; }
+        .card-chat .card-chat-messages .no-threads .message span {
+          display: block;
+          font-size: 2.4rem;
+          color: rgba(0, 0, 0, 0.26); }
   .card-chat .chat-body {
     border-left: solid 0.1rem rgba(0, 0, 0, 0.12); }
   .card-chat .list-item:hover {
@@ -666,6 +686,32 @@ header {
       transition: color 300ms ease 0s; }
       .card-chat .card-chat-footer .btn:hover {
         color: #1565c0; }
+
+#add-thread-alert h2 {
+  margin-top: 0; }
+#add-thread-alert .users {
+  max-height: 15rem;
+  overflow-y: auto; }
+  #add-thread-alert .users .list-item {
+    text-align: left;
+    position: relative; }
+    #add-thread-alert .users .list-item i {
+      color: #ffffff;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transition: transform 0.3s ease 0s;
+      transform: scale(0) translate(0%, -50%); }
+    #add-thread-alert .users .list-item .li-title {
+      line-height: 3.5rem; }
+  #add-thread-alert .users a[data-selected="true"] {
+    background-color: #2196f3; }
+    #add-thread-alert .users a[data-selected="true"] .li-title {
+      color: #ffffff; }
+    #add-thread-alert .users a[data-selected="true"]:hover {
+      background-color: #2196f3; }
+    #add-thread-alert .users a[data-selected="true"] i {
+      transform: scale(1) translate(0%, -50%); }
 
 .card-cyan .card-title {
   background-color: #00bcd4;

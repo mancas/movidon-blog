@@ -117,6 +117,17 @@
                                     </div>
                                 </li>
                             </ul>
+                            {% else %}
+                                <div class="no-threads">
+                                    <div class="message">
+                                        <span>
+                                            {{ 'You don\'t have any conversation' | trans }}
+                                        </span>
+                                        <span>
+                                            {{ 'What are you waiting for?' | trans }}
+                                        </span>
+                                    </div>
+                                </div>
                             {% endif %}
                         </div>
 
@@ -145,21 +156,40 @@
     <!-- ALERTS -->
     <div id="add-thread-alert" class="material-alert">
         <h2>{{ 'Add thread' | trans }}</h2>
-        <form data-update="action" action="" id="add-thread-form" method="post">
-            <div class="form-group text-left">
-                <label for="thread_user">{{ 'User' | trans }}</label>
-                <div class="line">
-                    {{ form_widget(form.participants, { 'attr': { 'class': 'form-control required select2', 'placeholder': 'User' | trans} }) }}
-                </div>
+        <form action="{{ path('admin_message_new_thread') }}" id="add-thread-form" method="post">
+            <div class="users list-view">
+            {% for user in users %}
+                {% if user.imageProfile is defined and user.imageProfile is not null %}
+                    {% set path = user.imageProfile.imageProfileAvatar.webFilePath %}
+                {% else %}
+                    {% set path = 'bundles/backend/img/user-1.jpg' %}
+                {% endif %}
+                <a class="list-item" data-selected="false" data-id="{{ user.id }}">
+                    <img class="li-small pull-left" src="{{ asset(path) }}" />
+                    <span class="list-content media-body">
+                        <b class="li-title">{% if user.name %}{{ user.name }} {{ user.lastName }}{% else %}{{ user.username }}{% endif %}</b>
+                    </span>
+                    <i class="fa fa-check"></i>
+                </a>
+            {% endfor %}
             </div>
 
-            <button id="dia-cancel" data-close="#edit-img-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
-            <button id="dia-create" type="submit" class="btn btn-blue">{{ 'Create thread' | trans }}</button>
+            <select class="hidden" multiple="" name="participants[]" autocomplete="off">
+                <option value="" selected>--</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+
+            <button id="dta-cancel" data-close="#add-thread-alert" type="reset" class="btn btn-default">{{ 'Cancel' | trans }}</button>
+            <button id="dta-create" type="submit" class="btn btn-blue">{{ 'Create thread' | trans }}</button>
         </form>
     </div>
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+    {% include 'BackendBundle:Scripts:xmlhttprequest-helper.html.twig' %}
     {% include 'BackendBundle:Scripts:chat.html.twig' %}
 
     <script>

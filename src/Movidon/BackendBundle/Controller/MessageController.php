@@ -18,10 +18,33 @@ class MessageController extends CustomController
     public function listAction()
     {
         $threads = $this->getCurrentUser()->getThreads();
-        $form = $this->createForm(new ThreadType(), new Thread(), array('user' => $this->getCurrentUser()));
+        $em = $this->getEntityManager();
+        $users = $em->getRepository('BackendBundle:AdminUser')->findAllExcept($this->getCurrentUser());
 
-        return $this->render('BackendBundle:Message:main.html.twig', array('threads' => $threads, 'form' => $form->createView()));
+        return $this->render('BackendBundle:Message:main.html.twig', array('threads' => $threads, 'users' => $users));
     }
+
+    public function newThreadAction(Request $request)
+    {
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            ldd($request->request);
+            $em = $this->getEntityManager();
+
+            $data = $request->request->all();
+            $data = $data['admin_user_profile'];
+            $user = $this->getCurrentUser();
+
+            $updatedValues = UpdateEntityHelper::updateEntity($data, $user, 'admin_user_profile_');
+
+            $em->persist($user);
+            $em->flush();
+            $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
+        }
+
+        return $this->getHttpJsonResponse($json_response);
+    }
+
 
     public function createAction(Request $request)
     {
