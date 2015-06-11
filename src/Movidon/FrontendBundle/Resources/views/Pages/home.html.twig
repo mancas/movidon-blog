@@ -97,6 +97,9 @@
             init: function(target) {
                 this.firstSection = document.querySelector('section:not(#banner-top)');
                 this.target = target;
+                if (!this.firstSection) {
+                    return;
+                }
                 this.addEventListeners();
             },
 
