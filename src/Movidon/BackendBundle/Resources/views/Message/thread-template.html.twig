@@ -1,0 +1,15 @@
+{% set participant = thread.getParticipant(user.id) %}
+{% if participant %}
+    <a data-thread="{{ thread.id }}" href="{{ path('admin_message_get_thread', {'id': thread.id}) }}" class="list-item{% if active %} active{% endif %}">
+        {% if participant.imageProfile is defined and participant.imageProfile is not null %}
+            {% set path = participant.imageProfile.imageProfileAvatar.webFilePath %}
+        {% else %}
+            {% set path = 'bundles/backend/img/user-1.jpg' %}
+        {% endif %}
+        <img class="li-small pull-left" src="{{ asset(path) }}" />
+        <span class="list-content media-body">
+            <b class="li-title">{% if participant.name %}{{ participant.name }} {{ participant.lastName }}{% else %}{{ participant.username }}{% endif %}</b>
+            <small class="li-description">{% if thread.lastMessage %}{{ thread.lastMessage.body }}{% endif %}</small>
+        </span>
+    </a>
+{% endif %}

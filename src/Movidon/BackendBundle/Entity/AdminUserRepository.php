@@ -39,7 +39,9 @@ class AdminUserRepository extends CustomEntityRepository
         $qb->addOrderBy('u.id','ASC');
         $and = $qb->expr()->andX();
 
-        $and->add($qb->expr()->neq('u.id', '\'' . $user->getId() . '\''));
+        $and->add($qb->expr()->neq('u.id', $user->getId()));
+
+        $qb->where($and);
 
         if (isset($limit)) {
             $qb->setMaxResults($limit);

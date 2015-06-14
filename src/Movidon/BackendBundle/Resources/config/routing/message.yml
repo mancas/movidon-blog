@@ -5,3 +5,11 @@ admin_message_index:
 admin_message_new_thread:
     pattern: /create-new-thread
     defaults: { _controller: BackendBundle:Message:newThread }
+
+admin_message_get_thread:
+    pattern: /thread/{id}
+    defaults: { _controller: BackendBundle:Message:getThread }
+
+admin_message_new_message:
+    pattern: /thread/{id}/add-message
+    defaults: { _controller: BackendBundle:Message:addMessage }

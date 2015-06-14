@@ -6,158 +6,135 @@ use Movidon\BlogBundle\Entity\Post;
 use Movidon\BlogBundle\Form\Type\PostType;
 use Movidon\ImageBundle\Entity\ImagePost;
 use Movidon\ImageBundle\Form\Type\MultipleImagesType;
+use Movidon\MessageBundle\Entity\InternalMessage;
 use Movidon\MessageBundle\Entity\Thread;
 use Movidon\MessageBundle\Form\Type\ThreadType;
+use Movidon\MessageBundle\MessageBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Movidon\FrontendBundle\Controller\CustomController;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MessageController extends CustomController
 {
     public function listAction()
     {
-        $threads = $this->getCurrentUser()->getThreads();
         $em = $this->getEntityManager();
+        $threads = $em->getRepository('MessageBundle:Thread')->findAll($this->getCurrentUser());
         $users = $em->getRepository('BackendBundle:AdminUser')->findAllExcept($this->getCurrentUser());
 
-        return $this->render('BackendBundle:Message:main.html.twig', array('threads' => $threads, 'users' => $users));
+        return $this->render('BackendBundle:Message:main.html.twig', array('threads' => $threads, 'users' => $users, 'user' => $this->getCurrentUser()));
     }
 
     public function newThreadAction(Request $request)
     {
         $json_response = json_encode(array('ok' => false));
         if ($request->isXmlHttpRequest()) {
-            ldd($request->request);
             $em = $this->getEntityManager();
 
-            $data = $request->request->all();
-            $data = $data['admin_user_profile'];
-            $user = $this->getCurrentUser();
+            $data = $request->request->get('participants');
+            if (isset($data) && count($data) > 0) {
+                $thread = new Thread();
+                $repository = $em->getRepository('BackendBundle:AdminUser');
+                foreach($data as $participant) {
+                    $user = $repository->findOneBy(array('id' => $participant));
+                    if (isset($user)) {
+                        $thread->addParticipant($user);
+                    }
+                }
 
-            $updatedValues = UpdateEntityHelper::updateEntity($data, $user, 'admin_user_profile_');
+                $thread->addParticipant($this->getCurrentUser());
 
-            $em->persist($user);
-            $em->flush();
-            $json_response = json_encode(array('ok' => true, 'updatedValues' => $updatedValues));
+                $em->persist($thread);
+                $em->flush();
+
+                $template = $this->render('BackendBundle:Message:thread-template.html.twig',
+                    array('thread' => $thread, 'user' => $this->getCurrentUser()));
+
+                $chat = $this->render('BackendBundle:Message:chat-template.html.twig',
+                    array('thread' => $thread, 'user' => $this->getCurrentUser()));
+
+                $url = $this->generateUrl('admin_message_new_message', array('id' => $thread->getId()));
+
+                $json_response = json_encode(array('ok' => true,
+                                                   'thread' => $template->getContent(),
+                                                   'chat' => $chat->getContent(),
+                                                   'url' => $url,
+                                                   'id' => $thread->getId()));
+            }
         }
 
         return $this->getHttpJsonResponse($json_response);
     }
 
+    /**
+     * @Template("BackendBundle:Message:thread-template.html.twig")
+     *
+     * @return array
+     */
+    public function threadTemplateAction(Thread $thread, $active = false) {
+        return array('thread' => $thread, 'user' => $this->getCurrentUser(), 'active' => $active);
+    }
 
-    public function createAction(Request $request)
+    /**
+     * @Template("BackendBundle:Message:chat-template.html.twig")
+     *
+     * @return array
+     */
+    public function chatTemplateAction(Thread $thread) {
+        return array('thread' => $thread, 'user' => $this->getCurrentUser());
+    }
+
+    /**
+     * @ParamConverter("thread", class="MessageBundle:Thread")
+     */
+    public function getThreadAction(Thread $thread, Request $request)
     {
-        $post = new Post();
-        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator'),
-                                                               'user' => $this->getCurrentUser()));
-        $imageForm = $this->createForm(new MultipleImagesType());
-        $handler = $this->get('blog.post_form_handler');
-        $imagesHandler = $this->get('image.form_handler');
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            $template = $this->render('BackendBundle:Message:chat-template.html.twig',
+                array('thread' => $thread, 'user' => $this->getCurrentUser()));
+            $url = $this->generateUrl('admin_message_new_message', array('id' => $thread->getId()));
 
-        if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            if ($imagesHandler->handleMultiple($imageForm, $request, 'ImagePost', $post)) {
-                $this->setTranslatedFlashMessage('The post has been created successfully. Now you can pusblish it');
-            } else {
-                $this->setTranslatedFlashMessage('The post has been created successfully. However there is a problem with the images.', 'error');
-                return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
-            }
-
-            return $this->redirect($this->generateUrl('admin_post_index'));
-        } else {
-            if ($request->isMethod('POST'))
-                $this->setTranslatedFlashMessage('There is an error in your request', 'error');
+            $json_response = json_encode(array('ok' => true,
+                'chat' => $template->getContent(), 'url' => $url));
         }
 
-        return $this->render('BackendBundle:Post:create.html.twig', array('form' => $form->createView(),
-                                                                          'imageForm' => $imageForm->createView()));
+        return $this->getHttpJsonResponse($json_response);
     }
 
     /**
-     * @ParamConverter("post", class="BlogBundle:Post")
+     * @ParamConverter("thread", class="MessageBundle:Thread")
      */
-    public function editAction(Post $post, Request $request)
+    public function addMessageAction(Thread $thread, Request $request)
     {
-        $form = $this->createForm(new PostType(), $post, array('translator' => $this->get('translator'),
-                                                               'user' => $this->getCurrentUser()));
-        $imageForm = $this->createForm(new MultipleImagesType());
-        $handler = $this->get('blog.post_form_handler');
-        $imagesHandler = $this->get('image.form_handler');
+        $json_response = json_encode(array('ok' => false));
+        if ($request->isXmlHttpRequest()) {
+            $data = $request->request->get('message');
+            if (isset($data)) {
+                $user = $this->getCurrentUser();
+                $message = new InternalMessage();
+                $message->setBody($data);
+                $message->setThread($thread);
+                $message->setSender($user);
 
-        if ($handler->handle($form, $request, $this->getCurrentUser())) {
-            if ($imagesHandler->handleMultiple($imageForm, $request, 'ImagePost', $post)) {
-                $this->setTranslatedFlashMessage('The post has been edited successfully');
-            } else {
-                $this->setTranslatedFlashMessage('There is a problem with the images.', 'error');
-                return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $post->getSlug())));
+                $em = $this->getEntityManager();
+                $em->persist($message);
+                $em->flush();
+
+                $imgProfile = $user->getImageProfile();
+                $avatar = null;
+                if(isset($imgProfile)) {
+                    $avatar = $this->getRequest()->getUriForPath($imgProfile->getImageProfileAvatar()->getWebFilePath());
+                }
+
+                $json_response = json_encode(array('ok' => true,
+                    'avatar' => $avatar, 'time' => $message->getCreateDate()->format('d/m/Y - H:i')));
             }
 
-            return $this->redirect($this->generateUrl('admin_post_index'));
-        } else {
-            if ($request->isMethod('POST'))
-                $this->setTranslatedFlashMessage('There is an error in your request', 'error');
         }
 
-        return $this->render('BackendBundle:Post:create.html.twig', array('edition' => true, 'post' => $post,
-                                                                          'form' => $form->createView(),
-                                                                          'imageForm' => $imageForm->createView()));
-    }
-
-    /**
-     * @ParamConverter("post", class="BlogBundle:Post")
-     */
-    public function deleteAction(Post $post)
-    {
-        $em = $this->getEntityManager();
-        $post->setDeleted(new \DateTime('now'));
-
-        $em->persist($post);
-        $em->flush();
-        $this->setTranslatedFlashMessage('The post has been removed successfully');
-
-        return $this->redirect($this->generateUrl('admin_post_index'));
-    }
-
-    /**
-     * @ParamConverter("post", class="BlogBundle:Post")
-     */
-    public function restoreAction(Post $post)
-    {
-        $em = $this->getEntityManager();
-        $post->setDeleted(null);
-
-        $em->persist($post);
-        $em->flush();
-        $this->setTranslatedFlashMessage('The post has been restored successfully');
-
-        return $this->redirect($this->generateUrl('admin_post_index'));
-    }
-
-    /**
-     * @ParamConverter("post", class="BlogBundle:Post")
-     */
-    public function publishAction(Post $post)
-    {
-        $post->setPublished(new \DateTime('now'));
-        $em = $this->getEntityManager();
-        $em->persist($post);
-        $em->flush();
-        $this->setTranslatedFlashMessage('The post has been published successfully');
-
-        return $this->redirect($this->generateUrl('admin_post_index'));
-    }
-
-    /**
-     * @ParamConverter("post", class="BlogBundle:Post")
-     */
-    public function unpublishAction(Post $post)
-    {
-        $post->setPublished(null);
-        $em = $this->getEntityManager();
-        $em->persist($post);
-        $em->flush();
-        $this->setTranslatedFlashMessage('The post has been unpublished successfully');
-
-        return $this->redirect($this->generateUrl('admin_post_index'));
+        return $this->getHttpJsonResponse($json_response);
     }
 }

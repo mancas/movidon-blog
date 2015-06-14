@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Movidon\MessageBundle\Entity\ThreadRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Thread
@@ -132,6 +132,20 @@ class Thread
     public function setParticipants($participants)
     {
         $this->participants = $participants;
+    }
+
+    public function addParticipant($participant)
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+    }
+
+    public function removeParticipant($participant)
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+        }
     }
 
     public function getParticipant($userId)

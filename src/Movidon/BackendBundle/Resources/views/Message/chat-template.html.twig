@@ -1,0 +1,49 @@
+{% if thread is defined and thread is not null %}
+    {% if thread.messages | length > 0 %}
+    <ul class="list-view">
+        {% for message in thread.messages %}
+        {% if message.sender.imageProfile is defined and message.sender.imageProfile is not null %}
+            {% set path = message.sender.imageProfile.imageProfileAvatar.webFilePath %}
+        {% else %}
+            {% set path = 'bundles/backend/img/user-1.jpg' %}
+        {% endif %}
+        <li class="list-item {% if message.sender.id == user.id %}right{% endif %}">
+            <img class="list-avatar {% if message.sender.id == user.id %}pull-right{% else %}pull-left{% endif %}" src="{{ asset(path) }}" />
+            <div class="media-body">
+                <div class="list-bubble">
+                    <p>
+                        {{ message.body }}
+                    </p>
+                </div>
+                <small class="bubble-date">
+                    <i class="fa fa-clock-o"></i>
+                    {{ message.createDate | date('d/m/Y - H:i') }}
+                </small>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="no-threads">
+        <div class="message">
+            <span>
+                {{ 'You don\'t have messages' | trans }}
+            </span>
+            <span>
+                {{ 'What are you waiting for?' | trans }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+    <div class="no-threads">
+        <div class="message">
+            <span>
+                {{ 'You don\'t have any conversation' | trans }}
+            </span>
+            <span>
+                {{ 'What are you waiting for?' | trans }}
+            </span>
+        </div>
+    </div>
+{% endif %}

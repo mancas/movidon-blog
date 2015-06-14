@@ -25,21 +25,7 @@
                         <div class="card-description card-chat-thread">
                             <div class="list-view">
                                 {% for thread in threads %}
-                                {% set participant = thread.participant %}
-                                {% if participant %}
-                                <a class="list-item{% if loop.first %} active{% endif %}">
-                                    {% if participant.imageProfile is defined and participant.imageProfile is not null %}
-                                        {% set path = participant.imageProfile.imageProfileAvatar.webFilePath %}
-                                    {% else %}
-                                        {% set path = 'bundles/backend/img/user-1.jpg' %}
-                                    {% endif %}
-                                    <img class="li-small pull-left" src="{{ asset(path) }}" />
-                                    <span class="list-content media-body">
-                                        <b class="li-title">{% if participant.name %}{{ participant.name }} {{ participant.lastName }}{% else %}{{ participant.username }}{% endif %}</b>
-                                        <small class="li-description">{{ thread.lastMessage }}</small>
-                                    </span>
-                                </a>
-                                {% endif %}
+                                {{ render(controller('BackendBundle:Message:threadTemplate', {'thread': thread, 'active': loop.first})) }}
                                 {% endfor %}
 
                                 <a class="list-item add-thread">
@@ -59,9 +45,9 @@
                     {% endif %}
                     <div class="col-md-9 chat-body">
                         <div class="card-title">
-                            <h2>
+                            <h2 class="active-chat">
                                 {% if firstThread is defined and firstThread is not null %}
-                                    {% set participant = thread.participant %}
+                                    {% set participant = firstThread.getParticipant(user.id) %}
                                     {% if participant.imageProfile is defined and participant.imageProfile is not null %}
                                         {% set path = participant.imageProfile.imageProfileAvatar.webFilePath %}
                                     {% else %}
@@ -85,57 +71,14 @@
                             </div>
                         </div>
                         <div class="card-description card-chat-messages">
-                            {% if firstThread is defined and firstThread is not null %}
-                            <ul class="list-view">
-                                <li class="list-item">
-                                    <img class="list-avatar pull-left" src="{{ asset('bundles/backend/img/user-1.jpg') }}" />
-                                    <div class="media-body">
-                                        <div class="list-bubble">
-                                            <p>
-                                                Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
-                                            </p>
-                                        </div>
-                                        <small class="bubble-date">
-                                            <i class="fa fa-clock-o"></i>
-                                            08/05/2015 - 19:27
-                                        </small>
-                                    </div>
-                                </li>
-
-                                <li class="right list-item">
-                                    <img class="list-avatar pull-right" src="{{ asset('bundles/backend/img/user-2.jpg') }}" />
-                                    <div class="media-body">
-                                        <div class="list-bubble">
-                                            <p>
-                                                Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum.
-                                            </p>
-                                        </div>
-                                        <small class="bubble-date">
-                                            <i class="fa fa-clock-o"></i>
-                                            08/05/2015 - 19:30
-                                        </small>
-                                    </div>
-                                </li>
-                            </ul>
-                            {% else %}
-                                <div class="no-threads">
-                                    <div class="message">
-                                        <span>
-                                            {{ 'You don\'t have any conversation' | trans }}
-                                        </span>
-                                        <span>
-                                            {{ 'What are you waiting for?' | trans }}
-                                        </span>
-                                    </div>
-                                </div>
-                            {% endif %}
+                            {{ render(controller('BackendBundle:Message:chatTemplate', {'thread': firstThread})) }}
                         </div>
 
                         <div class="card-footer card-chat-footer">
-                            <form id="message-chat" action="" method="post">
+                            <form id="message-chat" action="{% if firstThread is defined and firstThread is not null %}{{ path('admin_message_new_message', {'id': firstThread.id}) }}{% endif %}" method="post">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <textarea class="form-control" placeholder="What's on your mind?"></textarea>
+                                        <textarea class="form-control" name="message" placeholder="What's on your mind?"></textarea>
                                         <span class="input-group-addon">
                                             <a class="btn send" href="" title="Send message">
                                                 <i class="fa fa-chevron-right"></i>
