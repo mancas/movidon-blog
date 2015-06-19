@@ -97,11 +97,17 @@ class Post
      */
     protected $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Movidon\BlogBundle\Entity\Feedback", mappedBy="post", cascade={"persist", "remove", "merge"})
+     */
+    protected $feedbacks;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->authors = new ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
     }
 
     /**
@@ -306,6 +312,10 @@ class Post
         }
     }
 
+    public function containsAuthor($author) {
+        return $this->authors->contains($author);
+    }
+
     /**
      * @return mixed
      */
@@ -367,4 +377,33 @@ class Post
     {
         $this->images = $images;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
+    }
+
+    /**
+     * @param mixed $feedbacks
+     */
+    public function setFeedbacks($feedbacks)
+    {
+        $this->feedbacks = $feedbacks;
+    }
+    public function addFeedback($feedback) {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks->add($feedback);
+        }
+    }
+
+    public function removeFeedback($feedback)
+    {
+        if ($this->feedbacks->contains($feedback)) {
+            $this->feedbacks->remove($feedback);
+        }
+    }
+
 }

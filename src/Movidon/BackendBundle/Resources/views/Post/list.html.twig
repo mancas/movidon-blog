@@ -51,8 +51,11 @@
                                 {% else %}
                                     <a class="publish btn btn-amber" href="{{ path('admin_post_unpublish', {'slug': post.slug}) }}" title="{{ 'Unpublish post' | trans }}"><i class="fa fa-times"></i></a>
                                 {% endif %}
-
+                                {% if post.containsAuthor(user) %}
                                 <a class="edit btn btn-blue" href="{{ path('admin_post_edit', {'slug': post.slug}) }}" title="{{ 'Edit post' | trans }}"><i class="fa fa-pencil"></i></a>
+                                {% else %}
+                                <a class="edit btn btn-blue" href="{{ path('admin_post_view', {'slug': post.slug}) }}" title="{{ 'View post' | trans }}"><i class="fa fa-eye"></i></a>
+                                {% endif %}
                             {% endif %}
                             {% if post.deleted is null %}
                                 <a class="delete btn btn-red" href="{{ path('admin_post_delete', {'slug': post.slug}) }}" title="{{ 'Delete post' | trans }}"><i class="fa fa-trash"></i></a>

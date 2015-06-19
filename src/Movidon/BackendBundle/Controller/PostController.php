@@ -2,6 +2,7 @@
 
 namespace Movidon\BackendBundle\Controller;
 
+use Movidon\BlogBundle\Entity\FeedbackPositive;
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\BlogBundle\Form\Type\PostType;
 use Movidon\ImageBundle\Entity\ImagePost;
@@ -19,8 +20,9 @@ class PostController extends CustomController
         $paginator = $this->get('ideup.simple_paginator');
         $paginator->setItemsPerPage(CustomController::ITEMS_PER_PAGE, 'posts');
         $posts = $paginator->paginate($em->getRepository('BlogBundle:Post')->findAllDQL(), 'posts')->getResult();
-
-        return $this->render('BackendBundle:Post:list.html.twig', array('posts' => $posts));
+$f = new FeedbackPositive();
+        $f->getFeedbackType();
+        return $this->render('BackendBundle:Post:list.html.twig', array('posts' => $posts, 'user' => $this->getCurrentUser()));
     }
 
     public function createAction(Request $request)
@@ -136,5 +138,13 @@ class PostController extends CustomController
         $this->setTranslatedFlashMessage('The post has been unpublished successfully');
 
         return $this->redirect($this->generateUrl('admin_post_index'));
+    }
+
+    /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
+    public function viewAction(Post $post, Request $request)
+    {
+        return $this->render('BackendBundle:Post:view.html.twig', array('post' => $post));
     }
 }
