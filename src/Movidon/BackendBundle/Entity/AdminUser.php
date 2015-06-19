@@ -135,11 +135,17 @@ class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterf
      */
     protected $threads;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Movidon\BlogBundle\Entity\Feedback", mappedBy="author", cascade={"persist", "remove", "merge"})
+     */
+    protected $feedbacks;
+
     public function __construct()
     {
         $this->imagesProfile = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->threads = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function serialize()
@@ -564,5 +570,33 @@ class AdminUser implements AdvancedUserInterface, \Serializable, EquatableInterf
     public function setThreads($threads)
     {
         $this->threads = $threads;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
+    }
+
+    /**
+     * @param mixed $feedbacks
+     */
+    public function setFeedbacks($feedbacks)
+    {
+        $this->feedbacks = $feedbacks;
+    }
+    public function addFeedback($feedback) {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks->add($feedback);
+        }
+    }
+
+    public function removeFeedback($feedback)
+    {
+        if ($this->feedbacks->contains($feedback)) {
+            $this->feedbacks->remove($feedback);
+        }
     }
 }

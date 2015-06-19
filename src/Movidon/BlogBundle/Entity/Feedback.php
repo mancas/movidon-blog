@@ -57,7 +57,7 @@ abstract class Feedback
     private $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser")
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser", inversedBy="feedbacks")
      */
     private $author;
 

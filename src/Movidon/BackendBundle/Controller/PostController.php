@@ -20,8 +20,7 @@ class PostController extends CustomController
         $paginator = $this->get('ideup.simple_paginator');
         $paginator->setItemsPerPage(CustomController::ITEMS_PER_PAGE, 'posts');
         $posts = $paginator->paginate($em->getRepository('BlogBundle:Post')->findAllDQL(), 'posts')->getResult();
-$f = new FeedbackPositive();
-        $f->getFeedbackType();
+
         return $this->render('BackendBundle:Post:list.html.twig', array('posts' => $posts, 'user' => $this->getCurrentUser()));
     }
 

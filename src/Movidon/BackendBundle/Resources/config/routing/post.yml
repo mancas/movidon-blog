@@ -27,5 +27,5 @@ admin_post_restore:
     defaults: { _controller: BackendBundle:Post:restore }
 
 admin_post_view:
-    pattern: /edit/{slug}
+    pattern: /view/{slug}
     defaults: { _controller: BackendBundle:Post:view }

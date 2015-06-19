@@ -45,14 +45,14 @@
                 </ul>
             </li>
             {% endif %}
-            <li class="submenu {% if action == 'admin_tag_index' or action == 'admin_tag_create' or action == 'admin_tag_edit' or action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' %}open{% endif %}">
+            <li class="submenu {% if action == 'admin_tag_index' or action == 'admin_tag_create' or action == 'admin_tag_edit' or action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' or action == 'admin_post_view' %}open{% endif %}">
                 <a href="" title="{{ 'Blog' | trans }}">
                     <i class="fa fa-pencil"></i> {{ 'Blog' | trans }}
                     <i class="fa fa-caret-down pull-right"></i>
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="{{ path('admin_post_index') }}" title="{{ 'Posts' | trans }}" {% if action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' %}class="active"{% endif %}>
+                        <a href="{{ path('admin_post_index') }}" title="{{ 'Posts' | trans }}" {% if action == 'admin_post_index' or action == 'admin_post_create' or action == 'admin_post_edit' or action == 'admin_post_view' %}class="active"{% endif %}>
                             {{ 'Posts' | trans }}
                         </a>
                     </li>
