@@ -42,4 +42,87 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-item card-amber feedback-card">
+                <div class="card-title">
+                    <h2>
+                        {{ 'Feedback' | trans }}
+                    </h2>
+
+                    <h3>
+                        {{ 'Feel free to give your opinion about this post' | trans }}
+                    </h3>
+                </div>
+                <div class="card-description no-padding">
+                    <div class="row feedback-buttons">
+                        <div class="col-md-12">
+                            <div class="big-btn" data-feedback="positive">
+                                <div class="wrapper">
+                                    <i class="fa fa-check feedback-positive"></i>
+                                </div>
+                            </div>
+
+                            <div class="big-btn" data-feedback="negative">
+                                <div class="wrapper">
+                                    <i class="fa fa-times feedback-negative"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row card-padding mt1 feedback-form hidden">
+                        <div class="col-md-12">
+                            <form class="" action="" method="post">
+                                <div class="form-group">
+                                    <div class="line">
+                                        <textarea name="post_feedback[feedback]" class="form-control" placeholder="{{ 'Type your comments here...' }}" rows="5"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="mt1">
+                                    <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>
+                                    <button type="reset" class="btn btn-default borderless cancel">{{ 'Cancel' | trans }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var feedbackCard = document.querySelector('.feedback-card');
+        var buttonsContainer = feedbackCard.querySelector('.feedback-buttons');
+        var btns = buttonsContainer.querySelectorAll('.big-btn');
+        var formContainer = feedbackCard.querySelector('.feedback-form');
+        var form = formContainer.querySelector('form');
+        var cancelBtn = form.querySelector('button[type="reset"]');
+
+        Array.prototype.forEach.call(btns, function(btn) {
+            btn.addEventListener('click', function onclick() {
+                formContainer.classList.remove('hidden');
+                formContainer.classList.add('fadeInRight');
+                buttonsContainer.classList.add('hidden');
+                console.info(btn.dataset.feedback);
+            });
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            formContainer.classList.remove('fadeInRight');
+            formContainer.classList.add('fadeOutRight');
+            formContainer.addEventListener('animationend', function fn() {
+                formContainer.removeEventListener('animationend', fn);
+                formContainer.classList.add('hidden');
+                formContainer.classList.remove('fadeOutRight');
+                buttonsContainer.classList.remove('hidden');
+            });
+        });
+    </script>
 {% endblock %}
