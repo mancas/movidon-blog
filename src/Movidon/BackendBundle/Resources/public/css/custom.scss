@@ -79,6 +79,11 @@ body {
   margin-top: 1rem;
 }
 
+.no-wrap {
+  text-overflow: clip !important;
+  white-space: normal !important;
+}
+
 a {
   &:hover, &:focus, &:active, &:visited {
     outline: none;
@@ -2413,6 +2418,7 @@ table {
   }
 }
 
+/** POST FEEDBACK **/
 .feedback-positive {
   color: $material-light-green;
   border-color: $material-light-green;
@@ -2421,4 +2427,29 @@ table {
 .feedback-negative {
   color: $material-red;
   border-color: $material-red;
+}
+
+.fpositive {
+  background-color: $material-light-green-hover;
+  &:hover {
+    background-color: $material-light-green-hover !important;
+  }
+}
+
+.fnegative {
+  background-color: $material-red-light;
+  &:hover {
+    background-color: $material-red-light !important;
+  }
+}
+
+.feedback-list {
+  a.list-item {
+    padding: 2rem;
+    border-bottom: solid 0.1rem $dividers;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
 }

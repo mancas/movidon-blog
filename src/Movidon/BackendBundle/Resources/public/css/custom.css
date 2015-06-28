@@ -19,6 +19,10 @@ body {
 .mt1 {
   margin-top: 1rem; }
 
+.no-wrap {
+  text-overflow: clip !important;
+  white-space: normal !important; }
+
 a:hover, a:focus, a:active, a:visited {
   outline: none; }
 
@@ -1610,6 +1614,7 @@ table .btn-purple {
       border: solid 0.3rem;
       border-radius: 50%; }
 
+/** POST FEEDBACK **/
 .feedback-positive {
   color: #8bc34a;
   border-color: #8bc34a; }
@@ -1617,5 +1622,21 @@ table .btn-purple {
 .feedback-negative {
   color: #f44336;
   border-color: #f44336; }
+
+.fpositive {
+  background-color: #c5e1a5; }
+  .fpositive:hover {
+    background-color: #c5e1a5 !important; }
+
+.fnegative {
+  background-color: #ef9a9a; }
+  .fnegative:hover {
+    background-color: #ef9a9a !important; }
+
+.feedback-list a.list-item {
+  padding: 2rem;
+  border-bottom: solid 0.1rem rgba(0, 0, 0, 0.12); }
+  .feedback-list a.list-item:last-of-type {
+    border-bottom: none; }
 
 /*# sourceMappingURL=custom.css.map */

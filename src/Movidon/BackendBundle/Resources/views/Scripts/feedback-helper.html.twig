@@ -1,0 +1,43 @@
+<script>
+    var FeedbackHelper = {
+        init: function () {
+            this.feedbackCard = document.querySelector('.feedback-card');
+            this.buttonsContainer = this.feedbackCard.querySelector('.feedback-buttons');
+            this.btns = this.buttonsContainer.querySelectorAll('.big-btn');
+            this.formContainer = this.feedbackCard.querySelector('.feedback-form');
+            this.form = this.formContainer.querySelector('form');
+            this.cancelBtn = this.form.querySelector('button[type="reset"]');
+
+            this.addListeners();
+        },
+
+        addListeners: function () {
+            var self = this;
+            Array.prototype.forEach.call(this.btns, function (btn) {
+                btn.addEventListener('click', function onclick() {
+                    self.formContainer.classList.remove('hidden');
+                    self.formContainer.classList.add('fadeInRight');
+                    self.buttonsContainer.classList.add('hidden');
+                    console.info(btn.dataset.feedback);
+                    var type = btn.dataset.feedback;
+
+                    var radioBtn = self.form.querySelector('input[value="' + type + '"]');
+                    radioBtn.checked = true;
+                });
+            });
+
+            self.cancelBtn.addEventListener('click', function () {
+                self.formContainer.classList.remove('fadeInRight');
+                self.formContainer.classList.add('fadeOutRight');
+                self.formContainer.addEventListener('animationend', function fn() {
+                    self.formContainer.removeEventListener('animationend', fn);
+                    self.formContainer.classList.add('hidden');
+                    self.formContainer.classList.remove('fadeOutRight');
+                    self.buttonsContainer.classList.remove('hidden');
+                });
+            });
+        }
+    };
+
+    FeedbackHelper.init();
+</script>

@@ -406,4 +406,14 @@ class Post
         }
     }
 
+    public function hasFeedback($author)
+    {
+        foreach ($this->feedbacks as $feedback) {
+            if ($feedback->getAuthor() === $author) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

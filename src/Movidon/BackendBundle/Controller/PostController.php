@@ -3,6 +3,7 @@
 namespace Movidon\BackendBundle\Controller;
 
 use Movidon\BlogBundle\Entity\FeedbackPositive;
+use Movidon\BlogBundle\Entity\FeedbackNegative;
 use Movidon\BlogBundle\Entity\Post;
 use Movidon\BlogBundle\Form\Type\PostType;
 use Movidon\ImageBundle\Entity\ImagePost;
@@ -144,6 +145,33 @@ class PostController extends CustomController
      */
     public function viewAction(Post $post, Request $request)
     {
-        return $this->render('BackendBundle:Post:view.html.twig', array('post' => $post));
+        return $this->render('BackendBundle:Post:view.html.twig', array('post' => $post, 'user' => $this->getCurrentUser()));
+    }
+
+    /**
+     * @ParamConverter("post", class="BlogBundle:Post")
+     */
+    public function sendFeedbackAction(Post $post, Request $request)
+    {
+        $data = $request->request->all();
+        $data = $data['post_feedback'];
+        if (!isset($data)) {
+            $this->setTranslatedFlashMessage('Something went wrong', 'error');
+            return $this->redirect($this->generateUrl('admin_post_view', array('slug' => $post->getSlug())));
+        }
+
+        $className = 'Movidon\\BlogBundle\\Entity\\Feedback' . ucfirst($data['type']);
+        $feedback = new $className();
+
+        $feedback->setAuthor($this->getCurrentUser());
+        $feedback->setFeedback($data['feedback']);
+        $feedback->setPost($post);
+
+        $em = $this->getEntityManager();
+        $em->persist($feedback);
+        $em->flush();
+
+        $this->setTranslatedFlashMessage('Your feedback has been send correctly');
+        return $this->redirect($this->generateUrl('admin_post_view', array('slug' => $post->getSlug())));
     }
 }

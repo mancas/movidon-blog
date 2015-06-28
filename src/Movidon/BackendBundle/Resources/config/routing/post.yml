@@ -29,3 +29,7 @@ admin_post_restore:
 admin_post_view:
     pattern: /view/{slug}
     defaults: { _controller: BackendBundle:Post:view }
+
+admin_post_send_feedback:
+    pattern: /view/{slug}/send-feedback
+    defaults: { _controller: BackendBundle:Post:sendFeedback }

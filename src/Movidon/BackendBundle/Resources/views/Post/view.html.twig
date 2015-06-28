@@ -43,86 +43,56 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-item card-amber feedback-card">
-                <div class="card-title">
-                    <h2>
-                        {{ 'Feedback' | trans }}
-                    </h2>
-
-                    <h3>
-                        {{ 'Feel free to give your opinion about this post' | trans }}
-                    </h3>
+    {% if not post.hasFeedback(user) %}
+        {% include 'BackendBundle:Post:feedback-form.html.twig' %}
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="simple-card sc-cyan">
+                    <a href="" title="Close" class="close"><i class="fa fa-times"></i></a>
+                    <p>
+                        {{ 'You have already gave your feedback about this post' | trans }}
+                    </p>
                 </div>
-                <div class="card-description no-padding">
-                    <div class="row feedback-buttons">
-                        <div class="col-md-12">
-                            <div class="big-btn" data-feedback="positive">
-                                <div class="wrapper">
-                                    <i class="fa fa-check feedback-positive"></i>
-                                </div>
-                            </div>
+            </div>
+        </div>
+    {% endif %}
 
-                            <div class="big-btn" data-feedback="negative">
-                                <div class="wrapper">
-                                    <i class="fa fa-times feedback-negative"></i>
-                                </div>
-                            </div>
-                        </div>
+    {% if post.feedbacks | length > 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-item card-indigo feedback-card">
+                    <div class="card-title">
+                        <h2>
+                            {{ 'Feedbacks' | trans }}
+                        </h2>
                     </div>
-
-                    <div class="row card-padding mt1 feedback-form hidden">
-                        <div class="col-md-12">
-                            <form class="" action="" method="post">
-                                <div class="form-group">
-                                    <div class="line">
-                                        <textarea name="post_feedback[feedback]" class="form-control" placeholder="{{ 'Type your comments here...' }}" rows="5"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="mt1">
-                                    <button type="submit" class="btn btn-blue">{{ 'Save' | trans }}</button>
-                                    <button type="reset" class="btn btn-default borderless cancel">{{ 'Cancel' | trans }}</button>
-                                </div>
-                            </form>
+                    <div class="card-description no-padding">
+                        <div class="list-view feedback-list">
+                            {% for feedback in post.feedbacks %}
+                            <a class="list-item {% if feedback.getFeedbackType == 'positive' %}fpositive{% else %}fnegative{% endif %}">
+                                {% if feedback.author.imageProfile is defined and feedback.author.imageProfile is not null %}
+                                    {% set path = feedback.author.imageProfile.imageProfileAvatar.webFilePath %}
+                                {% else %}
+                                    {% set path = 'bundles/backend/img/user-1.jpg' %}
+                                {% endif %}
+                                <img class="li-small pull-left" src="{{ asset(path) }}" />
+                                <span class="list-content media-body">
+                                    <b class="li-title">{% if feedback.author.name is defined and feedback.author.name is not null %}{{ feedback.author.name }} {{ feedback.author.lastName }}{% else %}{{ feedback.author.username }}{% endif %}</b>
+                                    <small class="li-description no-wrap">{{ feedback }}</small>
+                                </span>
+                            </a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
-        var feedbackCard = document.querySelector('.feedback-card');
-        var buttonsContainer = feedbackCard.querySelector('.feedback-buttons');
-        var btns = buttonsContainer.querySelectorAll('.big-btn');
-        var formContainer = feedbackCard.querySelector('.feedback-form');
-        var form = formContainer.querySelector('form');
-        var cancelBtn = form.querySelector('button[type="reset"]');
-
-        Array.prototype.forEach.call(btns, function(btn) {
-            btn.addEventListener('click', function onclick() {
-                formContainer.classList.remove('hidden');
-                formContainer.classList.add('fadeInRight');
-                buttonsContainer.classList.add('hidden');
-                console.info(btn.dataset.feedback);
-            });
-        });
-
-        cancelBtn.addEventListener('click', function() {
-            formContainer.classList.remove('fadeInRight');
-            formContainer.classList.add('fadeOutRight');
-            formContainer.addEventListener('animationend', function fn() {
-                formContainer.removeEventListener('animationend', fn);
-                formContainer.classList.add('hidden');
-                formContainer.classList.remove('fadeOutRight');
-                buttonsContainer.classList.remove('hidden');
-            });
-        });
-    </script>
+    {% include 'BackendBundle:Scripts:feedback-helper.html.twig' %}
 {% endblock %}
