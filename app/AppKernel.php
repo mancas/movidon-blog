@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Movidon\BackendBundle\BackendBundle(),
             new Movidon\ImageBundle\ImageBundle(),
             new Movidon\MessageBundle\MessageBundle(),
+            new Movidon\ForumBundle\ForumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
