@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @UniqueEntity("id")
  * @ORM\HasLifecycleCallbacks
  */
-class Board
+class ForumCategory
 {
     /**
      * @ORM\Id
@@ -33,28 +33,19 @@ class Board
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\OneToMany(targetEntity="Movidon\ForumBundle\Entity\Board", mappedBy="category", cascade={"persist", "remove", "merge"})
      */
-    protected $description;
+    protected $boards;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\ForumBundle\Entity\ForumCategory", inversedBy="boards")
+     * @ORM\ManyToOne(targetEntity="Movidon\ForumBundle\Entity\Forum", inversedBy="categories")
      */
-    protected $category;
+    protected $forum;
 
     /**
-     * @ORM\OneToMany(targetEntity="Movidon\ForumBundle\Entity\Topic", mappedBy="board", cascade={"persist", "remove", "merge"})
+     * @ORM\Column(type="integer", options={"default" = 0})
      */
-    protected $topics;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\Role")
-     * @ORM\JoinTable(name="boards_roles",
-     *      joinColumns={@ORM\JoinColumn(name="board_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
-     *      )
-     */
-    protected $createTopicAuthorisedRoles;
+    protected $listOrder = 0;
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -74,9 +65,19 @@ class Board
      */
     protected $deleted;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\Role")
+     * @ORM\JoinTable(name="categories_roles",
+     *      joinColumns={@ORM\JoinColumn(name="forumCategory_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $readAuthorisedRoles;
+
     public function __constructor()
     {
-        $this->createTopicAuthorisedRoles = new ArrayCollection();
+        $this->readAuthorisedRoles = new ArrayCollection();
+        $this->boards = new ArrayCollection();
     }
 
     /**
@@ -114,80 +115,49 @@ class Board
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getBoards()
     {
-        return $this->description;
+        return $this->boards;
     }
 
     /**
-     * @param mixed $description
+     * @param mixed $boards
      */
-    public function setDescription($description)
+    public function setBoards($boards)
     {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
+        $this->boards = $boards;
     }
 
     /**
      * @return mixed
      */
-    public function getTopics()
+    public function getListOrder()
     {
-        return $this->topics;
+        return $this->listOrder;
     }
 
     /**
-     * @param mixed $topics
+     * @param mixed $listOrder
      */
-    public function setTopics($topics)
+    public function setListOrder($listOrder)
     {
-        $this->topics = $topics;
+        $this->listOrder = $listOrder;
     }
 
     /**
      * @return mixed
      */
-    public function getCreateTopicAuthorisedRoles()
+    public function getForum()
     {
-        return $this->createTopicAuthorisedRoles;
+        return $this->forum;
     }
 
     /**
-     * @param mixed $createTopicAuthorisedRoles
+     * @param mixed $forum
      */
-    public function setCreateTopicAuthorisedRoles($createTopicAuthorisedRoles)
+    public function setForum($forum)
     {
-        $this->createTopicAuthorisedRoles = $createTopicAuthorisedRoles;
-    }
-
-    public function isAuthorisedToCreateTopic(SecurityContext $securityContext)
-    {
-        if (0 == count($this->createTopicAuthorisedRoles)) {
-            return true;
-        }
-
-        foreach ($this->createTopicAuthorisedRoles as $role) {
-            if ($securityContext->isGranted($role)) {
-                return true;
-            }
-        }
-
-        return false;
+        $this->forum = $forum;
     }
 
     /**
@@ -236,5 +206,50 @@ class Board
     public function setDeleted($deleted)
     {
         $this->deleted = $deleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReadAuthorisedRoles()
+    {
+        return $this->readAuthorisedRoles;
+    }
+
+    /**
+     * @param mixed $readAuthorisedRoles
+     */
+    public function setReadAuthorisedRoles($readAuthorisedRoles)
+    {
+        $this->readAuthorisedRoles = $readAuthorisedRoles;
+    }
+
+    public function isAuthorisedToRead(SecurityContext $securityContext)
+    {
+        if (0 == count($this->readAuthorisedRoles)) {
+            return true;
+        }
+
+        foreach ($this->readAuthorisedRoles as $role) {
+            if ($securityContext->isGranted($role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function addReadAuthorisedRole($role)
+    {
+        if (!$this->readAuthorisedRoles->contains($role)) {
+            $this->readAuthorisedRoles->add($role);
+        }
+    }
+
+    public function removeReadAuthorisedRole($role)
+    {
+        if ($this->readAuthorisedRoles->contains($role)) {
+            $this->readAuthorisedRoles->remove($role);
+        }
     }
 }

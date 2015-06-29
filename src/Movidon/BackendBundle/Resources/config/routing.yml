@@ -39,6 +39,10 @@ admin_messages:
     resource: "@BackendBundle/Resources/config/routing/message.yml"
     prefix: /messages/
 
+admin_forum:
+    resource: "@BackendBundle/Resources/config/routing/forum.yml"
+    prefix: /forum/
+
 #admin_categories:
 #    resource: "@BackendBundle/Resources/config/routing/category.yml"
 #    prefix: /category/

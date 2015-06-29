@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @UniqueEntity("id")
  * @ORM\HasLifecycleCallbacks
  */
-class Forum
+class ForumPost
 {
     /**
      * @ORM\Id
@@ -30,12 +30,12 @@ class Forum
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $body;
 
     /**
-     * @ORM\OneToMany(targetEntity="Movidon\ForumBundle\Entity\ForumCategory", mappedBy="forum", cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToOne(targetEntity="Movidon\ForumBundle\Entity\Topic", inversedBy="posts")
      */
-    protected $categories;
+    protected $topic;
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -56,19 +56,14 @@ class Forum
     protected $deleted;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Movidon\BackendBundle\Entity\Role")
-     * @ORM\JoinTable(name="forums_roles",
-     *      joinColumns={@ORM\JoinColumn(name="forum_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser")
      */
-    protected $readAuthorisedRoles;
+    protected $createdBy;
 
-    public function __constructor()
-    {
-        $this->readAuthorisedRoles = new ArrayCollection();
-        $this->categories = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="Movidon\BackendBundle\Entity\AdminUser")
+     */
+    protected $updatedBy;
 
     /**
      * @return mixed
@@ -89,33 +84,33 @@ class Forum
     /**
      * @return mixed
      */
-    public function getName()
+    public function getBody()
     {
-        return $this->name;
+        return $this->body;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $body
      */
-    public function setName($name)
+    public function setBody($body)
     {
-        $this->name = $name;
+        $this->body = $body;
     }
 
     /**
      * @return mixed
      */
-    public function getCategories()
+    public function getTopic()
     {
-        return $this->categories;
+        return $this->topic;
     }
 
     /**
-     * @param mixed $categories
+     * @param mixed $topic
      */
-    public function setCategories($categories)
+    public function setTopic($topic)
     {
-        $this->categories = $categories;
+        $this->topic = $topic;
     }
 
     /**
@@ -169,45 +164,32 @@ class Forum
     /**
      * @return mixed
      */
-    public function getReadAuthorisedRoles()
+    public function getCreatedBy()
     {
-        return $this->readAuthorisedRoles;
+        return $this->createdBy;
     }
 
     /**
-     * @param mixed $readAuthorisedRoles
+     * @param mixed $createdBy
      */
-    public function setReadAuthorisedRoles($readAuthorisedRoles)
+    public function setCreatedBy($createdBy)
     {
-        $this->readAuthorisedRoles = $readAuthorisedRoles;
+        $this->createdBy = $createdBy;
     }
 
-    public function isAuthorisedToRead(SecurityContext $securityContext)
+    /**
+     * @return mixed
+     */
+    public function getUpdatedBy()
     {
-        if (0 == count($this->readAuthorisedRoles)) {
-            return true;
-        }
-
-        foreach ($this->readAuthorisedRoles as $role) {
-            if ($securityContext->isGranted($role)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->updatedBy;
     }
 
-    public function addReadAuthorisedRole($role)
+    /**
+     * @param mixed $updatedBy
+     */
+    public function setUpdatedBy($updatedBy)
     {
-        if (!$this->readAuthorisedRoles->contains($role)) {
-            $this->readAuthorisedRoles->add($role);
-        }
-    }
-
-    public function removeReadAuthorisedRole($role)
-    {
-        if ($this->readAuthorisedRoles->contains($role)) {
-            $this->readAuthorisedRoles->remove($role);
-        }
+        $this->updatedBy = $updatedBy;
     }
 }

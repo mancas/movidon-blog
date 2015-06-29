@@ -1,0 +1,23 @@
+admin_forum_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:Forum:list }
+
+admin_forum_view_category:
+    pattern: /category/{slug}
+    defaults: { _controller: BackendBundle:Forum:viewCategory }
+
+admin_forum_view_board:
+    pattern: /board/{slug}
+    defaults: { _controller: BackendBundle:Forum:viewBoard }
+
+admin_forum_view_topic:
+    pattern: /topic/{slug}
+    defaults: { _controller: BackendBundle:Forum:viewTopic }
+
+admin_forum_create_topic:
+    pattern: /topic/create
+    defaults: { _controller: BackendBundle:Forum:createTopic }
+
+admin_forum_create_post:
+    pattern: /topic/{slug}/create-post
+    defaults: { _controller: BackendBundle:Forum:post }
