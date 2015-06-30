@@ -74,6 +74,12 @@ class Board
      */
     protected $deleted;
 
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    protected $slug;
+
     public function __constructor()
     {
         $this->createTopicAuthorisedRoles = new ArrayCollection();
@@ -236,5 +242,21 @@ class Board
     public function setDeleted($deleted)
     {
         $this->deleted = $deleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

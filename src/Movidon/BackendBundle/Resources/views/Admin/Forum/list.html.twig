@@ -1,0 +1,64 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {{ setCrumbs({'Forums': ''}) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-item card-indigo">
+                <div class="card-title">
+                    <h2>
+                        {{ 'Forum list' | trans }}
+                    </h2>
+
+                    <h3>
+                        {{ 'In this panel you can edit or delete every forum that you have created' | trans }}
+                    </h3>
+
+                    <a title="{{ 'Create new forum' | trans }}" class="float-action-button fab-red" href="{{ path('super_admin_forum_create') }}">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="card-description {% if forums | length == 0 %}card-padding{% endif %}">
+                    {% if forums | length > 0 %}
+                    <table class="table table-hover table-striped data-table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'ID' | trans }}</th>
+                            <th>{{ 'Name' | trans }}</th>
+                            <th>{{ 'Categories' | trans }}</th>
+                            <th>{{ 'Deleted' | trans }}</th>
+                            <th>{{ 'Action' | trans }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for forum in forums %}
+                        <tr>
+                            <td>{{ forum.id }}</td>
+                            <td>{{ forum.name }}</td>
+                            <td>{{ forum.categories | length }}</td>
+                            <td>{% if forum.deleted is not null %}{{ forum.deleted | date("F jS \\a\\t g:ia") }}{% else %}--{% endif %}</td>
+                            <td>
+                                <a class="btn btn-amber" href="{{ path('super_admin_forum_view', {'slug': forum.slug}) }}" title="{{ 'View forum' | trans }}"><i class="fa fa-eye"></i></a>
+                                <a class="edit btn btn-blue" href="{{ path('super_admin_forum_edit', {'slug': forum.slug}) }}" title="{{ 'Edit forum' | trans }}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete btn btn-red" href="{{ path('super_admin_forum_delete', {'slug': forum.slug}) }}" title="{{ 'Delete forum' | trans }}"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+                        <p>
+                            {{ 'No entries were found' | trans }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

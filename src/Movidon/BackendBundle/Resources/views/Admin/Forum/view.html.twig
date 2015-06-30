@@ -1,0 +1,83 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Forums': path('super_admin_forum_index'), (forum.name): '' } %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-item card-indigo">
+                <div class="card-title">
+                    <h2>
+                        {{ forum.name }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a title="{{ 'Create new category' | trans }}" class="btn btn-red mb3" href="{{ path('super_admin_forum_create_category', {slug: forum.slug}) }}">
+        <i class="fa fa-plus"></i> {{ 'Create new category' | trans }}
+    </a>
+
+    {% for category in forum.categories %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-item card-amber">
+                    <div class="card-title">
+                        <h2>
+                            {{ category.name }}
+                        </h2>
+
+                        <a title="{{ 'Create new board' | trans }}" class="float-action-button fab-red" href="{{ path('super_admin_forum_create_board', {slug: category.slug}) }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+
+                        <a title="{{ 'Create new board' | trans }}" style="right: 6rem;" class="float-action-button fab-green" href="{{ path('super_admin_forum_create_board', {slug: category.slug}) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </div>
+
+                    <div class="card-description {% if category.boards | length == 0 %}card-padding{% endif %}">
+                        {% if category.boards | length > 0 %}
+                            <table class="table table-hover table-striped data-table">
+                                <thead>
+                                <tr>
+                                    <th>{{ 'ID' | trans }}</th>
+                                    <th>{{ 'Name' | trans }}</th>
+                                    <th>{{ 'Description' | trans }}</th>
+                                    <th>{{ 'Topics' | trans }}</th>
+                                    <th>{{ 'Action' | trans }}</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for board in category.boards %}
+                                    <tr>
+                                        <td>{{ board.id }}</td>
+                                        <td>{{ board.name }}</td>
+                                        <td>{{ board.description }}</td>
+                                        <td>{{ board.topics | length }}</td>
+                                        <td>
+                                            <a class="edit btn btn-blue" href="{{ path('super_admin_forum_edit_board', {'slug': board.slug}) }}" title="{{ 'Edit board' | trans }}"><i class="fa fa-pencil"></i></a>
+                                            <a class="delete btn btn-red" href="{{ path('super_admin_forum_delete_board', {'slug': board.slug}) }}" title="{{ 'Delete board' | trans }}"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% else %}
+                            <p>
+                                {{ 'No entries were found' | trans }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

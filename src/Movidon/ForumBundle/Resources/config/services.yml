@@ -1,4 +1,11 @@
+parameters:
+    admin.forumformhandler.class: Movidon\ForumBundle\Form\Handler\ForumFormHandler
+    admin.forumcategoryformhandler.class: Movidon\ForumBundle\Form\Handler\ForumCategoryFormHandler
+
 services:
-#    forum.example:
-#        class: Movidon\ForumBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    admin.admin_forum_form_handler:
+        class: %admin.forumformhandler.class%
+        arguments: [@doctrine.orm.entity_manager]
+    admin.admin_forum_category_form_handler:
+        class: %admin.forumcategoryformhandler.class%
+        arguments: [@doctrine.orm.entity_manager]

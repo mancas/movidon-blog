@@ -1,0 +1,67 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Forums': path('super_admin_forum_index'), (forum.name): path('super_admin_forum_view', {slug: forum.slug}), ('Edit category ' ~ category.name): '' } %}
+    {% else %}
+        {% set crumbs = {'Forums': path('super_admin_forum_index'), (forum.name): path('super_admin_forum_view', {slug: forum.slug}), 'Create category': '' } %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-item card-indigo">
+                <form method="post" action="{% if edition is defined %}{{ path('super_admin_forum_edit_category',{'slug':category.slug}) }} {% else %} {{ path('super_admin_forum_create_category', {slug: forum.slug}) }}{% endif %}">
+                    <div class="card-title">
+                        <h2>
+                            {% if edition is defined %}
+                                {{ 'Category edition' | trans }}
+                            {% else %}
+                                {{ 'Category creation' | trans }}
+                            {% endif %}
+                        </h2>
+
+                        <h3>
+                            {% if edition is defined %}
+                                {{ 'Here you can edit the category' | trans }}
+                            {% else %}
+                                {{ 'Here you can create a new category' | trans }}
+                            {% endif %}
+                        </h3>
+
+                        <button type="submit" class="float-action-button fab-red borderless">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </div>
+                    <div class="card-description card-padding">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% include 'BackendBundle:Admin:Forum/Category/forumcategory-form.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
+    <script>
+        window.addEventListener('load', function(evt) {
+            $(".select2").select2();
+        });
+    </script>
+{% endblock %}

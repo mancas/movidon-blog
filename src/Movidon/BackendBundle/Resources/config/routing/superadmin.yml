@@ -9,3 +9,7 @@ super_admin_role:
 super_admin_user:
     resource: "@BackendBundle/Resources/config/routing/admin/user.yml"
     prefix: /users/
+
+super_admin_forum:
+    resource: "@BackendBundle/Resources/config/routing/admin/forum.yml"
+    prefix: /forums/

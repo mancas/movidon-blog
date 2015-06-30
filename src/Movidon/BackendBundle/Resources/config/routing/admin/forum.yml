@@ -1,0 +1,47 @@
+super_admin_forum_index:
+    pattern: /
+    defaults: { _controller: BackendBundle:AdminForum:list }
+
+super_admin_forum_edit:
+    pattern: /edit/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:edit }
+
+super_admin_forum_delete:
+    pattern: /delete/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:delete }
+
+super_admin_forum_create:
+    pattern: /create
+    defaults: { _controller: BackendBundle:AdminForum:create }
+
+super_admin_forum_view:
+    pattern: /view/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:view }
+
+super_admin_forum_create_category:
+    pattern: /forum/{slug}/create-category
+    defaults: { _controller: BackendBundle:AdminForum:createCategory }
+
+super_admin_forum_edit_category:
+    pattern: /edit-category/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:editCategory }
+
+super_admin_forum_view_board:
+    pattern: /view-board/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:viewBoard }
+
+super_admin_forum_create_board:
+    pattern: /category/{slug}/create-board
+    defaults: { _controller: BackendBundle:AdminForum:createBoard }
+
+super_admin_forum_edit_board:
+    pattern: /edit-board/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:editBoard }
+
+super_admin_forum_create_topic:
+    pattern: /create-topic
+    defaults: { _controller: BackendBundle:AdminForum:createTopic }
+
+super_admin_forum_edit_topic:
+    pattern: /edit-topic/{slug}
+    defaults: { _controller: BackendBundle:AdminForum:editTopic }

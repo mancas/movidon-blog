@@ -14,7 +14,7 @@ use Movidon\FrontendBundle\Controller\CustomController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class RoleController extends CustomController
+class ForumController extends CustomController
 {
     public function listAction()
     {

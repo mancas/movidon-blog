@@ -1,0 +1,67 @@
+{% extends 'BackendBundle:Layouts:2columns.html.twig' %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Forums': path('super_admin_forum_index'), 'Edit forum': '' } %}
+    {% else %}
+        {% set crumbs = {'Forums': path('super_admin_forum_index'), 'Create forum': '' } %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.select2.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-item card-indigo">
+                <form method="post" action="{% if edition is defined %}{{ path('super_admin_forum_edit',{'slug':forum.slug}) }} {% else %} {{ path('super_admin_forum_create') }}{% endif %}">
+                    <div class="card-title">
+                        <h2>
+                            {% if edition is defined %}
+                                {{ 'Forum edition' | trans }}
+                            {% else %}
+                                {{ 'Forum creation' | trans }}
+                            {% endif %}
+                        </h2>
+
+                        <h3>
+                            {% if edition is defined %}
+                                {{ 'Here you can edit the forum' | trans }}
+                            {% else %}
+                                {{ 'Here you can create new forum' | trans }}
+                            {% endif %}
+                        </h3>
+
+                        <button type="submit" class="float-action-button fab-red borderless">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </div>
+                    <div class="card-description card-padding">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% include 'BackendBundle:Admin:Forum/forum-form.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
+    <script>
+        window.addEventListener('load', function(evt) {
+            $(".select2").select2();
+        });
+    </script>
+{% endblock %}
