@@ -10,20 +10,28 @@
                     <small>by FUE.es</small>
                 </div>
             </a>
-            <ul class="nav navbar-nav navbar-right">
-                <li {% if action == 'frontend_homepage' %}class="active"{% endif %}>
-                    <a title="{{ 'Home' | trans }}" href="{{ path('frontend_homepage') }}">{{ 'Home' | trans }}</a>
-                </li>
-                <li {% if action == 'view_categories' %}class="active"{% endif %}>
-                    <a href="" alt="{{ 'Descubre los eventos que organizamos' | trans }}">{{ 'Eventos' | trans }}</a>
-                </li>
-                <li {% if action == 'blog' or action == 'blog_view_post' or action == 'blog_view_post_by_user' %}class="active"{% endif %}>
-                    <a href="{{ path('blog') }}" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
-                </li>
-                <li {% if action == 'who_we_are' or action == 'view_profile' %}class="active"{% endif %}>
-                    <a href="{{ path('who_we_are') }}" title="{{ '' }}">{{ 'Who we are' | trans }}</a>
-                </li>
-            </ul>
+            <button type="button" class="navbar-toggle collapsed" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="sidebar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li {% if action == 'frontend_homepage' %}class="active"{% endif %}>
+                        <a title="{{ 'Home' | trans }}" href="{{ path('frontend_homepage') }}">{{ 'Home' | trans }}</a>
+                    </li>
+                    <li {% if action == 'view_categories' %}class="active"{% endif %}>
+                        <a href="" alt="{{ 'Descubre los eventos que organizamos' | trans }}">{{ 'Eventos' | trans }}</a>
+                    </li>
+                    <li {% if action == 'blog' or action == 'blog_view_post' or action == 'blog_view_post_by_user' %}class="active"{% endif %}>
+                        <a href="{{ path('blog') }}" title="{{ 'Visita nuestro blog' }}">{{ 'Blog' | trans }}</a>
+                    </li>
+                    <li {% if action == 'who_we_are' or action == 'view_profile' %}class="active"{% endif %}>
+                        <a href="{{ path('who_we_are') }}" title="{{ '' }}">{{ 'Who we are' | trans }}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>

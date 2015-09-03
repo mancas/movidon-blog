@@ -131,6 +131,12 @@
         };
 
         ScrollSpy.init(document.querySelector('nav.mover-navbar'));
+
+        var sidebarBtn = document.querySelector('.mover-navbar .navbar-toggle');
+        sidebarBtn.addEventListener('click', function(evt) {
+            evt.preventDefault();
+            sidebarBtn.nextElementSibling.classList.toggle('open');
+        });
     </script>
 {% endblock %}
 

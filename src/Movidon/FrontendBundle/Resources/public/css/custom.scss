@@ -113,7 +113,7 @@ body.blog {
   background-color: transparent;
   transition: all 0.3s ease;
   height: 8rem;
-  
+
   .nav > li {
     height: 100%;
     line-height: 8rem;
@@ -154,6 +154,7 @@ body.blog {
   color: $white;
   text-shadow: 0.1rem 0.1rem $text-shadow;
   text-transform: uppercase;
+  text-align: center;
 
   .container {
     height: 100%;
@@ -249,7 +250,7 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
       font-style: italic;
       font-size: 1.6rem;
     }
-    
+
     .date, .category {
       display: block;
     }
