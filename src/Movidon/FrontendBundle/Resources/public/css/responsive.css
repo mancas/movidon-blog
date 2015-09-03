@@ -1,0 +1,28 @@
+@media (max-width: 360px) {
+  .mover-navbar .navbar-brand {
+    display: none; }
+  .mover-navbar .navbar-toggle {
+    margin-left: 0;
+    position: absolute;
+    z-index: 123; }
+    .mover-navbar .navbar-toggle .icon-bar {
+      background-color: #D42F43; }
+  .mover-navbar .navbar-nav {
+    width: 300px;
+    height: auto;
+    overflow: hidden; }
+  .mover-navbar .sidebar {
+    width: 300px;
+    height: 100%;
+    padding: 50px 15px 0;
+    margin-left: -15px;
+    background-color: #eeeeee;
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 122;
+    transition: transform 0.3s ease;
+    transform: translate(-100%, 0); }
+  .mover-navbar .sidebar.open {
+    transform: translate(0%, 0); } }
+
+/*# sourceMappingURL=responsive.css.map */
