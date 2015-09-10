@@ -38,7 +38,12 @@
       overflow-y: scroll; }
     .mover-navbar .nav li a {
       color: #333333;
-      text-shadow: none; }
+      text-shadow: none;
+      line-height: 80px;
+      margin: 0 15px;
+      padding: 0;
+      display: block;
+      height: 80px; }
       .mover-navbar .nav li a:active, .mover-navbar .nav li a:focus, .mover-navbar .nav li a:hover {
         border-bottom: none;
         text-decoration: none !important;

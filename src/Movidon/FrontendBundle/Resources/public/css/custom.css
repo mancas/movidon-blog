@@ -147,8 +147,8 @@ section:not(#banner-top):not(.post-body):not(.card-content) {
 
 .card {
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
-  height: 50rem;
+  padding: 1.5rem;
+  height: auto;
   text-align: justify;
   background-color: #FFFFFF; }
   .card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {

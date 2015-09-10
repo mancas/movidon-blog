@@ -62,6 +62,11 @@ $black: #000000;
         a {
           color: $text-shadow;
           text-shadow: none;
+          line-height: 80px;
+          margin: 0 15px;
+          padding: 0;
+          display: block;
+          height: 80px;
           &:active, &:focus, &:hover {
             border-bottom: none;
             text-decoration: none !important;
