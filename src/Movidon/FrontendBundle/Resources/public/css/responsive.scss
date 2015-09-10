@@ -7,8 +7,13 @@ $box-shadow: rgba(0, 0, 0, 0.3);
 $gray: #dddddd;
 $black: #000000;
 
-@media (max-width: 360px) {
+@media (max-width: 600px) {
+  body.blog {
+    padding-top: 50px;
+  }
+
   .mover-navbar {
+    height: 50px;
     .navbar-brand {
       display: none;
     }
@@ -39,10 +44,43 @@ $black: #000000;
       z-index: 122;
       transition: transform 0.3s ease;
       transform: translate(-100%, 0);
+      -moz-transition: transform 0.3s ease;
+      -moz-transform: translate(-100%, 0);
+      -webkit-transition: transform 0.3s ease;
+      -webkit-transform: translate(-100%, 0);
     }
 
     .sidebar.open {
       transform: translate(0%, 0);
+      -moz-transform: translate(0%, 0);
+      -webkit-transform: translate(0%, 0);
+      overflow-y: scroll;
     }
+
+    .nav {
+      li {
+        a {
+          color: $text-shadow;
+          text-shadow: none;
+          &:active, &:focus, &:hover {
+            border-bottom: none;
+            text-decoration: none !important;
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+
+  .card {
+    height: auto;
+  }
+
+  .carousel {
+    height: auto;
+  }
+
+  section#post {
+    padding-bottom: 0 !important;
   }
 }

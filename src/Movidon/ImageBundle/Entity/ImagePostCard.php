@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ImagePostCard extends ImageCopy
 {
-    protected $maxWidth = 350;
-    protected $maxHeight = 310;
+    protected $maxWidth = 600;
+    protected $maxHeight = 531;
     protected $sufix = "postcard";
     protected $crop = false;
 }

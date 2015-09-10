@@ -44,10 +44,10 @@ class BlogController extends CustomController
     public function tagCloudAction() {
         $em = $this->getEntityManager();
         $tags = $em->getRepository('BlogBundle:Tag')->findTagsWithPostsCount();
+        $tagsValues = array();
 
         $arrayValues = array();
         if (count($tags) > 0) {
-            $tagsValues = array();
             foreach ($tags as $tag) {
                 $arrayValues[] = $tag['postCount'];
             }

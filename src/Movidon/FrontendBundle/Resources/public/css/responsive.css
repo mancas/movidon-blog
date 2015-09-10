@@ -1,28 +1,56 @@
-@media (max-width: 360px) {
-  .mover-navbar .navbar-brand {
-    display: none; }
-  .mover-navbar .navbar-toggle {
-    margin-left: 0;
-    position: absolute;
-    z-index: 123; }
-    .mover-navbar .navbar-toggle .icon-bar {
-      background-color: #D42F43; }
-  .mover-navbar .navbar-nav {
-    width: 300px;
-    height: auto;
-    overflow: hidden; }
-  .mover-navbar .sidebar {
-    width: 300px;
-    height: 100%;
-    padding: 50px 15px 0;
-    margin-left: -15px;
-    background-color: #eeeeee;
-    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
-    position: fixed;
-    z-index: 122;
-    transition: transform 0.3s ease;
-    transform: translate(-100%, 0); }
-  .mover-navbar .sidebar.open {
-    transform: translate(0%, 0); } }
+@media (max-width: 600px) {
+  body.blog {
+    padding-top: 50px; }
+
+  .mover-navbar {
+    height: 50px; }
+    .mover-navbar .navbar-brand {
+      display: none; }
+    .mover-navbar .navbar-toggle {
+      margin-left: 0;
+      position: absolute;
+      z-index: 123; }
+      .mover-navbar .navbar-toggle .icon-bar {
+        background-color: #D42F43; }
+    .mover-navbar .navbar-nav {
+      width: 300px;
+      height: auto;
+      overflow: hidden; }
+    .mover-navbar .sidebar {
+      width: 300px;
+      height: 100%;
+      padding: 50px 15px 0;
+      margin-left: -15px;
+      background-color: #eeeeee;
+      box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
+      position: fixed;
+      z-index: 122;
+      transition: transform 0.3s ease;
+      transform: translate(-100%, 0);
+      -moz-transition: transform 0.3s ease;
+      -moz-transform: translate(-100%, 0);
+      -webkit-transition: transform 0.3s ease;
+      -webkit-transform: translate(-100%, 0); }
+    .mover-navbar .sidebar.open {
+      transform: translate(0%, 0);
+      -moz-transform: translate(0%, 0);
+      -webkit-transform: translate(0%, 0);
+      overflow-y: scroll; }
+    .mover-navbar .nav li a {
+      color: #333333;
+      text-shadow: none; }
+      .mover-navbar .nav li a:active, .mover-navbar .nav li a:focus, .mover-navbar .nav li a:hover {
+        border-bottom: none;
+        text-decoration: none !important;
+        color: #D42F43; }
+
+  .card {
+    height: auto; }
+
+  .carousel {
+    height: auto; }
+
+  section#post {
+    padding-bottom: 0 !important; } }
 
 /*# sourceMappingURL=responsive.css.map */
