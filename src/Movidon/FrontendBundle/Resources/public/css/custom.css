@@ -103,32 +103,15 @@ body.blog {
   color: #FFFFFF;
   text-shadow: 0.1rem 0.1rem #333333;
   text-transform: uppercase;
-  text-align: center; }
-  #banner-top .container {
-    height: 100%; }
-  #banner-top .row {
-    width: 100%;
-    height: 100%; }
+  text-align: center;
+  position: relative; }
   #banner-top .wrapper {
-    height: 100%;
-    /* Make it a flex container */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    /* Align the bootstrap's container vertically */
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -moz-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    flex-direction: column; }
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    -moz-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0); }
     #banner-top .wrapper h3 {
       font-size: 4rem;
       font-weight: bold; }
